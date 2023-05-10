@@ -11,7 +11,7 @@ import { AuthFormWrap } from './style';
 import { Checkbox } from '../../../../components/checkbox/checkbox';
 import { register } from '../../../../redux/authentication/actionCreator';
 
-function SignUp() {
+function SignUpInstitution() {
   const dispatch = useDispatch();
 
   const [state, setState] = useState({
@@ -31,7 +31,7 @@ function SignUp() {
       <Col xxl={6} xl={8} md={12} sm={18} xs={24}>
         <AuthFormWrap className="mt-6 bg-white rounded-md dark:bg-white10 shadow-regular dark:shadow-none">
           <div className="px-5 py-4 text-center border-b border-gray-200 dark:border-white10">
-            <h2 className="mb-0 text-xl font-semibold text-dark dark:text-white87">Sign Up HexaDash</h2>
+            <h2 className="mb-0 text-xl font-semibold text-dark dark:text-white87">Sign Up as an Health Institution</h2>
           </div>
           <div className="px-10 pt-8 pb-6">
             <Form name="register" onFinish={handleSubmit} layout="vertical">
@@ -130,4 +130,4 @@ function SignUp() {
   );
 }
 
-export default SignUp;
+export default SignUpInstitution;

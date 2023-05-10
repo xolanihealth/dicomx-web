@@ -42,7 +42,7 @@ function ProviderConfig() {
         <Router basename={process.env.PUBLIC_URL}>
           {!isLoggedIn ? (
             <Routes>
-              <Route path="/*" element={<Auth />} />{' '}
+              <Route path="/*" element={<Auth />} />
             </Routes>
           ) : (
             <Routes>

@@ -13,9 +13,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: '#8231D3',
-        'primary-hover': 'rgb(103, 38, 168)',
-        'primary-transparent': 'rgba(130, 49, 211, 0.082)',
+        primary: '#0796a7',
         secondary: '#5840FF',
         'secondary-hover': 'rgb(53, 32, 200)',
         'secondary-transparent': 'rgba(88, 64, 255, 0.082)',

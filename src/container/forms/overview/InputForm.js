@@ -10,7 +10,7 @@ function InputForm() {
       <div className="bg-white dark:bg-white10 m-0 p-0 text-theme-gray dark:text-white60 text-[15px] rounded-10 relative">
         <div className="h-[60px] px-[25px] text-dark dark:text-white87 font-medium text-[17px] border-regular dark:border-white10 border-b">
           <h1 className="mb-0 inline-block py-[16px] overflow-hidden whitespace-nowrap text-ellipsis text-[18px] font-semibold">
-            Basic Cards
+            Basic Cardsß
           </h1>
         </div>
         <div className="p-[25px]">

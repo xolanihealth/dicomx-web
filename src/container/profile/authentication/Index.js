@@ -17,8 +17,7 @@ const AuthLayout = (WraperContent) => {
         >
           <div className="py-[120px] 2xl:py-[80px] px-[15px]">
             <div className="flex justify-center">
-              <img className="dark:hidden" src={require(`../../../static/img/logo_dark.svg`).default} alt="" />
-              <img className="hidden dark:block" src={require(`../../../static/img/logo_white.svg`).default} alt="" />
+              <img className="dark:hidden w-8 h-8" src="../../../static/img/dicomx-logo.png" alt="" />
             </div>
             <WraperContent />
           </div>
