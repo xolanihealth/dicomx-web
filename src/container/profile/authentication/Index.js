@@ -1,5 +1,6 @@
 import { Spin } from 'antd';
 import React, { Suspense } from 'react';
+import logoImg from '../../../static/img/dicomx-logo.png';
 
 const AuthLayout = (WraperContent) => {
   return function () {
@@ -17,7 +18,7 @@ const AuthLayout = (WraperContent) => {
         >
           <div className="py-[120px] 2xl:py-[80px] px-[15px]">
             <div className="flex justify-center">
-              <img className="dark:hidden w-8 h-8" src="../../../static/img/dicomx-logo.png" alt="" />
+              <img className="dark:hidden w-24" src={logoImg} alt="" />
             </div>
             <WraperContent />
           </div>

@@ -2,9 +2,9 @@ import themes from './themeConfigure';
 
 const { lightMode, darkMode } = themes;
 
-const primaryColor = '#8231D3';
+const primaryColor = '#0796a7';
 const primaryColorRgb = '130, 49, 211';
-const primaryHover = '#6726A8';
+const primaryHover = '#b9d6da';
 const secondaryColor = '#5840FF';
 const secondaryHover = '#3520C8';
 const linkColor = '#1890ff';
