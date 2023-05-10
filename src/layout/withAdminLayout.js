@@ -13,7 +13,9 @@ import TopMenu from './TopMenu';
 import Search from '../components/utilities/auth-info/Search';
 import AuthInfo from '../components/utilities/auth-info/info';
 import { ReactComponent as MySVG } from '../static/img/icon/left-bar.svg';
-
+import logoImg from '../static/img/dicomx-logo.png';
+import UilLayers from '@iconscout/react-unicons/icons/uil-layers';
+import { PhoneFilled, VideoCameraOutlined, ContactsFilled } from '@ant-design/icons';
 const { theme } = require('../config/theme/themeVariables');
 
 const { Header, Sider, Content } = Layout;
@@ -123,21 +125,13 @@ const ThemeLayout = (WrappedComponent) => {
                 top: 0,
                 [!rtl ? 'left' : 'right']: 0,
               }}
-              className="p-0 flex items-center justify-between bg-white dark:bg-[#1b1e2b] dark:shadow-[0_5px_20px_rgba(160,160,160,.02)] h-[72px] z-998"
+              className="px-0 flex items-center justify-between bg-white dark:bg-[#1b1e2b] dark:shadow-[0_5px_20px_rgba(160,160,160,.02)] h-[56px] z-998"
             >
               <div className="flex flex-row items-center flex-1 h-full">
                 <div className=" rtl:ssm:pr-[15px] ltr:pr-5 rtl:pl-5 ltr:ssm:pl-[15px] ltr:ssm:pr-[15px] rtl:ssm::pl:[15px] ltr:pl-[30px] rtl:pr-[30px] xs:ltr:pl-[20px] xs:rtl:pr-[20px] min-w-[280px] ssm:min-w-[220px] xs:min-w-[170px] h-full grid align-middle dark:bg-[#323541]">
                   <div className="flex items-center justify-between">
                     <Link to="/admin">
-                      <img
-                        className="w-full max-w-[120px] xs:max-w-[100px]"
-                        src={
-                          layoutMode === 'lightMode'
-                            ? require(`../static/img/logo_dark.svg`).default
-                            : require(`../static/img/logo_white.svg`).default
-                        }
-                        alt=""
-                      />
+                      <img className="w-full max-w-[120px] xs:max-w-[100px]" src={logoImg} alt="" />
                     </Link>
                     {!topMenu || window.innerWidth <= 991 ? (
                       <Button
@@ -150,27 +144,59 @@ const ThemeLayout = (WrappedComponent) => {
                     ) : null}
                   </div>
                 </div>
-                prince adebayo is here
-                <div className="flex items-center justify-between flex-auto ltr:mr-[10px] rtl:ml-[10px] [&>div:first-child]:flex [&>div]:items-center ">
-                  {topMenu && window.innerWidth > 991 ? <TopMenu /> : <CustomizerWrap rtl={rtl} />}
-                  <div className="flex flex-row items-center md:hidden">
-                    {topMenu && window.innerWidth > 991 ? (
-                      <TopMenuSearch>
-                        <div className="flex top-right-wrap">
-                          <CustomizerWrap rtl={rtl} />
-                          <AuthInfo />
-                        </div>
-                      </TopMenuSearch>
-                    ) : (
-                      <AuthInfo />
-                    )}
+                <div className="flex items-center justify-between gap-8 px-8 flex-auto ltr:mr-[10px] rtl:ml-[10px] [&>div:first-child]:flex [&>div]:items-center ">
+                  {/* {topMenu && window.innerWidth > 991 ? <TopMenu /> : <CustomizerWrap rtl={rtl} />} */}
+                  <div className="flex flex-row gap-2 px-8">
+                    <Button
+                      size="default"
+                      className="bg-secondary-transparent border-0 hover:bg-secondary hover:text-white text-primary dark:text-white87 text-[14px] font-semibold leading-[22px] inline-flex items-center justify-center rounded-[40px] px-[20px] h-[32px] gap-[8px]"
+                    >
+                      <UilLayers className="w-[14px] h-[14px]" />
+                      STUDY
+                    </Button>
+                    <Button
+                      size="default"
+                      className="bg-secondary-transparent border-0 hover:bg-secondary hover:text-white text-primary dark:text-white87 text-[14px] font-semibold leading-[22px] inline-flex items-center justify-center rounded-[40px] px-[20px] h-[32px] gap-[8px]"
+                    >
+                      <UilLayers className="w-[14px] h-[14px]" />
+                      VIEWER
+                    </Button>
+                    <Button
+                      size="default"
+                      className="bg-secondary-transparent border-0 hover:bg-secondary hover:text-white text-primary dark:text-white87 text-[14px] font-semibold leading-[22px] inline-flex items-center justify-center rounded-[40px] px-[20px] h-[32px] gap-[8px]"
+                    >
+                      <UilLayers className="w-[14px] h-[14px]" />
+                      RADIOLOGISTS
+                    </Button>
                   </div>
-                </div>
-                <div className="hidden md:flex items-center ltr:pr-[25px] rtl:pl-[25px] ltr:ssm:pr-[10px] rtl:ssm:pl-[10px]">
-                  <Search />
-                  <Link className="inline-flex text-light dark:text-white60" onClick={onShowHide} to="#">
-                    <UilEllipsisV className="w-[18px] h-[18px]" />
-                  </Link>
+
+                  <div className="flex flex-row items-center md:hidden">
+                    <TopMenuSearch>
+                      <div className="flex gap-2 top-right-wrap">
+                        <Button
+                          style={{ width: '32px' }}
+                          size="default"
+                          className="bg-primary hover:bg-white hover:text-primary border-solid border-1 border-primary text-white font-semibold flex items-center justify-center rounded-full p-[16px] "
+                        >
+                          <PhoneFilled className="w-[14px] h-[14px]" />
+                        </Button>
+                        <Button
+                          style={{ width: '32px' }}
+                          size="default"
+                          className="bg-primary hover:bg-white hover:text-primary border-solid border-1 border-primary text-white font-semibold flex items-center justify-center rounded-full p-[16px] "
+                        >
+                          <VideoCameraOutlined className="w-[14px] h-[14px]" />
+                        </Button>
+                        <Button
+                          style={{ width: '32px' }}
+                          size="default"
+                          className="bg-primary hover:bg-white hover:text-primary border-solid border-1 border-primary text-white font-semibold flex items-center justify-center rounded-full p-[16px] "
+                        >
+                          <ContactsFilled className="w-[14px] h-[14px]" />
+                        </Button>
+                      </div>
+                    </TopMenuSearch>
+                  </div>
                 </div>
               </div>
             </Header>

@@ -14,10 +14,10 @@ module.exports = {
     extend: {
       colors: {
         primary: '#0796a7',
-        secondary: '#5840FF',
+        secondary: '#0796a7',
         'secondary-hover': 'rgb(53, 32, 200)',
-        'secondary-transparent': 'rgba(88, 64, 255, 0.082)',
-        'link-transparent': 'rgba(88, 64, 255, 0.082)',
+        'secondary-transparent': 'rgba(7, 150, 167, 0.082)',
+        'link-transparent': 'rgba(7, 150, 167, 0.082)',
         success: '#01B81A',
         'success-hover': 'rgb(13, 129, 29)',
         'success-transparent': 'rgb( 1, 184, 26, 0.082)',
