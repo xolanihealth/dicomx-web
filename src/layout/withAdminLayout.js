@@ -149,24 +149,25 @@ const ThemeLayout = (WrappedComponent) => {
                   <div className="flex flex-row gap-2 px-8">
                     <Button
                       size="default"
-                      className="bg-secondary-transparent border-0 hover:bg-secondary hover:text-white text-primary dark:text-white87 text-[14px] font-semibold leading-[22px] inline-flex items-center justify-center rounded-[40px] px-[20px] h-[32px] gap-[8px]"
+                      // onClick={addParentActive} to={`${path}/tables/dataTable`}
+                      className="bg-secondary-transparent border-0 hover:bg-secondary hover:text-white text-primary dark:text-white87 text-[12px] font-semibold leading-[22px] inline-flex items-center justify-center rounded-[40px] px-[20px] h-[32px] gap-[8px]"
                     >
                       <UilLayers className="w-[14px] h-[14px]" />
-                      STUDY
+                      Studies
                     </Button>
                     <Button
                       size="default"
-                      className="bg-secondary-transparent border-0 hover:bg-secondary hover:text-white text-primary dark:text-white87 text-[14px] font-semibold leading-[22px] inline-flex items-center justify-center rounded-[40px] px-[20px] h-[32px] gap-[8px]"
+                      className="bg-secondary-transparent border-0 hover:bg-secondary hover:text-white text-primary dark:text-white87 text-[12px] font-semibold leading-[22px] inline-flex items-center justify-center rounded-[40px] px-[20px] h-[32px] gap-[8px]"
                     >
                       <UilLayers className="w-[14px] h-[14px]" />
-                      VIEWER
+                      Viewer
                     </Button>
                     <Button
                       size="default"
-                      className="bg-secondary-transparent border-0 hover:bg-secondary hover:text-white text-primary dark:text-white87 text-[14px] font-semibold leading-[22px] inline-flex items-center justify-center rounded-[40px] px-[20px] h-[32px] gap-[8px]"
+                      className="bg-secondary-transparent border-0 hover:bg-secondary hover:text-white text-primary dark:text-white87 text-[12px] font-semibold leading-[22px] inline-flex items-center justify-center rounded-[40px] px-[20px] h-[32px] gap-[8px]"
                     >
                       <UilLayers className="w-[14px] h-[14px]" />
-                      RADIOLOGISTS
+                      Radiologists
                     </Button>
                   </div>
 
@@ -238,15 +239,15 @@ const ThemeLayout = (WrappedComponent) => {
                     <Row>
                       <Col md={12} xs={24}>
                         <span className="inline-block w-full font-medium admin-footer__copyright md:text-center text-theme-gray dark:text-white60 md:mb-[10px]">
-                          © 2023
+                          © {new Date().getFullYear()}
                           <Link className="mx-[4px] text-primary" to="#">
-                            SovWare
+                            Xolani Health Inc.
                           </Link>
                         </span>
                       </Col>
                       <Col md={12} xs={24}>
                         <div className="justify-end md:justify-center items-center flex gap-[15px]">
-                          <NavLink className="text-theme-gray dark:text-white60 text-[14px] hover:text-primary" to="#">
+                          {/* <NavLink className="text-theme-gray dark:text-white60 text-[14px] hover:text-primary" to="#">
                             About
                           </NavLink>
                           <NavLink className="text-theme-gray dark:text-white60 text-[14px] hover:text-primary" to="#">
@@ -254,7 +255,7 @@ const ThemeLayout = (WrappedComponent) => {
                           </NavLink>
                           <NavLink className="text-theme-gray dark:text-white60 text-[14px] hover:text-primary" to="#">
                             Contact
-                          </NavLink>
+                          </NavLink> */}
                         </div>
                       </Col>
                     </Row>
