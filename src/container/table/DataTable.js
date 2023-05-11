@@ -137,6 +137,50 @@ function DataTables() {
     },
   ];
 
+  const dataTableColumn2 = [
+    {
+      title: 'Id',
+      dataIndex: 'id',
+      key: 'id',
+    },
+    {
+      title: 'Name',
+      dataIndex: 'name',
+      key: 'name',
+    },
+    {
+      title: 'Modality',
+      dataIndex: 'modality',
+      key: 'modality',
+    },
+    {
+      title: 'Description',
+      dataIndex: 'description',
+      key: 'description',
+    },
+    {
+      title: 'Date Time',
+      dataIndex: 'datetime',
+      key: 'datetime',
+    },
+    {
+      title: 'Accession',
+      dataIndex: 'accession',
+      key: 'accession',
+    },
+    {
+      title: 'Instances',
+      dataIndex: 'instances',
+      key: 'instances',
+    },
+    {
+      title: 'Actions',
+      dataIndex: 'action',
+      key: 'action',
+      width: '90px',
+    },
+  ];
+
   function onChange(pagination, filters, sorter, extra) {
     setState({ ...state, values: { pagination, filters, sorter, extra } });
   }
