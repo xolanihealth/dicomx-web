@@ -4,7 +4,7 @@ import propTypes from 'prop-types';
 import { Component } from 'react';
 import { Scrollbars } from 'react-custom-scrollbars';
 import { connect } from 'react-redux';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import MenueItems from './MenueItems';
 import CustomizerWrap from './overview/Customizer';
@@ -49,7 +49,8 @@ const ThemeLayout = (WrappedComponent) => {
     render() {
       const { collapsed, hide } = this.state;
       const { layoutMode, rtl, topMenu } = this.props;
-
+      const splitPath = window.location.pathname.split('/')[2];
+      console.log(splitPath);
       const left = !rtl ? 'left' : 'right';
       const toggleCollapsed = () => {
         this.setState({
@@ -147,21 +148,22 @@ const ThemeLayout = (WrappedComponent) => {
                 <div className="flex items-center justify-between gap-8 px-8 flex-auto ltr:mr-[10px] rtl:ml-[10px] [&>div:first-child]:flex [&>div]:items-center ">
                   {/* {topMenu && window.innerWidth > 991 ? <TopMenu /> : <CustomizerWrap rtl={rtl} />} */}
                   <div className="flex flex-row gap-2 px-8">
-                    <Button
+                    <Link
                       size="default"
-                      // onClick={addParentActive} to={`${path}/tables/dataTable`}
+                      to="/admin/tables/dataTable"
                       className="bg-secondary-transparent border-0 hover:bg-secondary hover:text-white text-primary dark:text-white87 text-[12px] font-semibold leading-[22px] inline-flex items-center justify-center rounded-[40px] px-[20px] h-[32px] gap-[8px]"
                     >
                       <UilLayers className="w-[14px] h-[14px]" />
                       Studies
-                    </Button>
-                    <Button
+                    </Link>
+                    <Link
                       size="default"
+                      to="/admin/viewer"
                       className="bg-secondary-transparent border-0 hover:bg-secondary hover:text-white text-primary dark:text-white87 text-[12px] font-semibold leading-[22px] inline-flex items-center justify-center rounded-[40px] px-[20px] h-[32px] gap-[8px]"
                     >
                       <UilLayers className="w-[14px] h-[14px]" />
                       Viewer
-                    </Button>
+                    </Link>
                     <Button
                       size="default"
                       className="bg-secondary-transparent border-0 hover:bg-secondary hover:text-white text-primary dark:text-white87 text-[12px] font-semibold leading-[22px] inline-flex items-center justify-center rounded-[40px] px-[20px] h-[32px] gap-[8px]"
@@ -209,30 +211,31 @@ const ThemeLayout = (WrappedComponent) => {
               </Col>
             </Row>
             <Layout>
-              {!topMenu || window.innerWidth <= 991 ? (
-                <ThemeProvider theme={theme}>
-                  <Sider
-                    width={280}
-                    style={SideBarStyle}
-                    collapsed={collapsed}
-                    theme={layoutMode === 'lightMode' ? 'light' : 'dark'}
-                  >
-                    <Scrollbars
-                      className="custom-scrollbar"
-                      autoHide
-                      autoHideTimeout={500}
-                      autoHideDuration={200}
-                      // renderThumbHorizontal={renderThumbHorizontal}
-                      renderThumbVertical={renderThumb}
-                      renderView={renderView}
-                      renderTrackVertical={renderTrackVertical}
+              {splitPath != 'viewer' &&
+                (!topMenu || window.innerWidth <= 991 ? (
+                  <ThemeProvider theme={theme}>
+                    <Sider
+                      width={280}
+                      style={SideBarStyle}
+                      collapsed={collapsed}
+                      theme={layoutMode === 'lightMode' ? 'light' : 'dark'}
                     >
-                      <MenueItems topMenu={topMenu} toggleCollapsed={toggleCollapsedMobile} />
-                    </Scrollbars>
-                  </Sider>
-                </ThemeProvider>
-              ) : null}
-              <Layout className="atbd-main-layout">
+                      <Scrollbars
+                        className="custom-scrollbar"
+                        autoHide
+                        autoHideTimeout={500}
+                        autoHideDuration={200}
+                        // renderThumbHorizontal={renderThumbHorizontal}
+                        renderThumbVertical={renderThumb}
+                        renderView={renderView}
+                        renderTrackVertical={renderTrackVertical}
+                      >
+                        <MenueItems topMenu={topMenu} toggleCollapsed={toggleCollapsedMobile} />
+                      </Scrollbars>
+                    </Sider>
+                  </ThemeProvider>
+                ) : null)}
+              <Layout className={splitPath != 'viewer' ? 'atbd-main-layout' : 'mt-36'}>
                 <Content>
                   <WrappedComponent {...this.props} />
                   <FooterStyle className="bg-white dark:bg-[#1B1E2B]">

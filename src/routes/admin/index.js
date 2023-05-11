@@ -36,7 +36,7 @@ const Myprofile = lazy(() => import('../../container/profile/myProfile/Index'));
 const Chat = lazy(() => import('../../container/chat/ChatApp'));
 const Inbox = lazy(() => import('../../container/email/Email'));
 const Maps = lazy(() => import('./maps'));
-const Editors = lazy(() => import('../../container/pages/Editor'));
+const Viewer = lazy(() => import('../../container/pages/Viewer'));
 const Icons = lazy(() => import('./icons'));
 const Tables = lazy(() => import('./table'));
 const Jobs = lazy(() => import('../../container/jobSearch/Jobs'));
@@ -59,6 +59,7 @@ const Admin = React.memo(() => {
     >
       <Routes>
         <Route index path="/*" element={<Dashboard />} />
+        <Route path="viewer" element={<Viewer />} />
         <Route path="pages/*" element={<Pages />} />
         <Route path="gallery/*" element={<Gallery />} />
         <Route path="all-articles" element={<AllArticle />} />
@@ -90,7 +91,7 @@ const Admin = React.memo(() => {
         <Route path="main/chat/*" element={<Chat />} />
         <Route path="email/*" element={<Inbox />} />
         <Route path="maps/*" element={<Maps />} />
-        <Route path="editor" element={<Editors />} />
+        <Route path="editor" element={<Viewer />} />
         <Route path="icons/*" element={<Icons />} />
         <Route path="tables/*" element={<Tables />} />
         <Route path="app/jobs/*" element={<Jobs />} />
