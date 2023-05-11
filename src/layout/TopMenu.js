@@ -72,7 +72,7 @@ function TopMenu() {
                   Demo 1
                 </NavLink>
               </li>
-              <li>
+              {/* <li>
                 <NavLink to={`${path}/demo-2`} onClick={addParentActive}>
                   Demo 2
                 </NavLink>
@@ -86,11 +86,11 @@ function TopMenu() {
                 <NavLink to={`${path}/demo-4`} onClick={addParentActive}>
                   Demo 4
                 </NavLink>
-              </li>
+              </li> */}
             </ul>
           </li>
 
-          <li className="has-subMenu">
+          {/* <li className="has-subMenu">
             <Link to="#" className="parent">
               Apps
             </Link>
@@ -308,7 +308,7 @@ function TopMenu() {
                   <UilExpandArrowsAlt />
                   Kanban Board
                 </NavLink>
-              </li> */}
+              </li> 
               <li className="has-subMenu-left">
                 <Link to="#" className="parent">
                   <UilExchange />
@@ -358,8 +358,8 @@ function TopMenu() {
                 </ul>
               </li>
             </ul>
-          </li>
-
+          </li> */}
+          {/* 
           <li className="mega-item has-subMenu">
             <Link to="#" className="parent">
               Pages
@@ -480,7 +480,9 @@ function TopMenu() {
               </li>
             </ul>
           </li>
-          <li className="mega-item has-subMenu">
+           */}
+
+          {/* <li className="mega-item has-subMenu">
             <Link to="#" className="parent">
               Components
             </Link>
@@ -742,7 +744,8 @@ function TopMenu() {
                 </ul>
               </li>
             </ul>
-          </li>
+          </li> */}
+          {/* 
           <li className="has-subMenu">
             <Link to="#" className="parent">
               Features
@@ -938,7 +941,7 @@ function TopMenu() {
                 </ul>
               </li>
             </ul>
-          </li>
+          </li> */}
         </ul>
       </div>
     </TopMenuStyle>
