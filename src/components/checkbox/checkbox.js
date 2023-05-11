@@ -1,4 +1,3 @@
-
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { CheckboxStyle } from './style';
@@ -27,7 +26,6 @@ function Checkbox(props) {
     if (onChangeTriger) {
       onChangeTriger(state.checkedList);
     }
-
   }, [state]);
 
   const onCheckAllChange = (e) => {

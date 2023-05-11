@@ -48,18 +48,18 @@ function SignIn() {
   });
   const signupMenu = (
     <Menu className="flex flex-col justify-center items-center gap-1">
-      <Menu.Item onClick={() => history('register/radiographer')} className="w-full">
-        Sign up as Radiographer
+      <Menu.Item onClick={() => history('register/radiologist')} className="w-full">
+        a Radiologist
       </Menu.Item>
       <Menu.Item onClick={() => history('register/institution')} className="w-full">
-        Sign up as an health Care Institution
+        an Institution
       </Menu.Item>
     </Menu>
   );
   return (
     <Row justify="center">
       <Col xxl={6} xl={8} md={12} sm={18} xs={24}>
-        <div className="mt-6 bg-white rounded-md dark:bg-white10 shadow-regular dark:shadow-none">
+        <div className="mt-3 bg-white rounded-lg dark:bg-white10 shadow-regular dark:shadow-none">
           <div className="px-5 py-4 text-center border-b border-gray-200 dark:border-white10">
             <h2 className="mb-0 text-xl font-semibold text-dark dark:text-white87 text-primary">Sign In</h2>
           </div>
@@ -111,7 +111,7 @@ function SignIn() {
               placement="topCenter"
               overlay={signupMenu}
             >
-              <p>Sign Up</p>
+              <p>Sign up as</p>
             </Dropdown>
           </div>
         </div>

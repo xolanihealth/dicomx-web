@@ -17,6 +17,7 @@ function SignUpRadio() {
   const [state, setState] = useState({
     values: null,
     checked: null,
+    checkData: [],
   });
   const handleSubmit = (values) => {
     dispatch(register(values));
@@ -24,6 +25,10 @@ function SignUpRadio() {
 
   const onChange = (checked) => {
     setState({ ...state, checked });
+  };
+
+  const multipleChange = (childData) => {
+    setState({ ...state, checkData: childData });
   };
 
   const [isInterpreter, setIsInterPreter] = useState(false);
@@ -41,7 +46,7 @@ function SignUpRadio() {
       <Col xxl={18} xl={18} md={18} sm={18} xs={24}>
         <AuthFormWrap className="mt-6 bg-white rounded-md dark:bg-white10 shadow-regular dark:shadow-none">
           <div className="px-5 py-4 text-center border-b border-gray-200 dark:border-white10">
-            <h2 className="mb-0 text-xl font-semibold text-dark dark:text-white87">Sign Up as a Radiographer</h2>
+            <h2 className="mb-0 text-xl font-semibold text-dark dark:text-white87">Radiologist sign up</h2>
           </div>
           <div className="px-10 pt-8 pb-6">
             <Form name="register" onFinish={handleSubmit} layout="vertical">
@@ -130,7 +135,7 @@ function SignUpRadio() {
 
               <div className="mb-4">
                 <div className="flex flex-row items-center gap-2">
-                  <div className="text-primary">Are you an Interpreter?</div>
+                  <div className="text-primary">Do you interprete images?</div>
                   <Switch onChange={toggleIsInterpreter} />
                 </div>
                 {isInterpreter && (
@@ -164,7 +169,57 @@ function SignUpRadio() {
                         <DatePicker className="w-full" />
                       </Form.Item>
                     </div>
-                    <div className="flex flex-row w-full gap-2 justify-between items-center"></div>
+                    <div className="flex flex-row w-full gap-2 justify-between items-center">
+                      <Form.Item
+                        className="w-1/2"
+                        label="Specialty"
+                        name="specialty"
+                        rules={[{ required: true, message: 'Please check at least one specialty' }]}
+                      >
+                        <Checkbox
+                          multiple
+                          onChangeTriger={multipleChange}
+                          item={[
+                            'General radiology',
+                            'Chest Imaging',
+                            'Neuro-radiology',
+                            'Pediatric',
+                            'Nuclear Medicine',
+                            'Female Imaging',
+                          ]}
+                          defaultSelect={['General radiology']}
+                        />
+                      </Form.Item>
+                      <Form.Item
+                        className="w-1/2"
+                        label="Registration and accreditation"
+                        name="accreditation"
+                        rules={[{ required: true, message: 'Please select an accreditation' }]}
+                      >
+                        <Checkbox
+                          multiple
+                          onChangeTriger={multipleChange}
+                          item={['GMC', 'MCIRL', 'AHPRA', 'MCNZ', 'FRANZCR', 'Other']}
+                          defaultSelect={['GMC']}
+                        />
+                      </Form.Item>
+                    </div>
+
+                    <div className="flex flex-row w-full gap-2 justify-between items-center">
+                      <Form.Item
+                        className="w-1/2"
+                        label="Modality"
+                        name="modality"
+                        rules={[{ required: true, message: 'Please check at least one modality' }]}
+                      >
+                        <Checkbox
+                          multiple
+                          onChangeTriger={multipleChange}
+                          item={['CT', 'MRI', 'PET', 'X-RAY', 'Ultrasound']}
+                          defaultSelect={['CT']}
+                        />
+                      </Form.Item>
+                    </div>
                   </>
                 )}
               </div>

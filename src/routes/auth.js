@@ -18,7 +18,7 @@ const FrontendRoutes = React.memo(() => {
     <Routes>
       <Route index element={<Login />} />
       <Route path="forgotPassword" element={<ForgotPass />} />
-      <Route path="register/radiographer" element={<SignUpRadio />} />
+      <Route path="register/radiologist" element={<SignUpRadio />} />
       <Route path="register/institution" element={<SignUpInst />} />
       <Route path="*" element={<AuthRoot />} />
     </Routes>

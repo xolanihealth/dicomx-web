@@ -16,7 +16,7 @@ const AuthLayout = (WraperContent) => {
           style={{ backgroundImage: `url("${require('../../../static/img/admin-bg-light.png')}")` }}
           className="bg-top bg-no-repeat"
         >
-          <div className="py-[120px] 2xl:py-[80px] px-[15px]">
+          <div className="py-[50px] 2xl:py-[50px] px-[15px]">
             <div className="flex justify-center">
               <img className="dark:hidden w-24" src={logoImg} alt="" />
             </div>

@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Row, Col, Table, Radio, Divider } from 'antd';
@@ -290,7 +289,7 @@ function DataTables() {
     <>
       <PageHeader
         routes={PageRoutes}
-        title="Table"
+        title="My Studies"
         className="flex items-center justify-between px-8 xl:px-[15px] pt-2 pb-6 sm:pb-[30px] bg-transparent sm:flex-col"
       />
       <div className="min-h-[715px] lg:min-h-[580px] flex-1 h-auto px-8 xl:px-[15px] pb-[30px] bg-transparent">
@@ -299,29 +298,9 @@ function DataTables() {
             <Col xs={24} className="mb-[25px]">
               <PaginationStyle>
                 <div className="bg-white dark:bg-white10 m-0 p-0 mb-[25px] rounded-10 relative">
-                  <div className="py-[16px] px-[25px] text-dark dark:text-white87 font-medium text-[17px] border-regular dark:border-white10 border-b ">
-                    <Heading as="h4" className="text-lg font-medium mb-0">
-                      Data Table
-                    </Heading>
-                  </div>
-                  <div className="p-[25px]">
-                    <DataTable
-                      filterOption
-                      filterOnchange
-                      tableData={tableDataScource}
-                      columns={dataTableColumn}
-                      rowSelection={false}
-                    />
-                  </div>
-                </div>
-              </PaginationStyle>
-            </Col>
-            <Col xs={24} className="mb-[25px]">
-              <PaginationStyle>
-                <div className="bg-white dark:bg-white10 m-0 p-0 mb-[25px] rounded-10 relative">
                   <div className="py-[16px] px-[25px] text-dark dark:text-white87 font-medium text-[17px] border-regular dark:border-white10 border-b">
                     <Heading as="h4" className="text-lg font-medium mb-0">
-                      Data Table 2
+                      Query your studies here
                     </Heading>
                   </div>
                   <div className="p-[25px]">
@@ -335,122 +314,6 @@ function DataTables() {
                   </div>
                 </div>
               </PaginationStyle>
-            </Col>
-            <Col xs={24} className="mb-[25px]">
-              <div className="bg-white dark:bg-white10 m-0 p-0 mb-[25px] rounded-10 relative">
-                <div className="py-[16px] px-[25px] text-dark dark:text-white87 font-medium text-[17px] border-regular dark:border-white10 border-b">
-                  <Heading as="h4" className="text-lg font-medium mb-0">
-                    Project List
-                  </Heading>
-                </div>
-                <div className="p-[25px]">
-                  <ProjectLists />
-                </div>
-              </div>
-            </Col>
-            <Col xs={24} className="mb-[25px]">
-              <div className="bg-white dark:bg-white10 m-0 p-0 mb-[25px] rounded-10 relative">
-                <div className="py-[16px] px-[25px] text-dark dark:text-white87 font-medium text-[17px] border-regular dark:border-white10 border-b">
-                  <Heading as="h4" className="text-lg font-medium mb-0">
-                    User List
-                  </Heading>
-                </div>
-                <div className="p-[25px]">
-                  <UserListTable />
-                </div>
-              </div>
-            </Col>
-            <Col xs={24} className="mb-[25px]">
-              <div className="bg-white dark:bg-white10 m-0 p-0 mb-[25px] rounded-10 relative dark-border-row dark:text-white60">
-                <div className="py-[16px] px-[25px] text-dark dark:text-white87 font-medium text-[17px] border-regular dark:border-white10 border-b ">
-                  <Heading as="h4" className="text-lg font-medium mb-0">
-                    Selection
-                  </Heading>
-                </div>
-                <div className="p-[25px]">
-                  <div className="table-responsive table-th-shape-none table-td-text-body dark:text-white60 table-tr-selected-background-transparent ltr:[&>div>div>div>div>div>.ant-table-content>table>thead>tr>th:first-child]:rounded-l-4 rtl:[&>div>div>div>div>div>.ant-table-content>table>thead>tr>th:first-child]:rounded-r-4 rtl:[&>div>div>div>div>div>.ant-table-content>table>thead>tr>th:first-child]:rounded-none ltr:[&>div>div>div>div>div>.ant-table-content>table>thead>tr>th:last-child]:rounded-r-4 rtl:[&>div>div>div>div>div>.ant-table-content>table>thead>tr>th:last-child]:rounded-l-4 rtl:[&>div>div>div>div>div>.ant-table-content>table>thead>tr>th:last-child]:rounded-none">
-                    <Radio.Group
-                      onChange={({ target: { value } }) => {
-                        setState({ selectionType: value });
-                      }}
-                      value={state.selectionType}
-                      className="custom-radio-group"
-                    >
-                      <Radio value="checkbox">Checkbox</Radio>
-                      <Radio value="radio">radio</Radio>
-                    </Radio.Group>
-
-                    <Divider />
-                    <Table
-                      rowSelection={{
-                        type: state.selectionType,
-                        ...rowSelection,
-                      }}
-                      dataSource={dataSource}
-                      columns={columns}
-                      pagination={false}
-                      className="test-column"
-                    />
-                  </div>
-                </div>
-              </div>
-            </Col>
-            <Col xs={24} className="mb-[25px]">
-              <div className="bg-white dark:bg-white10 m-0 p-0 mb-[25px] rounded-10 relative dark-border-row dark:text-white60">
-                <div className="py-[16px] px-[25px] text-dark dark:text-white87 font-medium text-[17px] border-regular dark:border-white10 border-b">
-                  <Heading as="h4" className="text-lg font-medium mb-0">
-                    Filter and sorter
-                  </Heading>
-                </div>
-                <div className="p-[25px]">
-                  <div className="table-responsive table-th-shape-none ltr:[&>div>div>div>div>div>.ant-table-content>table>thead>tr>th:first-child]:rounded-l-4 rtl:[&>div>div>div>div>div>.ant-table-content>table>thead>tr>th:first-child]:rounded-r-4 rtl:[&>div>div>div>div>div>.ant-table-content>table>thead>tr>th:first-child]:rounded-none ltr:[&>div>div>div>div>div>.ant-table-content>table>thead>tr>th:last-child]:rounded-r-4 rtl:[&>div>div>div>div>div>.ant-table-content>table>thead>tr>th:last-child]:rounded-l-4 rtl:[&>div>div>div>div>div>.ant-table-content>table>thead>tr>th:last-child]:rounded-none">
-                    <Table
-                      className="table-responsive"
-                      pagination={false}
-                      columns={columnsSort}
-                      dataSource={dataSort}
-                      onChange={onChange}
-                    />
-                  </div>
-                </div>
-              </div>
-            </Col>
-            <Col xs={24} className="mb-[25px]">
-              <PaginationStyle>
-                <div className="bg-white dark:bg-white10 m-0 p-0 mb-[25px] rounded-10 relative dark-border-row ">
-                  <div className="py-[16px] px-[25px] text-dark dark:text-white87 font-medium text-[17px] border-regular dark:border-white10 border-b">
-                    <Heading as="h4" className="text-lg font-medium mb-0">
-                      Pagination
-                    </Heading>
-                  </div>
-                  <div className="p-[25px]">
-                    <div className="ant-pagination-custom-style table-responsive table-th-shape-none table-td-text-body dark:text-white60 table-tr-selected-background-transparent ltr:[&>div>div>div>div>div>.ant-table-content>table>thead>tr>th:first-child]:rounded-l-4 rtl:[&>div>div>div>div>div>.ant-table-content>table>thead>tr>th:first-child]:rounded-r-4 rtl:[&>div>div>div>div>div>.ant-table-content>table>thead>tr>th:first-child]:rounded-none ltr:[&>div>div>div>div>div>.ant-table-content>table>thead>tr>th:last-child]:rounded-r-4 rtl:[&>div>div>div>div>div>.ant-table-content>table>thead>tr>th:last-child]:rounded-l-4 rtl:[&>div>div>div>div>div>.ant-table-content>table>thead>tr>th:last-child]:rounded-none">
-                      <Table
-                        pagination={{
-                          defaultPageSize: 3,
-                          total: dataSort.length,
-                          showTotal: (total, range) => `${range[0]}-${range[1]} of ${total} items`,
-                        }}
-                        columns={columnsSort}
-                        dataSource={dataSort}
-                        onChange={onChange}
-                      />
-                    </div>
-                  </div>
-                </div>
-              </PaginationStyle>
-            </Col>
-            <Col xs={24}>
-              <div className="bg-white dark:bg-white10 m-0 p-0 mb-[25px] rounded-10 relative">
-                <div className="py-[16px] px-[25px] text-dark dark:text-white87 font-medium text-[17px] border-regular dark:border-white10 border-b">
-                  <Heading as="h4" className="text-lg font-medium mb-0">
-                    Task List
-                  </Heading>
-                </div>
-                <div className="p-[25px]">
-                  <TaskList />
-                </div>
-              </div>
             </Col>
           </Row>
         </GlobalUtilityStyle>
