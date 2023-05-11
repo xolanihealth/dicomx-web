@@ -1179,17 +1179,17 @@ function MenuItems({ toggleCollapsed }) {
     //     null,
     //   ),
     // ]),
-    getItem(
-      <NavLink onClick={toggleCollapsed} to={`${path}/editor`}>
-        {t('editors')}
-      </NavLink>,
-      'editor',
-      !topMenu && (
-        <NavLink className="menuItem-iocn" to={`${path}/editor`}>
-          <UilEdit />
-        </NavLink>
-      ),
-    ),
+    // getItem(
+    //   <NavLink onClick={toggleCollapsed} to={`${path}/editor`}>
+    //     {t('editors')}
+    //   </NavLink>,
+    //   'editor',
+    //   !topMenu && (
+    //     <NavLink className="menuItem-iocn" to={`${path}/editor`}>
+    //       <UilEdit />
+    //     </NavLink>
+    //   ),
+    // ),
     // getItem(t('maps'), 'maps', !topMenu && <UilMap />, [
     //   getItem(
     //     <NavLink onClick={toggleCollapsed} to={`${path}/maps/google`}>

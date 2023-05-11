@@ -32,7 +32,7 @@ function ProviderConfig() {
     if (!unmounted) {
       setPath(window.location.pathname);
     }
-   
+
     return () => (unmounted = true);
   }, [setPath]);
 
@@ -47,6 +47,7 @@ function ProviderConfig() {
           ) : (
             <Routes>
               <Route path="/admin/*" element={<ProtectedRoute path="/*" Component={Admin} />} />
+
               <Route path="*" element={<NotFound />} />
             </Routes>
           )}
