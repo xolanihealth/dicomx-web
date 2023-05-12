@@ -1,42 +1,7 @@
-.st-container {
-  background-color: #27272b;
-}
-
-.st-top-nav-btn {
-  padding: 5px;
-}
-.st-top-nav-btn:hover {
-  color: #0796a7;
-}
-
-.st-menu-icon {
-  width: 25px;
-  height: 25px;
-}
-
-.st-menu-text {
-  width: 40px;
-  font-size: 10px !important;
-  font-weight: 200 !important;
-}
-
-.st-menu .MuiTypography-root {
-  font-size: 12px !important;
-}
-
-.st-menu .MuiSvgIcon-root {
-  width: 20px !important;
-  height: 20px !important;
-}
-
-.scrollbar-hide::-webkit-scrollbar {
-  display: none;
-}
-
-.scrollbar-hide {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
-}
-.MuiDrawer-paper {
-  background-color: transparent !important;
+.viewer-panel-dropdown-menu .ant-dropdown-menu-title-content {
+  display: flex !important;
+  flex: auto;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
 }

@@ -10,7 +10,7 @@ import Gallery from './gallery';
 import Pages from './pages';
 import Users from './users';
 import Widgets from './widgets';
-import withAdminLayout from '../../layout/withAdminLayout';
+import AdminLayout from '../../layout/AdminLayout';
 
 const Charts = lazy(() => import('./charts'));
 const KnowledgeBase = lazy(() => import('../../container/pages/knowledgeBase/Index'));
@@ -50,7 +50,8 @@ const Admin = React.memo(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
   return (
-    <Suspense
+    <AdminLayout>
+          <Suspense
       fallback={
         <div className="spin flex items-center justify-center bg-white dark:bg-dark h-screen w-full fixed z-[999] ltr:left-0 rtl:right-0 top-0">
           <Spin />
@@ -101,7 +102,9 @@ const Admin = React.memo(() => {
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Suspense>
+    </AdminLayout>
+
   );
 });
 
-export default withAdminLayout(Admin);
+export default Admin;
