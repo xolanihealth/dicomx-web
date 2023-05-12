@@ -31,9 +31,8 @@ import '../styles.css';
 import useViewer from '../hooks/useViewer';
 const ViewerHeader = () => {
   const { Text } = Typography;
-  const { sayHello } = useViewer();
   return (
-    <div className="viewer-panel flex flex-row overflow-x-auto items-center gap-4 w-full px-8 h-16">
+    <div className="viewer-panel flex flex-row overflow-x-auto items-center gap-4 w-full px-4 h-16">
       <Dropdown
         overlay={
           <Menu className="viewer-panel-dropdown-menu">
@@ -99,7 +98,7 @@ const ViewerHeader = () => {
           <BiCaretDown size={16} />
         </button>
       </Dropdown>
-      <button onClick={sayHello} className="flex flex-row justify-center items-center hover:text-primary text-white">
+      <button className="flex flex-row justify-center items-center hover:text-primary text-white">
         <div className="flex justify-center flex-col items-center">
           <MdOutlineFrontHand size={20} />
 
