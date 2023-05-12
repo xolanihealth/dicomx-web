@@ -20,9 +20,9 @@ const ControlPanel = () => {
     setMinimized(!minimized);
   };
   return minimized ? (
-    <Button title="Maximize panel" onClick={toggleMinimized} className="maximize-btn p-4">
-      <BsArrowsFullscreen className="" size={25} />
-      <Text className="text-[10px]">On a call...</Text>
+    <Button title="Maximize panel" onClick={toggleMinimized} className="maximize-btn p-2 border-0">
+      <BsArrowsFullscreen className="text-black" size={50} />
+      <Text className="text-xs text-black truncate">On a call</Text>
     </Button>
   ) : (
     <div className="control-panel-body shadow-2xl">

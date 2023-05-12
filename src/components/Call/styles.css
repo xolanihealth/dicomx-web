@@ -11,7 +11,6 @@
   }
 }
 .control-panel-body {
-  color: #27272b;
   background-color: #27272b;
   border: 0.5px solid #0796a7;
   border-radius: 14px;
@@ -58,6 +57,6 @@
   width: 50px !important;
   height: 50px !important;
   background-color: #ff5e5e !important;
-  color: black;
+  color: black !important;
   animation: blink 2s ease-in-out infinite;
 }
