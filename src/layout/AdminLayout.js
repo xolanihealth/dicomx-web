@@ -17,6 +17,7 @@ import logoImg from '../static/img/dicomx-logo.png';
 import UilLayers from '@iconscout/react-unicons/icons/uil-layers';
 import { PhoneFilled, VideoCameraOutlined, ContactsFilled } from '@ant-design/icons';
 import AppHeader from './AppHeader';
+import ControlPanel from '../components/Call/components/ControlPanel';
 const { theme } = require('../config/theme/themeVariables');
 
 const { Header, Sider, Content } = Layout;
@@ -28,8 +29,9 @@ const AdminLayout = ({ props, children }) => {
   return (
     <LayoutContainer>
       <Layout className="layout">
-        <AppHeader />
+        <ControlPanel />
         <Layout>
+          <AppHeader />
           {splitPath != 'viewer' && (
             <Sider
               width={280}
