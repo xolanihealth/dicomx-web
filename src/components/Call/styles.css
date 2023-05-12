@@ -15,12 +15,12 @@
 
   background-color: #27272b;
   border: 0.5px solid #0796a7;
-  border-radius: 3px;
+  border-radius: 10px;
   width: 20vw;
   height: 15vw;
   position: fixed;
-  bottom: 5vh;
-  left: 5vw;
+  bottom: 0px;
+  left: 0px;
   display: grid;
   padding: 0 18px;
   gap: 5px;
