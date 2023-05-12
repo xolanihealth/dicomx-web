@@ -1,6 +1,6 @@
 import { Spin } from 'antd';
 import React, { Suspense } from 'react';
-import logoImg from '../../../static/img/dicomx-logo.png';
+import logoImg from '../../../static/img/dicomx-logo-new.svg';
 
 const AuthLayout = (WraperContent) => {
   return function () {

@@ -126,36 +126,48 @@ function MenuItems({ toggleCollapsed }) {
   };
 
   const items = [
-    getItem(t('dashboard'), 'dashboard', !topMenu && <UilCreateDashboard />, [
-      getItem(
-        <NavLink onClick={toggleCollapsed} to={`${path}`}>
-          {t('demo')} {t('1')}
-        </NavLink>,
-        'demo-1',
-        null,
+
+    getItem(
+      <NavLink onClick={toggleCollapsed} to={`${path}`}>
+        {t('Dashboard')}
+      </NavLink>,
+      'demo-1',
+      !topMenu && (
+        <NavLink className="menuItem-iocn" to={`${path}`}>
+          <UilCreateDashboard />
+        </NavLink>
       ),
-      // getItem(
-      //   <NavLink onClick={toggleCollapsed} to={`${path}/demo-2`}>
-      //     {t('demo')} {t('2')}
-      //   </NavLink>,
-      //   'demo-2',
-      //   null,
-      // ),
-      // getItem(
-      //   <NavLink onClick={toggleCollapsed} to={`${path}/demo-3`}>
-      //     {t('demo')} {t('3')}
-      //   </NavLink>,
-      //   'demo-3',
-      //   null,
-      // ),
-      // getItem(
-      //   <NavLink onClick={toggleCollapsed} to={`${path}/demo-4`}>
-      //     {t('demo')} {t('4')}
-      //   </NavLink>,
-      //   'demo-4',
-      //   null,
-      // ),
-    ]),
+    ),
+    // getItem(t('dashboard'), 'dashboard', !topMenu && <UilCreateDashboard />, [
+    //   getItem(
+    //     <NavLink onClick={toggleCollapsed} to={`${path}`}>
+    //       {t('demo')} {t('1')}
+    //     </NavLink>,
+    //     'demo-1',
+    //     null,
+    //   ),
+    //   // getItem(
+    //   //   <NavLink onClick={toggleCollapsed} to={`${path}/demo-2`}>
+    //   //     {t('demo')} {t('2')}
+    //   //   </NavLink>,
+    //   //   'demo-2',
+    //   //   null,
+    //   // ),
+    //   // getItem(
+    //   //   <NavLink onClick={toggleCollapsed} to={`${path}/demo-3`}>
+    //   //     {t('demo')} {t('3')}
+    //   //   </NavLink>,
+    //   //   'demo-3',
+    //   //   null,
+    //   // ),
+    //   // getItem(
+    //   //   <NavLink onClick={toggleCollapsed} to={`${path}/demo-4`}>
+    //   //     {t('demo')} {t('4')}
+    //   //   </NavLink>,
+    //   //   'demo-4',
+    //   //   null,
+    //   // ),
+    // ]),
     // getItem(t('layouts'), 'layout', !topMenu && <UilWindowSection />, [
     //   getItem(
     //     <NavLink
@@ -473,28 +485,28 @@ function MenuItems({ toggleCollapsed }) {
     //     null,
     //   ),
     // ]),
-    getItem(
-      <NavLink onClick={toggleCollapsed} to={`${path}/app/note/all`}>
-        {t('note')}
-      </NavLink>,
-      'note',
-      !topMenu && (
-        <NavLink className="menuItem-iocn" to={`${path}/app/note/all`}>
-          <UilClipboardAlt />
-        </NavLink>
-      ),
-    ),
-    getItem(
-      <NavLink onClick={toggleCollapsed} to={`${path}/app/to-do`}>
-        {t('to')} {t('do')}
-      </NavLink>,
-      'to-do',
-      !topMenu && (
-        <NavLink className="menuItem-iocn" to={`${path}/app/to-do`}>
-          <UilCheckSquare />
-        </NavLink>
-      ),
-    ),
+    // getItem(
+    //   <NavLink onClick={toggleCollapsed} to={`${path}/app/note/all`}>
+    //     {t('note')}
+    //   </NavLink>,
+    //   'note',
+    //   !topMenu && (
+    //     <NavLink className="menuItem-iocn" to={`${path}/app/note/all`}>
+    //       <UilClipboardAlt />
+    //     </NavLink>
+    //   ),
+    // ),
+    // getItem(
+    //   <NavLink onClick={toggleCollapsed} to={`${path}/app/to-do`}>
+    //     {t('to')} {t('do')}
+    //   </NavLink>,
+    //   'to-do',
+    //   !topMenu && (
+    //     <NavLink className="menuItem-iocn" to={`${path}/app/to-do`}>
+    //       <UilCheckSquare />
+    //     </NavLink>
+    //   ),
+    // ),
     // getItem(
     //   <NavLink onClick={toggleCollapsed} to={`${path}/app/kanban`}>
     //     {t('kanban Board')}
@@ -502,29 +514,29 @@ function MenuItems({ toggleCollapsed }) {
     //   'kanban',
     //   !topMenu && <UilExpandArrowsAlt />,
     // ),
-    getItem(`${t('import')} ${t('export')}`, 'importExport', !topMenu && <UilExchange />, [
-      getItem(
-        <NavLink onClick={toggleCollapsed} to={`${path}/importExport/import`}>
-          {t('import')}
-        </NavLink>,
-        'import',
-        null,
-      ),
-      // getItem(
-      //   <NavLink onClick={toggleCollapsed} to={`${path}/importExport/export`}>
-      //     {t('export')}
-      //   </NavLink>,
-      //   'export',
-      //   null,
-      // ),
-    ]),
-    getItem(
-      <NavLink onClick={toggleCollapsed} to={`${path}/app/task/all`}>
-        {t('task')}
-      </NavLink>,
-      'task',
-      !topMenu && <UilFile />,
-    ),
+    // getItem(`${t('import')} ${t('export')}`, 'importExport', !topMenu && <UilExchange />, [
+    //   getItem(
+    //     <NavLink onClick={toggleCollapsed} to={`${path}/importExport/import`}>
+    //       {t('import')}
+    //     </NavLink>,
+    //     'import',
+    //     null,
+    //   ),
+    //   // getItem(
+    //   //   <NavLink onClick={toggleCollapsed} to={`${path}/importExport/export`}>
+    //   //     {t('export')}
+    //   //   </NavLink>,
+    //   //   'export',
+    //   //   null,
+    //   // ),
+    // ]),
+    // getItem(
+    //   <NavLink onClick={toggleCollapsed} to={`${path}/app/task/all`}>
+    //     {t('task')}
+    //   </NavLink>,
+    //   'task',
+    //   !topMenu && <UilFile />,
+    // ),
     // getItem(t('support'), 'supports', !topMenu && <UilHeadphones />, [
     //   getItem(
     //     <NavLink onClick={toggleCollapsed} to={`${path}/app/support/tickets`}>
@@ -1072,22 +1084,22 @@ function MenuItems({ toggleCollapsed }) {
     //   ),
     // ]),
 
-    getItem(t('table'), 'table', !topMenu && <UilTable />, [
-      getItem(
-        <NavLink onClick={toggleCollapsed} to={`${path}/tables/basic`}>
-          {t('basic')} {t('table')}
-        </NavLink>,
-        'basicTable',
-        null,
-      ),
-      getItem(
-        <NavLink onClick={toggleCollapsed} to={`${path}/tables/dataTable`}>
-          {t('data')} {t('table')}
-        </NavLink>,
-        'dataTable',
-        null,
-      ),
-    ]),
+    // getItem(t('table'), 'table', !topMenu && <UilTable />, [
+    //   getItem(
+    //     <NavLink onClick={toggleCollapsed} to={`${path}/tables/basic`}>
+    //       {t('basic')} {t('table')}
+    //     </NavLink>,
+    //     'basicTable',
+    //     null,
+    //   ),
+    //   getItem(
+    //     <NavLink onClick={toggleCollapsed} to={`${path}/tables/dataTable`}>
+    //       {t('data')} {t('table')}
+    //     </NavLink>,
+    //     'dataTable',
+    //     null,
+    //   ),
+    // ]),
 
     // getItem(t('widgets'), 'widgets', !topMenu && <UilServer />, [
     //   getItem(

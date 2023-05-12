@@ -13,7 +13,7 @@ import TopMenu from './TopMenu';
 import Search from '../components/utilities/auth-info/Search';
 import AuthInfo from '../components/utilities/auth-info/info';
 import { ReactComponent as MySVG } from '../static/img/icon/left-bar.svg';
-import logoImg from '../static/img/dicomx-logo.png';
+import logoImg from '../static/img/dicomx-logo-new.svg';
 import UilLayers from '@iconscout/react-unicons/icons/uil-layers';
 import { PhoneFilled, VideoCameraOutlined, TeamOutlined } from '@ant-design/icons';
 
@@ -82,14 +82,14 @@ const AppHeader = () => {
                 <Button
                   style={{ width: '32px' }}
                   size="default"
-                  className="bg-primary hover:bg-white hover:text-primary border-solid border-1 border-primary text-white font-semibold flex items-center justify-center rounded-full p-[16px] "
+                  className="bg-success hover:bg-white hover:text-success border-solid border-1 border-success text-white font-semibold flex items-center justify-center rounded-full p-[16px] "
                 >
                   <PhoneFilled className="w-[14px] h-[14px]" />
                 </Button>
                 <Button
                   style={{ width: '32px' }}
                   size="default"
-                  className="bg-primary hover:bg-white hover:text-primary border-solid border-1 border-primary text-white font-semibold flex items-center justify-center rounded-full p-[16px] "
+                  className="bg-success hover:bg-white hover:text-success border-solid border-1 border-success text-white font-semibold flex items-center justify-center rounded-full p-[16px] "
                 >
                   <VideoCameraOutlined className="w-[14px] h-[14px]" />
                 </Button>
