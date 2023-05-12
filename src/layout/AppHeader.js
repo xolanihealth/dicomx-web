@@ -21,7 +21,11 @@ const { theme } = require('../config/theme/themeVariables');
 
 const { Header, Sider, Content } = Layout;
 
-const AppHeader = () => {
+const AppHeader = ({ onCall, setOnCall }) => {
+  const toggleCall = () => {
+    setOnCall(!onCall);
+  };
+
   return (
     <Header
       style={{
@@ -83,6 +87,7 @@ const AppHeader = () => {
                   style={{ width: '32px' }}
                   size="default"
                   className="bg-success hover:bg-white hover:text-success border-solid border-1 border-success text-white font-semibold flex items-center justify-center rounded-full p-[16px] "
+                  onClick={toggleCall}
                 >
                   <PhoneFilled className="w-[14px] h-[14px]" />
                 </Button>

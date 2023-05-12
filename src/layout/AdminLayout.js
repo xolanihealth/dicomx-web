@@ -1,7 +1,7 @@
 import UilEllipsisV from '@iconscout/react-unicons/icons/uil-ellipsis-v';
 import { Button, Col, Layout, Row } from 'antd';
 import propTypes from 'prop-types';
-import { Component } from 'react';
+import { Component, useState } from 'react';
 import { Scrollbars } from 'react-custom-scrollbars';
 import { connect } from 'react-redux';
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
@@ -25,13 +25,14 @@ const { Header, Sider, Content } = Layout;
 const AdminLayout = ({ props, children }) => {
   const location = useLocation();
   const splitPath = location.pathname.split('/')[2];
-
+  const [onCall, setOnCall] = useState(false);
   return (
     <LayoutContainer>
       <Layout className="layout">
-        <ControlPanel />
+        {onCall && <ControlPanel />}
+
         <Layout>
-          <AppHeader />
+          <AppHeader onCall={onCall} setOnCall={setOnCall} />
           {splitPath != 'viewer' && (
             <Sider
               width={280}
