@@ -14,8 +14,14 @@ import Search from '../components/utilities/auth-info/Search';
 import AuthInfo from '../components/utilities/auth-info/info';
 import { ReactComponent as MySVG } from '../static/img/icon/left-bar.svg';
 import logoImg from '../static/img/dicomx-logo-new.svg';
-import UilLayers from '@iconscout/react-unicons/icons/uil-layers';
-import { PhoneFilled, VideoCameraOutlined, TeamOutlined } from '@ant-design/icons';
+import {
+  PhoneFilled,
+  VideoCameraOutlined,
+  TeamOutlined,
+  FolderOpenOutlined,
+  DesktopOutlined,
+  UserSwitchOutlined,
+} from '@ant-design/icons';
 import { sayHello } from '../utility/utility';
 
 const { theme } = require('../config/theme/themeVariables');
@@ -35,7 +41,7 @@ const AppHeader = ({ onCall, setOnCall }) => {
         top: 0,
         right: 0,
       }}
-      className="px-0 flex items-center justify-between bg-white dark:bg-[#1b1e2b] dark:shadow-[0_5px_20px_rgba(160,160,160,.02)] h-[56px] z-998"
+      className="flex border bg-white dark:bg-[#1b1e2b] dark:shadow-[0_5px_20px_rgba(160,160,160,.02)] h-[45px] z-998"
     >
       <div className="flex flex-row items-center flex-1 h-full">
         <div className=" rtl:ssm:pr-[15px] ltr:pr-5 rtl:pl-5 ltr:ssm:pl-[15px] ltr:ssm:pr-[15px] rtl:ssm::pl:[15px] ltr:pl-[30px] rtl:pr-[30px] xs:ltr:pl-[20px] xs:rtl:pr-[20px] min-w-[280px] ssm:min-w-[220px] xs:min-w-[170px] h-full grid align-middle dark:bg-[#323541]">
@@ -58,25 +64,25 @@ const AppHeader = ({ onCall, setOnCall }) => {
             <Link
               size="default"
               to="/admin/tables/dataTable"
-              className="bg-secondary-transparent border-0 hover:bg-secondary hover:text-white text-primary dark:text-white87 text-[12px] font-semibold leading-[22px] inline-flex items-center justify-center rounded-[40px] px-[20px] h-[32px] gap-[8px]"
+              className="bg-secondary-transparent border-0 hover:bg-secondary hover:text-white text-primary dark:text-white87 text-[12px] font-semibold leading-[22px] inline-flex items-center justify-center rounded-[40px] px-[20px] h-[30px] gap-[8px]"
             >
-              <UilLayers className="w-[14px] h-[14px]" />
+              <FolderOpenOutlined className="w-[14px] h-[14px]" />
               Studies
             </Link>
             <Link
               size="default"
               to="/admin/viewer"
-              className="bg-secondary-transparent border-0 hover:bg-secondary hover:text-white text-primary dark:text-white87 text-[12px] font-semibold leading-[22px] inline-flex items-center justify-center rounded-[40px] px-[20px] h-[32px] gap-[8px]"
+              className="bg-secondary-transparent border-0 hover:bg-secondary hover:text-white text-primary dark:text-white87 text-[12px] font-semibold leading-[22px] inline-flex items-center justify-center rounded-[40px] px-[20px] h-[30px] gap-[8px]"
             >
-              <UilLayers className="w-[14px] h-[14px]" />
+              <DesktopOutlined className="w-[14px] h-[14px]" />
               Viewer
             </Link>
             <Link
               to="/admin/radiologist"
               size="default"
-              className="bg-secondary-transparent border-0 hover:bg-secondary hover:text-white text-primary dark:text-white87 text-[12px] font-semibold leading-[22px] inline-flex items-center justify-center rounded-[40px] px-[20px] h-[32px] gap-[8px]"
+              className="bg-secondary-transparent border-0 hover:bg-secondary hover:text-white text-primary dark:text-white87 text-[12px] font-semibold leading-[22px] inline-flex items-center justify-center rounded-[40px] px-[20px] h-[30px] gap-[8px]"
             >
-              <UilLayers className="w-[14px] h-[14px]" />
+              <UserSwitchOutlined className="w-[14px] h-[14px]" />
               Radiologists
             </Link>
           </div>

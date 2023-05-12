@@ -12,17 +12,16 @@
 }
 .control-panel-body {
   color: #27272b;
-
   background-color: #27272b;
   border: 0.5px solid #0796a7;
-  border-radius: 10px;
-  width: 20vw;
-  height: 15vw;
+  border-radius: 14px;
+  width: 250px;
   position: fixed;
-  bottom: 0px;
-  left: 0px;
-  display: grid;
-  padding: 0 18px;
+  bottom: 5px;
+  left: 5px;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 18px;
   gap: 5px;
   grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
   cursor: pointer;
@@ -49,18 +48,16 @@
 }
 .maximize-btn {
   position: fixed !important;
-  bottom: 5vh;
-  left: 5vw;
+  bottom: 15px;
+  left: 15px;
   z-index: 1000;
   display: flex !important;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 70px !important;
-  height: 70px !important;
-  background-color: rgb(236 246 248) !important;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px !important;
-
-  border-width: 0px !important;
+  width: 50px !important;
+  height: 50px !important;
+  background-color: #ff5e5e !important;
+  color: black;
   animation: blink 2s ease-in-out infinite;
 }

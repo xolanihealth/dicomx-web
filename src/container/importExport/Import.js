@@ -4,6 +4,7 @@ import UilUpload from '@iconscout/react-unicons/icons/uil-upload';
 import UilTrashAlt from '@iconscout/react-unicons/icons/uil-trash-alt';
 import { PageHeader } from '../../components/page-headers/page-headers';
 import Heading from '../../components/heading/heading';
+import { AutoComplete } from '../../components/autoComplete/autoComplete';
 
 const { Search } = Input;
 const { Meta } = Card;
@@ -89,7 +90,17 @@ function Import() {
           <Col span={6}>
             <Divider orientation="left">Our community</Divider>
             <div className="">
-              <Search placeholder="Search here" allowClear onChange={onChange} onSearch={onSearch} enterButton />
+              <Col xs={24}>
+                <div className="[&>.ant-select>.ant-select-selector]:border-none [&>.ant-select>.ant-select-selector]:h-[50px] [&>.ant-select>.ant-select-selector>.ant-select-selection-search>.ant-input-affix-wrapper]:h-[50px]">
+                  <AutoComplete
+                    onChange={onChange}
+                    onSearch={onSearch}
+                    placeholder="Search here"
+                    width="100%"
+                    patterns
+                  />
+                </div>
+              </Col>
             </div>
             <div className="">
               <Card
