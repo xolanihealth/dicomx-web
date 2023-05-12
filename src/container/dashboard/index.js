@@ -19,7 +19,7 @@ function Dashboard() {
     },
     {
       path: 'first',
-      breadcrumbName: 'Demo 1',
+      breadcrumbName: 'Home',
     },
   ];
   return (
@@ -54,7 +54,7 @@ function Dashboard() {
                 <SalesReport />
               </Suspense>
             </Col>
-            <Col xxl={8} xs={24} className="mb-[25px]">
+            {/* <Col xxl={8} xs={24} className="mb-[25px]">
               <Suspense
                 fallback={
                   <Cards headless>
@@ -75,9 +75,9 @@ function Dashboard() {
               >
                 <SalesByLocation />
               </Suspense>
-            </Col>
+            </Col> */}
           </Row>
-          <Row gutter={25}>
+          {/* <Row gutter={25}>
             <Col xl={12} xs={24} className="mb-[25px]">
               <Suspense
                 fallback={
@@ -89,7 +89,7 @@ function Dashboard() {
                 <TopSellingProduct />
               </Suspense>
             </Col>
-            <Col xl={12} xs={24} className="mb-[25px]">
+            {/* <Col xl={12} xs={24} className="mb-[25px]">
               <Suspense
                 fallback={
                   <Cards headless>
@@ -100,7 +100,7 @@ function Dashboard() {
                 <BrowserState />
               </Suspense>
             </Col>
-          </Row>
+          </Row> */}
         </div>
       </GlobalUtilityStyle>
     </>
