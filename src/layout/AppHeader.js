@@ -16,6 +16,7 @@ import { ReactComponent as MySVG } from '../static/img/icon/left-bar.svg';
 import logoImg from '../static/img/dicomx-logo-new.svg';
 import UilLayers from '@iconscout/react-unicons/icons/uil-layers';
 import { PhoneFilled, VideoCameraOutlined, TeamOutlined } from '@ant-design/icons';
+import { sayHello } from '../utility/utility';
 
 const { theme } = require('../config/theme/themeVariables');
 
@@ -96,7 +97,7 @@ const AppHeader = ({ onCall, setOnCall }) => {
                   size="default"
                   className="bg-success hover:bg-white hover:text-success border-solid border-1 border-success text-white font-semibold flex items-center justify-center rounded-full p-[16px] "
                 >
-                  <VideoCameraOutlined className="w-[14px] h-[14px]" />
+                  <VideoCameraOutlined className="w-[14px] h-[14px]" onClick={sayHello} />
                 </Button>
                 <Button
                   style={{ width: '32px' }}

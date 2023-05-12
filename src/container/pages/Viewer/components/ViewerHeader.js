@@ -28,8 +28,10 @@ import {
 } from 'react-icons/md';
 import { BiCaretDown, BiBlock, BiZoomIn } from 'react-icons/bi';
 import '../styles.css';
+import useViewer from '../hooks/useViewer';
 const ViewerHeader = () => {
   const { Text } = Typography;
+  const { sayHello } = useViewer();
   return (
     <div className="viewer-panel flex flex-row overflow-x-auto items-center gap-4 w-full px-8 h-16">
       <Dropdown
@@ -97,7 +99,7 @@ const ViewerHeader = () => {
           <BiCaretDown size={16} />
         </button>
       </Dropdown>
-      <button className="flex flex-row justify-center items-center hover:text-primary text-white">
+      <button onClick={sayHello} className="flex flex-row justify-center items-center hover:text-primary text-white">
         <div className="flex justify-center flex-col items-center">
           <MdOutlineFrontHand size={20} />
 

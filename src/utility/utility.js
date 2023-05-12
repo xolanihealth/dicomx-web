@@ -15,5 +15,7 @@ const idGenerator = (events, length = 1) => {
   const number = (Math.max(...arrayData) + 1).toString();
   return number.length < length ? `${'0'.repeat(length - number.length)}${number}` : number;
 };
-
-export { ellipsis, idGenerator };
+const sayHello = () => {
+  console.log('My name is Prince Daniel');
+};
+export { ellipsis, idGenerator, sayHello };
