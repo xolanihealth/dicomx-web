@@ -66,13 +66,14 @@ const AppHeader = () => {
               <UilLayers className="w-[14px] h-[14px]" />
               Viewer
             </Link>
-            <Button
+            <Link
+              to="/admin/radiologist"
               size="default"
               className="bg-secondary-transparent border-0 hover:bg-secondary hover:text-white text-primary dark:text-white87 text-[12px] font-semibold leading-[22px] inline-flex items-center justify-center rounded-[40px] px-[20px] h-[32px] gap-[8px]"
             >
               <UilLayers className="w-[14px] h-[14px]" />
               Radiologists
-            </Button>
+            </Link>
           </div>
 
           <div className="flex flex-row items-center md:hidden">

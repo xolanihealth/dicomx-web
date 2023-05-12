@@ -61,6 +61,7 @@ const Admin = React.memo(() => {
       <Routes>
         <Route index path="/*" element={<Dashboard />} />
         <Route path="viewer" element={<Viewer />} />
+        <Route path="radiologist" element={<Import />} />
         <Route path="pages/*" element={<Pages />} />
         <Route path="gallery/*" element={<Gallery />} />
         <Route path="all-articles" element={<AllArticle />} />
@@ -79,7 +80,7 @@ const Admin = React.memo(() => {
         <Route path="contact/grid" element={<ContactGrid />} />
         <Route path="contact/addNew" element={<ContactAddNew />} />
         <Route path="app/calendar/*" element={<Calendars />} />
-        <Route path="importExport/import" element={<Import />} />
+       
         <Route path="importExport/export" element={<Export />} />
         <Route path="app/to-do" element={<ToDo />} />
         <Route path="app/note/*" element={<Note />} />
