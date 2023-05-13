@@ -10,6 +10,10 @@ import { Auth0Lock } from 'auth0-lock';
 import { login } from '../../../../redux/authentication/actionCreator';
 import { Checkbox } from '../../../../components/checkbox/checkbox';
 import { auth0options } from '../../../../config/auth0';
+import axios from 'axios';
+import { getItem } from '../../../../utility/localStorageControl';
+import Cookies from 'js-cookie';
+import actions from '../../../../redux/authentication/actions';
 
 const domain = process.env.REACT_APP_AUTH0_DOMAIN;
 const clientId = process.env.REACT_APP_AUTH0_CLIENT_ID;
@@ -24,10 +28,29 @@ function SignIn() {
   });
 
   const lock = new Auth0Lock(clientId, domain, auth0options);
+  const client = axios.create({
+    baseURL: process.env.REACT_APP_XOLANI_API,
+    headers: {
+      Authorization: `Bearer ${getItem('access_token')}`,
+      'Content-Type': 'application/json',
+    },
+  });
 
   const handleSubmit = useCallback(
     (values) => {
-      dispatch(login(values, () => history('/admin')));
+      dispatch(actions.loginBegin());
+      client
+        .post('/login', { ...values, rememberMeCheckbox: true })
+        .then(({ data }) => {
+          Cookies.set('access_token', data.token);
+          Cookies.set('logedIn', true);
+          dispatch(actions.loginSuccess(true));
+          history('/admin');
+        })
+        .catch((error) => dispatch(actions.loginErr(error)))
+        .finally(() => {
+          console.log('This request was made to login');
+        });
     },
     [history, dispatch],
   );
