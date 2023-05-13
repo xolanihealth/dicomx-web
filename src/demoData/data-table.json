@@ -6,7 +6,8 @@
       "description": "DFCI CT CHEST W CONTRAST 6023",
       "datetime": "January 20, 2020",
       "accession": "5463753",
-      "instances": "345"
+      "instances": "345",
+      "status" : "completed"
     },
     {
         "id": "02",
@@ -15,7 +16,8 @@
         "description": "CT THORAX ENHANCED",
         "datetime": "January 20, 2020",
         "accession": "5463753",
-        "instances": "345"
+        "instances": "345",
+        "status" : "new"
     },
     {
         "id": "03",
@@ -24,7 +26,8 @@
         "description": "WB PET/CT",
         "datetime": "January 20, 2020",
         "accession": "5463753",
-        "instances": "345"
+        "instances": "345",
+        "status" : "completed"
     },
     {
         "id": "04",
@@ -33,7 +36,8 @@
         "description": "MRI THORACIC W/WO CONTRAST",
         "datetime": "January 20, 2020",
         "accession": "5463753",
-        "instances": "4"
+        "instances": "4",
+        "status" : "pending"
     },
     {
         "id": "05",
@@ -42,7 +46,8 @@
         "description": "MRI THORACIC W/WO CONTRAST",
         "datetime": "January 20, 2020",
         "accession": "5463753",
-        "instances": "40"
+        "instances": "40",
+        "status" : "new"
     },
     {
         "id": "06",
@@ -51,7 +56,8 @@
         "description": "LUNG DELAYS",
         "datetime": "January 20, 2020",
         "accession": "5463753",
-        "instances": "23"
+        "instances": "23",
+        "status" : "completed"
     },
     {
         "id": "07",
@@ -60,7 +66,8 @@
         "description": "Abdomen wcE",
         "datetime": "January 20, 2020",
         "accession": "5463753",
-        "instances": "9"
+        "instances": "9",
+        "status" : "pending"
     },
     {
         "id": "08",
@@ -69,7 +76,8 @@
         "description": "Chest W",
         "datetime": "January 20, 2020",
         "accession": "5463753",
-        "instances": "98"
+        "instances": "98",
+        "status" : "new"
     },
     {
         "id": "09",
@@ -78,7 +86,8 @@
         "description": "MRI THORACIC W/WO CONTRAST",
         "datetime": "January 20, 2020",
         "accession": "5463753",
-        "instances": "39"
+        "instances": "39",
+        "status" : "completed"
     }
 ]
   

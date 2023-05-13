@@ -61,7 +61,7 @@ function DataTables() {
 
   if (TableData.length > 0) {
     TableData.map((item) => {
-      const { id, name, modality, description, datetime, accession, instances } = item;
+      const { id, name, modality, description, datetime, accession, instances, status } = item;
       return tableDataScource.push({
         id: <span className="text-body dark:text-white60 text-[15px] font-medium">{`#${id}`}</span>,
         user: <span className="text-body dark:text-white60 text-[15px] font-medium">{name}</span>,
@@ -70,13 +70,13 @@ function DataTables() {
         datetime: <span className="text-body dark:text-white60 text-[15px] font-medium">{datetime}</span>,
         accession: <span className="text-body dark:text-white60 text-[15px] font-medium">{accession}</span>,
         instances: <span className="text-body dark:text-white60 text-[15px] font-medium">{instances}</span>,
-        // status: (
-        //   <span
-        //     className={`inline-flex items-center justify-center bg-${status}-transparent text-${status} min-h-[24px] px-3 text-xs font-medium rounded-[15px]`}
-        //   >
-        //     {instances}
-        //   </span>
-        // ),
+        status: (
+          <span
+            className={`inline-flex items-center justify-center min-h-[24px] px-3 text-xs font-medium rounded-[15px]`}
+          >
+            {status}
+          </span>
+        ),
         action: (
           <div className="min-w-[150px] text-end -m-2">
             <Link className="inline-block m-2" to="/admin/viewer">
@@ -173,6 +173,11 @@ function DataTables() {
       title: 'Instances',
       dataIndex: 'instances',
       key: 'instances',
+    },
+    {
+      title: 'Status',
+      dataIndex: 'status',
+      key: 'status',
     },
     {
       title: 'Actions',

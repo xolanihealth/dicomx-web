@@ -43,9 +43,9 @@ function DataTable({ filterOption, filterOnchange, rowSelection, tableData, colu
               <div className="inline-flex items-center">
                 <span className="ltr:mr-2 rtl:ml-2 dark:text-white60">Status:</span>
                 <Select style={{ width: 200 }} defaultValue="active">
-                  <Select.Option value="active">Active</Select.Option>
-                  <Select.Option value="deactivated">Deactivated</Select.Option>
-                  <Select.Option value="blocked">Blocked</Select.Option>
+                  <Select.Option value="new">New Studies</Select.Option>
+                  <Select.Option value="completed">Studies done</Select.Option>
+                  <Select.Option value="pending">Studies not done</Select.Option>
                 </Select>
               </div>
               <div className="inline-flex items-center">
@@ -67,9 +67,9 @@ function DataTable({ filterOption, filterOnchange, rowSelection, tableData, colu
               <div className="inline-flex items-center">
                 <span className="ltr:mr-2 rtl:ml-2 dark:text-white60">Status:</span>
                 <Select onChange={handleStatusSearch} style={{ width: 200 }} defaultValue="active">
-                  <Select.Option value="active">Active</Select.Option>
-                  <Select.Option value="deactivated">Deactivated</Select.Option>
-                  <Select.Option value="blocked">Blocked</Select.Option>
+                  <Select.Option value="new">New Studies</Select.Option>
+                  <Select.Option value="completed">Studies done</Select.Option>
+                  <Select.Option value="pending">Studies not done</Select.Option>
                 </Select>
               </div>
             </div>
