@@ -1,5 +1,6 @@
 import dicomParser from 'dicom-parser';
 import cornerstone from 'cornerstone-core';
+import * as cornerstoneWebImageLoader from 'cornerstone-web-image-loader';
 import cornerstoneWADOImageLoader from 'cornerstone-wado-image-loader';
 import cornerstoneMath from 'cornerstone-math';
 import cornerstoneTools from 'cornerstone-tools';
@@ -10,20 +11,21 @@ export default function initCornerstone() {
   cornerstoneTools.external.cornerstone = cornerstone;
   cornerstoneTools.external.Hammer = Hammer;
   cornerstoneTools.external.cornerstoneMath = cornerstoneMath;
+  cornerstoneWebImageLoader.external.cornerstone = cornerstone;
   cornerstoneTools.init();
 
   // Image Loader
-  cornerstoneWADOImageLoader.external.cornerstone = cornerstone;
-  cornerstoneWADOImageLoader.external.dicomParser = dicomParser;
-  cornerstoneWADOImageLoader.webWorkerManager.initialize({
-    maxWebWorkers: navigator.hardwareConcurrency || 1,
-    startWebWorkersOnDemand: true,
-    taskConfiguration: {
-      decodeTask: {
-        initializeCodecsOnStartup: false,
-        usePDFJS: false,
-        strict: false,
-      },
-    },
-  });
+  // cornerstoneWADOImageLoader.external.cornerstone = cornerstone;
+  // cornerstoneWADOImageLoader.external.dicomParser = dicomParser;
+  // cornerstoneWADOImageLoader.webWorkerManager.initialize({
+  //   maxWebWorkers: navigator.hardwareConcurrency || 1,
+  //   startWebWorkersOnDemand: true,
+  //   taskConfiguration: {
+  //     decodeTask: {
+  //       initializeCodecsOnStartup: false,
+  //       usePDFJS: false,
+  //       strict: false,
+  //     },
+  //   },
+  // });
 }

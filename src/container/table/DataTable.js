@@ -61,24 +61,25 @@ function DataTables() {
 
   if (TableData.length > 0) {
     TableData.map((item) => {
-      const { id, name, country, company, position, status, date } = item;
+      const { id, name, modality, description, datetime, accession, instances } = item;
       return tableDataScource.push({
         id: <span className="text-body dark:text-white60 text-[15px] font-medium">{`#${id}`}</span>,
         user: <span className="text-body dark:text-white60 text-[15px] font-medium">{name}</span>,
-        country: <span className="text-body dark:text-white60 text-[15px] font-medium">{country}</span>,
-        company: <span className="text-body dark:text-white60 text-[15px] font-medium">{company}</span>,
-        position: <span className="text-body dark:text-white60 text-[15px] font-medium">{position}</span>,
-        date: <span className="text-body dark:text-white60 text-[15px] font-medium">{date}</span>,
-        status: (
-          <span
-            className={`inline-flex items-center justify-center bg-${status}-transparent text-${status} min-h-[24px] px-3 text-xs font-medium rounded-[15px]`}
-          >
-            {status}
-          </span>
-        ),
+        modality: <span className="text-body dark:text-white60 text-[15px] font-medium">{modality}</span>,
+        description: <span className="text-body dark:text-white60 text-[15px] font-medium">{description}</span>,
+        datetime: <span className="text-body dark:text-white60 text-[15px] font-medium">{datetime}</span>,
+        accession: <span className="text-body dark:text-white60 text-[15px] font-medium">{accession}</span>,
+        instances: <span className="text-body dark:text-white60 text-[15px] font-medium">{instances}</span>,
+        // status: (
+        //   <span
+        //     className={`inline-flex items-center justify-center bg-${status}-transparent text-${status} min-h-[24px] px-3 text-xs font-medium rounded-[15px]`}
+        //   >
+        //     {instances}
+        //   </span>
+        // ),
         action: (
           <div className="min-w-[150px] text-end -m-2">
-            <Link className="inline-block m-2" to="#">
+            <Link className="inline-block m-2" to="/admin/viewer">
               <UilEye className="w-4 text-light-extra dark:text-white60" />
             </Link>
             <Link className="inline-block m-2" to="#">
@@ -93,7 +94,7 @@ function DataTables() {
     });
   }
 
-  const dataTableColumn = [
+  const dataTableColumn3 = [
     {
       title: 'Id',
       dataIndex: 'id',
@@ -137,7 +138,7 @@ function DataTables() {
     },
   ];
 
-  const dataTableColumn2 = [
+  const dataTableColumn = [
     {
       title: 'Id',
       dataIndex: 'id',

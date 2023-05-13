@@ -11,7 +11,6 @@ const ViewerMain = () => {
 
   return (
     <div ref={viewerRef} style={{ borderRadius: 8 }} className="flex bg-black w-full h-full flex-1 border-sm">
-      <div id="cornerstone-element"></div>
       <CornerstoneViewport tools={tools} imageIds={imageIds} style={{ minWidth: '100%', height: '512px', flex: '1' }} />
     </div>
   );
