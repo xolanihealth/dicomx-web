@@ -25,7 +25,7 @@ const { Header, Sider, Content } = Layout;
 const AdminLayout = ({ props, children }) => {
   const location = useLocation();
   const splitPath = location.pathname.split('/')[2];
-  const [onCall, setOnCall] = useState(false);
+  const [onCall, setOnCall] = useState(true);
   return (
     <LayoutContainer>
       <Layout className="layout">

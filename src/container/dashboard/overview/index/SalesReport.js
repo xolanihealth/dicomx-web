@@ -74,7 +74,7 @@ const SalesReport = React.memo(({ title }) => {
           start: 'transparent',
           end: 'transparent',
         }),
-      label: 'Total Orders',
+      label: 'Total Upload Studies',
       pointBorderColor: 'transparent',
       pointBackgroundColor: '#8231D3',
       hoverBorderWidth: 5,
@@ -99,7 +99,7 @@ const SalesReport = React.memo(({ title }) => {
           start: 'transparent',
           end: 'transparent',
         }),
-      label: 'Total Sales',
+      label: 'Total Interpreted Studies',
       pointBorderColor: 'transparent',
       pointBackgroundColor: '#00AAFF',
       hoverBorderWidth: 5,
@@ -128,7 +128,7 @@ const SalesReport = React.memo(({ title }) => {
           <div className="flex items-center justify-center ssm:flex-col ssm:gap-y-[15px]">
             <div className="relative flex items-center mx-3 gap-[15px]">
               <span className="flex items-center ltr:pl-3 rtl:pr-3 text-sm text-body dark:text-white60 before:absolute before:bg-primary before:w-2 before:h-2 before:rounded-full ltr:before:left-0 rtl:before:right-0 before:top-1/2 before:-translate-y-2/4">
-                Orders
+                Uploaded
               </span>
               <span className="inline-block text-dark dark:text-white87 ltr:mr-1 rtl:ml-1 ltr:ml-2.5 rtl:mr-2.5 text-22 font-semibold">
                 $8,550
@@ -140,7 +140,7 @@ const SalesReport = React.memo(({ title }) => {
             </div>
             <div className="relative flex items-center mx-3">
               <span className="flex items-center ltr:pl-3 rtl:pr-3 text-sm text-body dark:text-white60 before:absolute before:bg-info before:w-2 before:h-2 before:rounded-full ltr:before:left-0 rtl:before:right-0 before:top-1/2 before:-translate-y-2/4">
-                Sales
+                Interpreted
               </span>
               <span className="inline-block text-dark dark:text-white87 ltr:mr-1 rtl:ml-1 ltr:ml-2.5 rtl:mr-2.5 text-22 font-semibold">
                 $5,550
@@ -235,7 +235,7 @@ const SalesReport = React.memo(({ title }) => {
 });
 
 SalesReport.defaultProps = {
-  title: 'Sales Report',
+  title: 'Studies Report',
 };
 
 SalesReport.propTypes = {

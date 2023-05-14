@@ -29,7 +29,7 @@ function SignIn() {
 
   const lock = new Auth0Lock(clientId, domain, auth0options);
   const client = axios.create({
-    baseURL: process.env.REACT_APP_XOLANI_API,
+    baseURL: 'https://xolanihealth.cloud',
     headers: {
       Authorization: `Bearer ${getItem('access_token')}`,
       'Content-Type': 'application/json',
@@ -69,16 +69,16 @@ function SignIn() {
       lock.hide();
     });
   });
-  const signupMenu = (
-    <Menu className="flex flex-col justify-center items-center gap-1">
-      <Menu.Item onClick={() => history('register/radiologist')} className="w-full">
-        a Radiologist
-      </Menu.Item>
-      <Menu.Item onClick={() => history('register/institution')} className="w-full">
-        an Institution
-      </Menu.Item>
-    </Menu>
-  );
+  // const signupMenu = (
+  //   <Menu className="flex flex-col justify-center items-center gap-1">
+  //     <Menu.Item onClick={() => history('register/radiologist')} className="w-full">
+  //       a Radiologist
+  //     </Menu.Item>
+  //     <Menu.Item onClick={() => history('register/institution')} className="w-full">
+  //       an Institution
+  //     </Menu.Item>
+  //   </Menu>
+  // );
   return (
     <Row justify="center">
       <Col xxl={6} xl={8} md={12} sm={18} xs={24}>
@@ -128,14 +128,9 @@ function SignIn() {
           </div>
           <div className="p-6 text-center bg-gray-100 dark:bg-white10 rounded-b-md flex flex-row justify-center items-center gap-2">
             <p className="text-sm font-medium text-body dark:text-white60">Don`t have an account?</p>
-            <Dropdown
-              trigger={['click']}
-              className="text-primary text-sm cursor-pointer"
-              placement="topCenter"
-              overlay={signupMenu}
-            >
-              <p>Sign up as</p>
-            </Dropdown>
+            <p className="text-primary text-sm cursor-pointer" onClick={() => history('register/radiologist')}>
+              Sign up
+            </p>
           </div>
         </div>
       </Col>

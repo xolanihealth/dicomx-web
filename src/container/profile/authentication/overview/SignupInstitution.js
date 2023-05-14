@@ -54,7 +54,7 @@ function SignUpInstitution() {
                 <div className="flex flex-row w-full gap-2 justify-between items-center">
                   <Form.Item
                     label="First Name"
-                    name="fname"
+                    name="firstname"
                     className="[&>div>div>label]:text-sm [&>div>div>label]:text-dark dark:[&>div>div>label]:text-white60 [&>div>div>label]:font-medium w-1/2"
                     rules={[{ required: true, message: 'Please input your first name!' }]}
                   >
@@ -62,7 +62,7 @@ function SignUpInstitution() {
                   </Form.Item>
                   <Form.Item
                     label="Last Name"
-                    name="lname"
+                    name="lastname"
                     className="[&>div>div>label]:text-sm [&>div>div>label]:text-dark dark:[&>div>div>label]:text-white60 [&>div>div>label]:font-medium w-1/2"
                     rules={[{ required: true, message: 'Please input your last name!' }]}
                   >
@@ -121,9 +121,9 @@ function SignUpInstitution() {
                   </Form.Item>
                   <Form.Item
                     className="w-1/2"
-                    label="State/Province"
-                    name="state"
-                    rules={[{ required: true, message: 'Please select your state!' }]}
+                    label="City"
+                    name="city"
+                    rules={[{ required: true, message: 'Please select your city!' }]}
                   >
                     <Select>
                       <Select.Option value="FCT">Federal Capital Territory</Select.Option>

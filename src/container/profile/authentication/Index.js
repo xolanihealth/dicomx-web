@@ -16,10 +16,11 @@ const AuthLayout = (WraperContent) => {
           style={{ backgroundImage: `url("${require('../../../static/img/admin-bg-light.png')}")` }}
           className="bg-top bg-no-repeat"
         >
-          <div className="py-[50px] 2xl:py-[50px] px-[15px]">
-            <div className="flex justify-center">
-              <img className="dark:hidden w-24" src={logoImg} alt="" />
+          <div className="py-[50px] 2xl:py-[50px] px-[50px]">
+            <div className="flex justify-center mb-5">
+              <img className="dark:hidden w-40" src={logoImg} alt="DICOM-X logo" />
             </div>
+
             <WraperContent />
           </div>
         </div>

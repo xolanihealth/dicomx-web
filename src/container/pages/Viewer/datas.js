@@ -24,9 +24,12 @@ export const tools = [
 ];
 
 export const imageIds = [
-  'https://xolanihealth.com/images/dicom-images/IMG0073.dcm',
-  'https://xolanihealth.com/images/dicom-images/IMG0074.dcm',
+  'dicomweb://s3.amazonaws.com/lury/PTCTStudy/1.3.6.1.4.1.25403.52237031786.3872.20100510032220.11.dcm',
+  'dicomweb://s3.amazonaws.com/lury/PTCTStudy/1.3.6.1.4.1.25403.52237031786.3872.20100510032220.12.dcm',
 ];
 
 // 'dicomweb://s3.amazonaws.com/lury/PTCTStudy/1.3.6.1.4.1.25403.52237031786.3872.20100510032220.11.dcm',
 //   'dicomweb://s3.amazonaws.com/lury/PTCTStudy/1.3.6.1.4.1.25403.52237031786.3872.20100510032220.12.dcm',
+
+// 'https://xolanihealth.com/images/dicom-images/IMG0073.dcm',
+//   'https://xolanihealth.com/images/dicom-images/IMG0074.dcm',

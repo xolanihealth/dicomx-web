@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import actions from './actions';
 import { DataService } from '../../config/dataService/dataService';
@@ -5,7 +6,6 @@ import { DataService } from '../../config/dataService/dataService';
 const { loginBegin, loginSuccess, loginErr, logoutBegin, logoutSuccess, logoutErr } = actions;
 
 const login = (values, callback) => {
-  console.log('here');
   return async (dispatch) => {
     dispatch(loginBegin());
     try {
@@ -24,15 +24,19 @@ const login = (values, callback) => {
   };
 };
 
-const register = (values) => {
+const register = (values, callback) => {
   return async (dispatch) => {
     dispatch(loginBegin());
     try {
-      const response = await DataService.post('/register', values);
+      const response = await DataService.post('/signup', values);
       if (response.data.errors) {
+        console.log('Response error', response.data.errors);
         dispatch(loginErr('Registration failed!'));
       } else {
-        dispatch(loginSuccess(false));
+        console.log('Response data', response.data);
+        Cookies.set('logedIn', true);
+        dispatch(loginSuccess(true));
+        callback();
       }
     } catch (err) {
       dispatch(loginErr(err));

@@ -42,6 +42,7 @@ import {
   UilUsersAlt,
   UilWindowSection,
 } from '@iconscout/react-unicons';
+import UilSignout from '@iconscout/react-unicons/icons/uil-signout';
 import { Menu } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -53,6 +54,7 @@ import propTypes from 'prop-types';
 import { NavTitle } from './Style';
 import versions from '../demoData/changelog.json';
 import { changeDirectionMode, changeLayoutMode, changeMenuMode } from '../redux/themeLayout/actionCreator';
+import { logOut } from '../redux/authentication/actionCreator';
 
 function MenuItems({ toggleCollapsed }) {
   const { t } = useTranslation();
@@ -125,6 +127,10 @@ function MenuItems({ toggleCollapsed }) {
     document.body.classList.remove('dark');
   };
 
+  const handleLogout = (values) => {
+    dispatch(logOut(() => history('/dicomx')));
+  };
+
   const items = [
     getItem(
       <NavLink onClick={toggleCollapsed} to={`${path}`}>
@@ -160,13 +166,13 @@ function MenuItems({ toggleCollapsed }) {
       ),
     ),
     getItem(
-      <NavLink onClick={toggleCollapsed} to={`${path}/pages/termCondition`}>
-        {t('terms')} {t('&')} {t('conditions')}
+      <NavLink onClick={handleLogout}>
+        {t('Log')} {t('out')}
       </NavLink>,
-      'termcondition',
+      'logout',
       !topMenu && (
-        <NavLink className="menuItem-iocn" to={`${path}/pages/termCondition`}>
-          <UilFileShieldAlt />
+        <NavLink className="menuItem-iocn">
+          <UilSignout />
         </NavLink>
       ),
     ),

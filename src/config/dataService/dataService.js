@@ -1,14 +1,14 @@
 import axios from 'axios';
 import { getItem } from '../../utility/localStorageControl';
 
-const API_ENDPOINT = `${process.env.REACT_APP_API_ENDPOINT}/api`;
+const API_ENDPOINT = `${process.env.REACT_APP_XOLANI_API}`;
 
 const authHeader = () => ({
   Authorization: `Bearer ${getItem('access_token')}`,
 });
 
 const client = axios.create({
-  baseURL: API_ENDPOINT,
+  baseURL: 'https://xolanihealth.cloud',
   headers: {
     Authorization: `Bearer ${getItem('access_token')}`,
     'Content-Type': 'application/json',
@@ -25,6 +25,7 @@ class DataService {
   }
 
   static post(path = '', data = {}, optionalHeader = {}) {
+    console.log('User fields data service ==>>', data);
     return client({
       method: 'POST',
       url: path,

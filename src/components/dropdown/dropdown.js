@@ -48,7 +48,7 @@ const content = (
 
 Dropdown.defaultProps = {
   action: ['hover'],
-  placement: 'bottomRight',
+  placement: 'bottomLeft',
   content,
   style: { DropdownStyle },
   className: 'hexadash-dropdown',
