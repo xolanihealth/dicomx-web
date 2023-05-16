@@ -38,9 +38,10 @@ function Import() {
   const fileUploadProps = {
     name: 'file',
     multiple: true,
-    action: 'https://xolanihealth.cloud/upload-dicomx',
+    // action: 'https://xolanihealth.cloud/upload-dicomx',
     onChange(info) {
       const { status } = info.file;
+      console.log(info.file);
       if (status !== 'uploading') {
         setState({ ...state, file: info.file, list: info.fileList });
       }
