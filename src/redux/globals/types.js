@@ -1,0 +1,2 @@
+export const SET_DRAWER = 'SET_DRAWER';
+export const SET_DRAWER_CHILDREN = 'SET_DRAWER_CHILDREN';

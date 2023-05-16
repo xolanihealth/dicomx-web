@@ -178,7 +178,8 @@ const AppHeader = ({ onCall, setOnCall }) => {
                   <Button
                     style={{ width: '32px' }}
                     size="default"
-                    className="bg-success hover:bg-white hover:text-success border-solid border-1 border-success text-white font-semibold flex items-center justify-center rounded-full p-[16px] "
+                    className="bg-green-500 hover:bg-white hover:text-green-500 border-solid border-1 border-green-500 text-white font-semibold flex items-center justify-center rounded-full p-[16px] "
+                    onClick={toggleCall}
                   >
                     <PhoneFilled className="w-[14px] h-[14px]" />
                   </Button>
@@ -188,7 +189,7 @@ const AppHeader = ({ onCall, setOnCall }) => {
                   <Button
                     style={{ width: '32px' }}
                     size="default"
-                    className="bg-success hover:bg-white hover:text-success border-solid border-1 border-success text-white font-semibold flex items-center justify-center rounded-full p-[16px] "
+                    className="bg-green-500 hover:bg-white hover:text-green-500 border-solid border-1 border-green-500 text-white font-semibold flex items-center justify-center rounded-full p-[16px] "
                   >
                     <VideoCameraOutlined className="w-[14px] h-[14px]" />
                   </Button>

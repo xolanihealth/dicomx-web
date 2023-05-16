@@ -10,6 +10,8 @@ import './static/css/style.css';
 import config from './config/config';
 import ProtectedRoute from './components/utilities/protectedRoute';
 import 'antd/dist/antd.less';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const NotFound = lazy(() => import('./container/pages/404'));
 
@@ -39,6 +41,7 @@ function ProviderConfig() {
   return (
     <ConfigProvider direction={rtl ? 'rtl' : 'ltr'}>
       <ThemeProvider theme={{ ...theme, rtl, topMenu, mainContent }}>
+        <ToastContainer style={{ fontSize: '14px', lineHeight: '17px' }} autoClose={3000} pauseOnHover={true} />
         <Router basename={process.env.PUBLIC_URL}>
           {!isLoggedIn ? (
             <Routes>

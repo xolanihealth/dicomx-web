@@ -27,6 +27,7 @@ import FileManager from './fileManager/reducers';
 import tickets from './supportTickets/reducers';
 import jobs from './jobs/reducers';
 import dataTable from './data-filter/reducers';
+import dicomReducer from './dicom/reducers';
 
 const rootReducers = combineReducers({
   themeUsers: themeUsersReducer,
@@ -65,6 +66,7 @@ const rootReducers = combineReducers({
   jobs,
   dataTable,
   SingleAxiosCrud: axiosSingleCrudReducer,
+  dicom: dicomReducer,
 });
 
 export default rootReducers;

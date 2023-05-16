@@ -16,10 +16,10 @@ function MultiColumnForm() {
           <Row gutter={30}>
             <Col sm={12} xs={24} className="mb-25">
               <Form.Item name="patient_name">
-                <Input placeholder="First Name" />
+                <Input placeholder="Patient name" />
               </Form.Item>
               <Form.Item name="modality">
-                <Input placeholder="City" />
+                <Input placeholder="Modality" />
               </Form.Item>
               <Form.Item name="description">
                 <TextArea placeholder="Description" />
@@ -27,10 +27,10 @@ function MultiColumnForm() {
             </Col>
             <Col sm={12} xs={24} className="mb-25">
               <Form.Item name="datetime">
-                <Input placeholder="Last Name" />
+                <DatePicker placeholder="Date" className="border-normal dark:border-white10 h-[50px] min-w-[250px]" />
               </Form.Item>
-              <Form.Item name="Refering physician">
-                <Input placeholder="Country" />
+              <Form.Item name="refering_physician">
+                <Input placeholder="Refering physician" />
               </Form.Item>
             </Col>
           </Row>

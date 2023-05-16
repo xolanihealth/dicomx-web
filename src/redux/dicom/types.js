@@ -1,0 +1,3 @@
+export const SET_STACK = 'SET_STACK';
+export const SET_VIEWPORT = 'SET_VIEWPORT';
+export const SET_ENABLED_ELEMENT = 'SET_ENABLED_ELEMENT';
