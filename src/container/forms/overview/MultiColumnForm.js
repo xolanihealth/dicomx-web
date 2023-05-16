@@ -1,37 +1,36 @@
 import React from 'react';
 import { Row, Col, Form, Input, Button } from 'antd';
 
+const { TextArea } = Input;
+
 function MultiColumnForm() {
   return (
-    <div className="bg-white dark:bg-white10 m-0 p-0 text-theme-gray dark:text-white60 text-[15px] rounded-10 relative h-full">
+    <div className="bg-white dark:bg-white10 m-0 p-0 text-theme-gray dark:text-white60 text-[15px] rounded-10 relative h-full border">
       <div className="h-[60px] px-[25px] text-dark dark:text-white87 font-medium text-[17px] border-regular dark:border-white10 border-b">
         <h1 className="mb-0 inline-block py-[16px] overflow-hidden whitespace-nowrap text-ellipsis text-[18px] font-semibold">
-          Multiple column
+          Study details
         </h1>
       </div>
       <div className="p-[25px]">
         <Form name="multi-form" layout="horizontal">
           <Row gutter={30}>
             <Col sm={12} xs={24} className="mb-25">
-              <Form.Item name="sDash_f-name">
+              <Form.Item name="patient_name">
                 <Input placeholder="First Name" />
               </Form.Item>
-              <Form.Item name="sDash_city">
+              <Form.Item name="modality">
                 <Input placeholder="City" />
               </Form.Item>
-              <Form.Item name="sDash_company">
-                <Input placeholder="Company" />
+              <Form.Item name="description">
+                <TextArea placeholder="Description" />
               </Form.Item>
             </Col>
             <Col sm={12} xs={24} className="mb-25">
-              <Form.Item name="sDash_l-name">
+              <Form.Item name="datetime">
                 <Input placeholder="Last Name" />
               </Form.Item>
-              <Form.Item name="sDash_country">
+              <Form.Item name="Refering physician">
                 <Input placeholder="Country" />
-              </Form.Item>
-              <Form.Item name="sDash_email">
-                <Input placeholder="Email" />
               </Form.Item>
             </Col>
           </Row>

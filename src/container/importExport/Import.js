@@ -5,6 +5,8 @@ import UilTrashAlt from '@iconscout/react-unicons/icons/uil-trash-alt';
 import { PageHeader } from '../../components/page-headers/page-headers';
 import Heading from '../../components/heading/heading';
 import { AutoComplete } from '../../components/autoComplete/autoComplete';
+import FormElements from '../forms/FormElements';
+import FormLayout from '../forms/FormLayout';
 
 const { Search } = Input;
 const { Meta } = Card;
@@ -36,7 +38,7 @@ function Import() {
   const fileUploadProps = {
     name: 'file',
     multiple: true,
-    action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
+    action: 'https://xolanihealth.cloud/upload-dicomx',
     onChange(info) {
       const { status } = info.file;
       if (status !== 'uploading') {
@@ -86,6 +88,9 @@ function Import() {
                 </Heading>
               </Dragger>
             </div>
+            <Col span={24}>
+              <FormLayout />
+            </Col>
           </Col>
           <Col span={6}>
             <Divider orientation="left">Our community</Divider>
