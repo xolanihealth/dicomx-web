@@ -1,24 +1,10 @@
-import UilSignout from '@iconscout/react-unicons/icons/uil-signout';
-import UilUser from '@iconscout/react-unicons/icons/uil-user';
-import UilEye from '@iconscout/react-unicons/icons/uil-eye';
-import UilUsersAlt from '@iconscout/react-unicons/icons/uil-users-alt';
-import { Button, Col, Layout, Row, Avatar } from 'antd';
-import propTypes from 'prop-types';
-import { Component } from 'react';
-import { Scrollbars } from 'react-custom-scrollbars';
-import { connect } from 'react-redux';
-import { Link, NavLink, useNavigate, onClick } from 'react-router-dom';
-import { ThemeProvider } from 'styled-components';
-import MenueItems from './MenueItems';
-import CustomizerWrap from './overview/Customizer';
-import { FooterStyle, LayoutContainer, SmallScreenAuthInfo, TopMenuSearch } from './Style';
-import TopMenu from './TopMenu';
-import Search from '../components/utilities/auth-info/Search';
-import AuthInfo from '../components/utilities/auth-info/info';
+import { Button, Layout, Typography } from 'antd';
+import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { TopMenuSearch } from './Style';
 import { ReactComponent as MySVG } from '../static/img/icon/left-bar.svg';
 import logoImg from '../static/img/dicomx-logo-new.svg';
 import { Popover } from '../components/popup/popup';
-import { AutoComplete } from '../components/autoComplete/autoComplete';
 import {
   PhoneFilled,
   VideoCameraOutlined,
@@ -27,95 +13,16 @@ import {
   DesktopOutlined,
   UserSwitchOutlined,
 } from '@ant-design/icons';
+import { setDrawer, setDrawerChildren } from '../redux/globals/actions';
+import Contacts from '../components/Contacts';
+import { MdGroups } from 'react-icons/md';
 
 const { theme } = require('../config/theme/themeVariables');
 
 const { Header, Sider } = Layout;
-
-const AppHeader = ({ onCall, setOnCall }) => {
-  const toggleCall = () => {
-    setOnCall(!onCall);
-  };
-  const userContent = (
-    <div>
-      <div className="min-w-[280px] sm:min-w-full pt-4">
-        <div className="[&>.ant-select>.ant-select-selector]:border-none [&>.ant-select>.ant-select-selector]:h-[50px] [&>.ant-select>.ant-select-selector>.ant-select-selection-search>.ant-input-affix-wrapper]:h-[50px]">
-          <AutoComplete placeholder="Search your contacts" width="100%" patterns />
-        </div>
-        <ul className="mb-0">
-          <li>
-            <Link
-              to="#"
-              className="inline-flex justify-between items-center hover:bg-shadow-transparent text-light dark:text-white60 dark:hover:text-white hover:text-primary dark:hover:bg-white10 dark:rounded-4 hover:pl-6 w-full px-2.5 py-3 text-sm transition-all ease-in-out delay-150"
-            >
-              <div className="inline-flex items-center">
-                <UilUser className="w-4 h-4 ltr:mr-3 rtl:ml-3" /> Md. Rofiq
-              </div>
-              <div className="inline-flex items-center">
-                <Link className="inline-block m-2" to="/admin/main/chat/private/rofiq@gmail.com">
-                  <UilEye className="w-5 h-5" />
-                </Link>
-                <Link className="inline-block m-2" to="#">
-                  {/* <UilEye className="w-4 text-light-extra dark:text-white60" /> */}
-                  <PhoneFilled className="w-5 h-5" />
-                </Link>
-                <Link className="inline-block m-2" to="#">
-                  {/* <UilEye className="w-4 text-light-extra dark:text-white60" /> */}
-                  <VideoCameraOutlined className="w-5 h-5" />
-                </Link>
-              </div>
-            </Link>
-          </li>
-          <li>
-            <Link
-              to="#"
-              className="inline-flex justify-between items-center hover:bg-shadow-transparent text-light dark:text-white60 dark:hover:text-white hover:text-primary dark:hover:bg-white10 dark:rounded-4 hover:pl-6 w-full px-2.5 py-3 text-sm transition-all ease-in-out delay-150"
-            >
-              <div className="inline-flex items-center">
-                <UilUser className="w-4 h-4 ltr:mr-3 rtl:ml-3" /> Roshid Khan
-              </div>
-              <div className="inline-flex items-center">
-                <Link className="inline-block m-2" to="/admin/main/chat/private/rosid@gmail.com">
-                  <UilEye className="w-5 h-5" />
-                </Link>
-                <Link className="inline-block m-2" to="#">
-                  {/* <UilEye className="w-4 text-light-extra dark:text-white60" /> */}
-                  <PhoneFilled className="w-5 h-5" />
-                </Link>
-                <Link className="inline-block m-2" to="#">
-                  {/* <UilEye className="w-4 text-light-extra dark:text-white60" /> */}
-                  <VideoCameraOutlined className="w-5 h-5" />
-                </Link>
-              </div>
-            </Link>
-          </li>
-          <li>
-            <Link
-              to="#"
-              className="inline-flex justify-between items-center hover:bg-shadow-transparent text-light dark:text-white60 dark:hover:text-white hover:text-primary dark:hover:bg-white10 dark:rounded-4 hover:pl-6 w-full px-2.5 py-3 text-sm transition-all ease-in-out delay-150"
-            >
-              <div className="inline-flex items-center">
-                <UilUser className="w-4 h-4 ltr:mr-3 rtl:ml-3" /> Domnic Harys
-              </div>
-              <div className="inline-flex items-center">
-                <Link className="inline-block m-2" to="/admin/main/chat/private/domic@gmail.com">
-                  <UilEye className="w-5 h-5" />
-                </Link>
-                <Link className="inline-block m-2" to="#">
-                  {/* <UilEye className="w-4 text-light-extra dark:text-white60" /> */}
-                  <PhoneFilled className="w-5 h-5" />
-                </Link>
-                <Link className="inline-block m-2" to="#">
-                  {/* <UilEye className="w-4 text-light-extra dark:text-white60" /> */}
-                  <VideoCameraOutlined className="w-5 h-5" />
-                </Link>
-              </div>
-            </Link>
-          </li>
-        </ul>
-      </div>
-    </div>
-  );
+const { Text } = Typography;
+const AppHeader = () => {
+  const dispatch = useDispatch();
 
   return (
     <Header
@@ -172,40 +79,19 @@ const AppHeader = ({ onCall, setOnCall }) => {
           </div>
 
           <div className="flex flex-row items-center md:hidden">
-            <TopMenuSearch>
-              <div className="flex gap-2 top-right-wrap">
-                <Popover placement="bottomRight" content={userContent} action="click">
-                  <Button
-                    style={{ width: '32px' }}
-                    size="default"
-                    className="bg-green-500 hover:bg-white hover:text-green-500 border-solid border-1 border-green-500 text-white font-semibold flex items-center justify-center rounded-full p-[16px] "
-                    onClick={toggleCall}
-                  >
-                    <PhoneFilled className="w-[14px] h-[14px]" />
-                  </Button>
-                </Popover>
-
-                <Popover placement="bottomRight" content={userContent} action="click">
-                  <Button
-                    style={{ width: '32px' }}
-                    size="default"
-                    className="bg-green-500 hover:bg-white hover:text-green-500 border-solid border-1 border-green-500 text-white font-semibold flex items-center justify-center rounded-full p-[16px] "
-                  >
-                    <VideoCameraOutlined className="w-[14px] h-[14px]" />
-                  </Button>
-                </Popover>
-
-                <Popover placement="bottomRight" content={userContent} action="click">
-                  <Button
-                    style={{ width: '32px' }}
-                    size="default"
-                    className="bg-primary hover:bg-white hover:text-primary border-solid border-1 border-primary text-white font-semibold flex items-center justify-center rounded-full p-[16px] "
-                  >
-                    <TeamOutlined className="w-[14px] h-[14px]" />
-                  </Button>
-                </Popover>
-              </div>
-            </TopMenuSearch>
+            <div className="flex gap-2 top-right-wrap">
+              <Button
+                size="default"
+                className="bg-primary hover:bg-white hover:text-primary border-solid border-1 border-primary text-white flex flex-row items-center justify-between gap-2 p-[16px] rounded-full"
+                onClick={() => {
+                  dispatch(setDrawer(true));
+                  dispatch(setDrawerChildren(<Contacts />));
+                }}
+              >
+                Collaborate
+                <MdGroups size={20} />
+              </Button>
+            </div>
           </div>
         </div>
       </div>

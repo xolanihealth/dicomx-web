@@ -8,7 +8,7 @@ function PageHeader(props) {
   const { title, subTitle, routes, buttons, ghost, bgColor, className } = props;
   const breadcrumb = routes ? (
     <Breadcrumb
-      className="flex order-2 relative top-1.5"
+      className="flex order-2 relative"
       separator={<span className="inline-flex bg-light-extra relative -top-0.5 w-1 h-1 rounded-full" />}
     >
       {routes.map((route, index) =>
@@ -38,7 +38,7 @@ function PageHeader(props) {
   return (
     <HeaderWrapper bgColor={bgColor}>
       <PageHeaderStyle
-        className={`${className}`}
+        className={`${className} py-0`}
         title={title}
         subTitle={subTitle}
         breadcrumb={breadcrumb}

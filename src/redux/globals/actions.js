@@ -1,12 +1,21 @@
-import { SET_DRAWER, SET_DRAWER_CHILDREN } from './types';
+import { SET_DRAWER, SET_DRAWER_CHILDREN, SET_LOCAL_STREAM, SET_ON_CALL } from './types';
 
 export const setDrawer = (payload) => ({
   type: SET_DRAWER,
   payload,
 });
 
-export const setDrawerChildren = (payload, onDismiss) => ({
+export const setDrawerChildren = (payload) => ({
   type: SET_DRAWER_CHILDREN,
   payload,
-  onDismiss: onDismiss || (() => {}),
+});
+
+export const setLocalStream = (payload) => ({
+  type: SET_LOCAL_STREAM,
+  payload,
+});
+
+export const setOnCall = (payload) => ({
+  type: SET_ON_CALL,
+  payload,
 });

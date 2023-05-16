@@ -29,11 +29,7 @@ const ViewerMain = () => {
         className="flex-col w-full h-full flex  items-center justify-center relative "
       >
         <input {...getInputProps()} />
-        {isDragActive ? (
-          <p className=" text-gray-500 absolute">Drop file(s) here</p>
-        ) : (
-          acceptedFiles.length === 0 && <p className=" text-gray-500 absolute">Drag 'n' drop file(s) here</p>
-        )}
+        {isDragActive && <p className=" text-gray-500 absolute">Drop file(s) here</p>}
       </div>
     </div>
   );
