@@ -43,6 +43,7 @@ function SignIn() {
         .post('/login', { ...values, rememberMeCheckbox: true })
         .then(({ data }) => {
           Cookies.set('access_token', data.token);
+          Cookies.set('userId', data.user);
           Cookies.set('logedIn', true);
           dispatch(actions.loginSuccess(true));
           history('/admin');

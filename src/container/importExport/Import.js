@@ -7,6 +7,10 @@ import Heading from '../../components/heading/heading';
 import { AutoComplete } from '../../components/autoComplete/autoComplete';
 import FormElements from '../forms/FormElements';
 import FormLayout from '../forms/FormLayout';
+import { dateObjToString } from '../../utility/utility';
+import axios from 'axios';
+import { getItem } from '../../utility/localStorageControl';
+import { useNavigate } from 'react-router-dom';
 
 const { Search } = Input;
 const { Meta } = Card;
@@ -14,6 +18,7 @@ const onSearch = (value) => console.log(value);
 
 const { Dragger } = Upload;
 function Import() {
+  const history = useNavigate();
   const PageRoutes = [
     {
       path: '/admin',
@@ -50,9 +55,40 @@ function Import() {
       removeIcon: <UilTrashAlt />,
     },
   };
-
+  const client = axios.create({
+    baseURL: 'https://xolanihealth.cloud',
+    headers: {
+      Authorization: `Bearer ${getItem('access_token')}`,
+      'Content-Type': 'application/json',
+    },
+  });
   const onSubmitStudy = () => {
-    console.log(state);
+    const userId = getItem('userId');
+    const { file, patientName, date, modality, remotePhysician, referingPhysician, description } = state;
+    const formData = new FormData();
+
+    formData.append('patientName', patientName);
+    formData.append('file', file);
+    formData.append('date', date ? date.toISOString() : null);
+    formData.append('modality', modality);
+    formData.append('remotePhysician', remotePhysician);
+    formData.append('referingPhysician', referingPhysician);
+    formData.append('description', description);
+    formData.append('userId', userId);
+
+    client
+      .post('/add-studies', formData)
+      .then(({ data }) => {
+        console.log(data);
+        history('/admin/tables/dataTable');
+        message.success('Successfully uploaded study');
+      })
+      .catch((error) => {
+        message.error('Unable to upload study');
+      })
+      .finally(() => {
+        console.log('This request was made to login');
+      });
   };
   return (
     <>

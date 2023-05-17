@@ -24,19 +24,19 @@ function MultiColumnForm({ state, dispatch, onSubmitStudy }) {
                   placeholder="Patient name"
                 />
               </Form.Item>
+              <Form.Item name="refering_physician">
+                <Input
+                  value={referingPhysician}
+                  onChange={(e) => dispatch({ referingPhysician: e.target.value })}
+                  placeholder="Refering Physician"
+                />
+              </Form.Item>
               <Form.Item label="Modality" name="modality">
                 <Select onChange={(e) => dispatch({ modality: e })}>
                   {modalities.map((val) => (
                     <Select.Option value={val}>{val}</Select.Option>
                   ))}
                 </Select>
-              </Form.Item>
-              <Form.Item name="description">
-                <TextArea
-                  value={description}
-                  onChange={(e) => dispatch({ description: e.target.value })}
-                  placeholder="Description"
-                />
               </Form.Item>
             </Col>
             <Col sm={12} xs={24} className="mb-25">
@@ -52,6 +52,13 @@ function MultiColumnForm({ state, dispatch, onSubmitStudy }) {
                   value={remotePhysician}
                   onChange={(e) => dispatch({ remotePhysician: e.target.value })}
                   placeholder="Remote Physician"
+                />
+              </Form.Item>
+              <Form.Item name="description">
+                <TextArea
+                  value={description}
+                  onChange={(e) => dispatch({ description: e.target.value })}
+                  placeholder="Description"
                 />
               </Form.Item>
             </Col>

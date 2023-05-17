@@ -15,7 +15,7 @@ import {
 } from '@ant-design/icons';
 import { setDrawer, setDrawerChildren } from '../redux/globals/actions';
 import Contacts from '../components/Contacts';
-import { MdGroups } from 'react-icons/md';
+import { MdGroups, MdPhoneEnabled, MdVideocam } from 'react-icons/md';
 
 const { theme } = require('../config/theme/themeVariables');
 
@@ -80,6 +80,26 @@ const AppHeader = () => {
 
           <div className="flex flex-row items-center md:hidden">
             <div className="flex gap-2 top-right-wrap">
+              <Button
+                onClick={() => {
+                  dispatch(setDrawer(true));
+                  dispatch(setDrawerChildren(<Contacts />));
+                }}
+                title="Start Call"
+                className="rounded-full flex flex-col justify-center items-center w-8 h-8 bg-green-500 border-0 text-white"
+              >
+                <MdPhoneEnabled size={20} />
+              </Button>
+              <Button
+                onClick={() => {
+                  dispatch(setDrawer(true));
+                  dispatch(setDrawerChildren(<Contacts />));
+                }}
+                title="Start Call"
+                className="rounded-full flex flex-col justify-center items-center w-8 h-8 bg-green-500 text-white border-0"
+              >
+                <MdVideocam size={20} />
+              </Button>
               <Button
                 size="default"
                 className="bg-primary hover:bg-white hover:text-primary border-solid border-1 border-primary text-white flex flex-row items-center justify-between gap-2 p-[16px] rounded-full"
