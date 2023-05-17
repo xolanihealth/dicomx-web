@@ -1,9 +1,11 @@
 import React from 'react';
-import { Row, Col, Form, Input, Button, DatePicker } from 'antd';
+import { Row, Col, Form, Input, Button, DatePicker, Select } from 'antd';
 
 const { TextArea } = Input;
 
-function MultiColumnForm() {
+function MultiColumnForm({ state, dispatch, onSubmitStudy }) {
+  const modalities = ['CT', 'MRI', 'PET', 'X-RAY', 'Ultrasound'];
+  const { patientName, modality, date, remotePhysician, referingPhysician, description } = state;
   return (
     <div className="bg-white dark:bg-white10 m-0 p-0 text-theme-gray dark:text-white60 text-[15px] rounded-10 relative h-full border">
       <div className="h-[60px] px-[25px] text-dark dark:text-white87 font-medium text-[17px] border-regular dark:border-white10 border-b">
@@ -16,21 +18,41 @@ function MultiColumnForm() {
           <Row gutter={30}>
             <Col sm={12} xs={24} className="mb-25">
               <Form.Item name="patient_name">
-                <Input placeholder="Patient name" />
+                <Input
+                  value={patientName}
+                  onChange={(e) => dispatch({ patientName: e.target.value })}
+                  placeholder="Patient name"
+                />
               </Form.Item>
-              <Form.Item name="modality">
-                <Input placeholder="Modality" />
+              <Form.Item label="Modality" name="modality">
+                <Select onChange={(e) => dispatch({ modality: e })}>
+                  {modalities.map((val) => (
+                    <Select.Option value={val}>{val}</Select.Option>
+                  ))}
+                </Select>
               </Form.Item>
               <Form.Item name="description">
-                <TextArea placeholder="Description" />
+                <TextArea
+                  value={description}
+                  onChange={(e) => dispatch({ description: e.target.value })}
+                  placeholder="Description"
+                />
               </Form.Item>
             </Col>
             <Col sm={12} xs={24} className="mb-25">
               <Form.Item name="datetime">
-                <DatePicker placeholder="Date" className="border-normal dark:border-white10 h-[50px] min-w-[250px]" />
+                <DatePicker
+                  onChange={(e) => dispatch({ date: e })}
+                  placeholder="Date"
+                  className="border-normal dark:border-white10 h-[50px] min-w-[250px]"
+                />
               </Form.Item>
-              <Form.Item name="refering_physician">
-                <Input placeholder="Refering physician" />
+              <Form.Item name="remote_physician">
+                <Input
+                  value={remotePhysician}
+                  onChange={(e) => dispatch({ remotePhysician: e.target.value })}
+                  placeholder="Remote Physician"
+                />
               </Form.Item>
             </Col>
           </Row>
@@ -49,6 +71,7 @@ function MultiColumnForm() {
                   className="bg-primary hover:bg-hbr-primary border-solid border-1 border-primary text-white dark:text-white87 text-[14px] font-semibold leading-[22px] inline-flex items-center justify-center rounded-[4px] px-[20px] h-[44px]"
                   type="primary"
                   size="large"
+                  onClick={() => onSubmitStudy()}
                 >
                   Upload
                 </Button>

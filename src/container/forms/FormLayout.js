@@ -8,13 +8,13 @@ import { MultiColumnForm } from './overview/MultiColumnForm';
 
 import { PageHeader } from '../../components/page-headers/page-headers';
 
-function FormLayout() {
+function FormLayout({ dispatch, state, onSubmitStudy }) {
   return (
     <>
       <main className="min-h-[715px] lg:min-h-[580px] mt-3 pb-[30px] bg-transparent">
         <Row>
           <Col xs={24}>
-            <MultiColumnForm />
+            <MultiColumnForm dispatch={dispatch} state={state} onSubmitStudy={onSubmitStudy} />
           </Col>
         </Row>
       </main>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useReducer, useState } from 'react';
 import { Row, Col, Upload, message, Divider, Input, Avatar, Card, Skeleton, Switch } from 'antd';
 import UilUpload from '@iconscout/react-unicons/icons/uil-upload';
 import UilTrashAlt from '@iconscout/react-unicons/icons/uil-trash-alt';
@@ -24,11 +24,15 @@ function Import() {
       breadcrumbName: 'Radiologists',
     },
   ];
-  const [state, setState] = useState({
+  const initialState = {
     file: null,
-    list: null,
-    submitValues: {},
-  });
+    patientName: '',
+    date: '',
+    modality: '',
+    remotePhysician: '',
+    referingPhysician: '',
+  };
+  const [state, dispatch] = useReducer((prevState, value) => ({ ...prevState, ...value }), initialState);
 
   const [loading, setLoading] = useState(true);
   const onChange = (checked) => {
@@ -37,26 +41,18 @@ function Import() {
 
   const fileUploadProps = {
     name: 'file',
-    multiple: true,
-    // action: 'https://xolanihealth.cloud/upload-dicomx',
+    multiple: false,
     onChange(info) {
-      const { status } = info.file;
-      console.log(info.file);
-      if (status !== 'uploading') {
-        setState({ ...state, file: info.file, list: info.fileList });
-      }
-      if (status === 'done') {
-        message.success(`${info.file.name} file uploaded successfully.`);
-      } else if (status === 'error') {
-        message.error(`${info.file.name} file upload failed.`);
-      }
+      dispatch({ file: info.file.originFileObj });
     },
-    listType: 'picture',
-    defaultFileList: [],
     showUploadList: {
       showRemoveIcon: true,
       removeIcon: <UilTrashAlt />,
     },
+  };
+
+  const onSubmitStudy = () => {
+    console.log(state);
   };
   return (
     <>
@@ -90,7 +86,7 @@ function Import() {
               </Dragger>
             </div>
             <Col span={24}>
-              <FormLayout />
+              <FormLayout onSubmitStudy={onSubmitStudy} dispatch={dispatch} state={state} />
             </Col>
           </Col>
           <Col span={6}>

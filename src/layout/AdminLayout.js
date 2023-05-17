@@ -3,7 +3,7 @@ import { Button, Col, Layout, Row } from 'antd';
 import propTypes from 'prop-types';
 import { Component, useState } from 'react';
 import { Scrollbars } from 'react-custom-scrollbars';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import MenueItems from './MenueItems';
@@ -18,6 +18,8 @@ import UilLayers from '@iconscout/react-unicons/icons/uil-layers';
 import { PhoneFilled, VideoCameraOutlined, ContactsFilled } from '@ant-design/icons';
 import AppHeader from './AppHeader';
 import ControlPanel from '../components/Call/components/ControlPanel';
+import { Drawer } from '../components/drawer/drawer';
+import CallView from '../components/Call/components/CallView';
 const { theme } = require('../config/theme/themeVariables');
 
 const { Header, Sider, Content } = Layout;
@@ -25,14 +27,15 @@ const { Header, Sider, Content } = Layout;
 const AdminLayout = ({ props, children }) => {
   const location = useLocation();
   const splitPath = location.pathname.split('/')[2];
-  const [onCall, setOnCall] = useState(true);
+  const { onCall } = useSelector((state) => state.globals);
   return (
     <LayoutContainer>
       <Layout className="layout">
-        {onCall && <ControlPanel />}
-
+        <ControlPanel />
+        {onCall && <CallView />}
+        <Drawer />
         <Layout>
-          <AppHeader onCall={onCall} setOnCall={setOnCall} />
+          <AppHeader />
           {splitPath != 'viewer' && (
             <Sider
               width={280}
@@ -52,7 +55,7 @@ const AdminLayout = ({ props, children }) => {
           )}
 
           <Layout className={splitPath != 'viewer' ? 'atbd-main-layout' : 'mt-14'}>
-            <Content>
+            <Content c>
               {children}
               {splitPath != 'viewer' && (
                 <FooterStyle className="bg-white dark:bg-[#1B1E2B] fixed bottom-0">
@@ -64,19 +67,6 @@ const AdminLayout = ({ props, children }) => {
                           Xolani Health Inc.
                         </Link>
                       </span>
-                    </Col>
-                    <Col md={12} xs={24}>
-                      <div className="justify-end md:justify-center items-center flex gap-[15px]">
-                        {/* <NavLink className="text-theme-gray dark:text-white60 text-[14px] hover:text-primary" to="#">
-                            About
-                          </NavLink>
-                          <NavLink className="text-theme-gray dark:text-white60 text-[14px] hover:text-primary" to="#">
-                            Team
-                          </NavLink>
-                          <NavLink className="text-theme-gray dark:text-white60 text-[14px] hover:text-primary" to="#">
-                            Contact
-                          </NavLink> */}
-                      </div>
                     </Col>
                   </Row>
                 </FooterStyle>

@@ -19,17 +19,19 @@
   bottom: 5px;
   left: 5px;
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 5px;
   flex-wrap: wrap;
   padding: 18px;
-  gap: 3px;
-  grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+  /* grid-template-columns: repeat(auto-fill, minmax(50px, 1fr)); */
   transition: all ease-out 1000ms;
   animation: panel-animation 1s linear;
 
   /* animation-timing-function: cubic-bezier(0.27, 0.35, 0.71, 1.68); */
   /* animation-iteration-count: 1; */
   z-index: 1000;
-  padding: 40px 12px 10px;
+  padding: 40px 12px;
   /* box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px; */
 }
 @keyframes blink {
@@ -57,4 +59,44 @@
   height: 50px !important;
   background-color: #ff5e5e !important;
   animation: blink 2s ease-in-out infinite;
+}
+
+.call-view-container {
+  position: fixed;
+  bottom: 5px;
+  left: 255px;
+  display: flex;
+  flex-direction: row;
+
+  gap: 3px;
+  z-index: 1000;
+  height: 250px;
+  width: calc(100vw - 250px);
+  overflow: hidden;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+}
+
+.call-view-inner {
+  width: 100%;
+  height: 100%;
+  transform: translateX(0%);
+  transition: transform 5s ease;
+}
+
+.local-stream-container {
+  width: 250px;
+  height: 100%;
+  background-color: #27272b;
+  border-radius: 10px;
+  position: relative;
+}
+
+.remote-stream-container {
+}
+
+.remote-box {
+  width: 250px;
+  height: 100%;
+  background-color: #27272b;
+  border-radius: 10px;
 }
