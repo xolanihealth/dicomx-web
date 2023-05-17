@@ -11,8 +11,8 @@ import { PageHeader } from '../../components/page-headers/page-headers';
 function FormLayout() {
   return (
     <>
-      <main className="mt-3 pb-[30px] bg-transparent">
-        <Row gutter={25}>
+      <main className="min-h-[715px] lg:min-h-[580px] mt-3 pb-[30px] bg-transparent">
+        <Row>
           <Col xs={24}>
             <MultiColumnForm />
           </Col>

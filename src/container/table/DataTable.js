@@ -63,16 +63,16 @@ function DataTables() {
     TableData.map((item) => {
       const { id, name, modality, description, datetime, accession, instances, status } = item;
       return tableDataScource.push({
-        id: <span className="text-body dark:text-white60 text-[15px] font-medium">{`#${id}`}</span>,
-        user: <span className="text-body dark:text-white60 text-[15px] font-medium">{name}</span>,
-        modality: <span className="text-body dark:text-white60 text-[15px] font-medium">{modality}</span>,
-        description: <span className="text-body dark:text-white60 text-[15px] font-medium">{description}</span>,
-        datetime: <span className="text-body dark:text-white60 text-[15px] font-medium">{datetime}</span>,
-        accession: <span className="text-body dark:text-white60 text-[15px] font-medium">{accession}</span>,
-        instances: <span className="text-body dark:text-white60 text-[15px] font-medium">{instances}</span>,
+        id: <span className="text-body dark:text-white60 text-[12px] font-normal">{`#${id}`}</span>,
+        user: <span className="text-body dark:text-white60 text-[12px] font-normal">{name}</span>,
+        modality: <span className="text-body dark:text-white60 text-[12px] font-normal">{modality}</span>,
+        description: <span className="text-body dark:text-white60 text-[12px] font-normal">{description}</span>,
+        datetime: <span className="text-body dark:text-white60 text-[12px] font-normal">{datetime}</span>,
+        accession: <span className="text-body dark:text-white60 text-[12px] font-normal">{accession}</span>,
+        instances: <span className="text-body dark:text-white60 text-[12px] font-normal">{instances}</span>,
         status: (
           <span
-            className={`inline-flex items-center justify-center min-h-[24px] px-3 text-xs font-medium rounded-[15px]`}
+            className={`inline-flex items-center justify-center min-h-[24px] px-3 text-xs font-normal rounded-[15px]`}
           >
             {status}
           </span>

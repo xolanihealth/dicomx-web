@@ -37,20 +37,20 @@ function MultiColumnForm() {
           <Row>
             <Col sm={12} xs={24}>
               <div className="flex flex-wrap gap-[15px]">
-                <Button
+                {/* <Button
                   className="bg-theme-gray-transparent dark:bg-white30 hover:bg-hbr-gray dark:hover:bg-white10 border-none text-theme-gray dark:text-white60 hover:text-white text-[14px] font-semibold leading-[22px] inline-flex items-center justify-center rounded-[4px] px-[20px] h-[44px]"
                   htmlType="submit"
                   type="light"
                   size="large"
                 >
                   Cancel
-                </Button>
+                </Button> */}
                 <Button
                   className="bg-primary hover:bg-hbr-primary border-solid border-1 border-primary text-white dark:text-white87 text-[14px] font-semibold leading-[22px] inline-flex items-center justify-center rounded-[4px] px-[20px] h-[44px]"
                   type="primary"
                   size="large"
                 >
-                  Save
+                  Upload
                 </Button>
               </div>
             </Col>
