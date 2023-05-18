@@ -34,6 +34,7 @@ import {
 import { Peer } from 'peerjs';
 import { Modal } from '../components/modals/antd-modals';
 import { getItem } from '../utility/localStorageControl';
+import IncomingCallView from '../components/Call/components/IncomingCallView';
 const { Header, Sider, Content } = Layout;
 
 const AdminLayout = ({ props, children }) => {
@@ -69,6 +70,7 @@ const AdminLayout = ({ props, children }) => {
         dispatch(setIncomingCall(call));
         dispatch(setCaller(false));
 
+        console.log(call);
         dispatch(togglePopup(true));
         dispatch(setPopupChildren(<IncomingCallView />));
       });
