@@ -7,7 +7,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { contacts } from './datas';
 import { MdOutlineChat, MdOutlineMarkUnreadChatAlt, MdVideoCameraFront } from 'react-icons/md';
 import { FiVideo } from 'react-icons/fi';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setDrawer, setOnCall } from '../../redux/globals/actions';
 
 import useContacts from './hooks/useContacts';
@@ -16,8 +16,8 @@ import { getItem } from '../../utility/localStorageControl';
 const Contacts = () => {
   const history = useNavigate();
   const dispatch = useDispatch();
-
-  const { getContacts, contacts } = useContacts();
+  const { socket } = useSelector((state) => state.globals);
+  const { getContacts, contacts, onCallUser } = useContacts();
   useEffect(() => {
     if (!contacts?.length) {
       getContacts();
@@ -48,8 +48,7 @@ const Contacts = () => {
               </Button>
               <Button
                 onClick={() => {
-                  dispatch(setOnCall(true));
-                  dispatch(setDrawer(false));
+                  onCallUser(user?.id);
                 }}
                 className="flex justify-center items-center w-8 h-8 rounded-full text-green-500 hover:text-white hover:bg-green-500 border-0"
               >
@@ -57,8 +56,7 @@ const Contacts = () => {
               </Button>
               <Button
                 onClick={() => {
-                  dispatch(setOnCall(true));
-                  dispatch(setDrawer(false));
+                  onCallUser(user?.id);
                 }}
                 className="flex flex-col justify-center items-center w-8 h-8 rounded-full text-gray-900 hover:text-white hover:bg-gray-900 border-0"
               >
