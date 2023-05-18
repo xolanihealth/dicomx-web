@@ -1,3 +1,4 @@
+import { message } from 'antd';
 import axios from 'axios';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -31,8 +32,58 @@ const useContacts = () => {
     console.log(userId);
     dispatch(setDrawer(false));
     dispatch(setOnCall(true));
-    socket.emit('call', { userId }, (res) => {
-      console.log(res);
+    socket.emit('call', userId, ({ status, data }) => {
+      if (!status) {
+        message.error(t('somethingHappen'));
+        goBack();
+      }
+      if (data.peerId) {
+        // try {
+        //   setOnCall(true)
+        //   if (!localPeer) {
+        //     console.log("no local peer");
+        //     goBack();
+        //   } else {
+        //     localPeer.on("error", (err) => {
+        //       console.log(err);
+        //       // if (!err.message.includes("Could not connect to peer")) {
+        //       //   toast.err(err.message);
+        //       //   goBack();
+        //       // }
+        //     });
+        //   }
+        //   const call = localPeer.call(data.peer_id, localStream, {
+        //     metadata: JSON.stringify({
+        //       user: myData,
+        //       callType: callType,
+        //     }),
+        //   });
+        //   if (call) {
+        //     call.on("error", (err = new Error()) => {
+        //       console.log(err.message, "on call error");
+        //     });
+        //     setCalling(true);
+        //     setOutgoingCall(call);
+        //     setCaller(true);
+        //     call.on("stream", (rStream) => {
+        //       //   InCallManager.stopRingback();
+        //       setOnCall(true);
+        //       setCalling(false);
+        //       setRemoteStream(rStream);
+        //       remoteStreamRef.current.srcObject = rStream;
+        //     });
+        //     call.on("close", () => {
+        //       endCall(call);
+        //       console.log("Call should end");
+        //     });
+        //   } else {
+        //     toast.error(t("unableToCall"));
+        //     goBack();
+        //   }
+        // } catch (error) {
+        //   toast.error(error?.message);
+        // }
+      }
     });
   };
   return { getContacts, contacts, onCallUser };
