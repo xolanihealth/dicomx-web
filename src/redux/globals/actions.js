@@ -9,6 +9,7 @@ import {
   SET_OUTGOING_CALL,
   SET_PEER,
   SET_POPUP_CHILDREN,
+  SET_REMOTE_PEER,
   SET_REMOTE_STREAM,
   SET_SHOW_POPUP,
   SET_SOCKET,
@@ -76,5 +77,10 @@ export const togglePopup = (payload) => ({
 
 export const setPopupChildren = (payload, onDismiss) => ({
   type: SET_POPUP_CHILDREN,
+  payload,
+});
+
+export const setRemotePeer = (payload) => ({
+  type: SET_REMOTE_PEER,
   payload,
 });

@@ -1,14 +1,17 @@
 import React, { useEffect, useReducer, useRef, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import { setLocalStream, setOnCall } from '../../../redux/globals/actions';
+import { setLocalStream, setOnCall, setOutgoingCall, setRemoteStream } from '../../../redux/globals/actions';
 
 const useCall = () => {
   const localStreamRef = useRef(null);
+  const remoteStreamRef = useRef(null);
   const myAudioTrack = useRef(null);
   const myVideoTrack = useRef(null);
   const [tracks, setTracks] = useState(null);
-
+  const { localStream, onCall, caller, calling, peer, remotePeer, incomingCall } = useSelector(
+    (state) => state.globals,
+  );
   const initialState = {
     audioMode: true,
     videoMode: true,
@@ -34,6 +37,26 @@ const useCall = () => {
             reduxDispatcher(setLocalStream(deviceStream));
 
             localStreamRef.current.srcObject = deviceStream;
+
+            if (caller) {
+              const call = peer.call(remotePeer, deviceStream, {
+                metadata: JSON.stringify({
+                  user: {},
+                }),
+              });
+              dispatch(setOutgoingCall(call));
+              call.on('stream', (rStream) => {
+                dispatch(setRemoteStream(rStream));
+                remoteStreamRef.current.srcObject = rStream;
+              });
+              console.log('This is call ==>>', call);
+            } else {
+              incomingCall.answer(deviceStream);
+              incomingCall.on('stream', (rStream) => {
+                dispatch(setRemoteStream(rStream));
+                remoteStreamRef.current.srcObject = rStream;
+              });
+            }
           })
           .catch((err) => {
             toast.error(err.message);
@@ -69,7 +92,17 @@ const useCall = () => {
     reduxDispatcher(setLocalStream(null));
     localStreamRef.current = null;
   };
-  return { localStreamRef, getDeviceStream, toggleMic, toggleVideo, state, endCall, myVideoTrack, myAudioTrack };
+  return {
+    localStreamRef,
+    getDeviceStream,
+    toggleMic,
+    toggleVideo,
+    state,
+    endCall,
+    myVideoTrack,
+    myAudioTrack,
+    remoteStreamRef,
+  };
 };
 
 export default useCall;

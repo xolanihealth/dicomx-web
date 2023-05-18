@@ -2,13 +2,13 @@ import { message } from 'antd';
 import axios from 'axios';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setDrawer, setOnCall } from '../../../redux/globals/actions';
+import { setCaller, setCalling, setDrawer, setOnCall, setRemotePeer } from '../../../redux/globals/actions';
 import { setContacts } from '../../../redux/users/actions';
 import { getItem } from '../../../utility/localStorageControl';
 
 const useContacts = () => {
   const contacts = useSelector((state) => state.user.contacts);
-  const { socket } = useSelector((state) => state.globals);
+  const { socket, peer } = useSelector((state) => state.globals);
   const dispatch = useDispatch();
   const client = axios.create({
     baseURL: 'https://xolanihealth.cloud',
@@ -29,63 +29,64 @@ const useContacts = () => {
   };
 
   const onCallUser = (userId) => {
-    console.log(userId);
-    dispatch(setDrawer(false));
-    dispatch(setOnCall(true));
     socket.emit('call', userId, ({ status, data }) => {
+      console.log(' status ==>>', status);
+      console.log(' data ==>>', data);
+
       if (!status) {
-        message.error(t('somethingHappen'));
-        goBack();
+        message.error('Something went wrong');
       }
       if (data.peerId) {
-        // try {
-        //   setOnCall(true)
-        //   if (!localPeer) {
-        //     console.log("no local peer");
-        //     goBack();
-        //   } else {
-        //     localPeer.on("error", (err) => {
-        //       console.log(err);
-        //       // if (!err.message.includes("Could not connect to peer")) {
-        //       //   toast.err(err.message);
-        //       //   goBack();
-        //       // }
-        //     });
-        //   }
-        //   const call = localPeer.call(data.peer_id, localStream, {
-        //     metadata: JSON.stringify({
-        //       user: myData,
-        //       callType: callType,
-        //     }),
-        //   });
-        //   if (call) {
-        //     call.on("error", (err = new Error()) => {
-        //       console.log(err.message, "on call error");
-        //     });
-        //     setCalling(true);
-        //     setOutgoingCall(call);
-        //     setCaller(true);
-        //     call.on("stream", (rStream) => {
-        //       //   InCallManager.stopRingback();
-        //       setOnCall(true);
-        //       setCalling(false);
-        //       setRemoteStream(rStream);
-        //       remoteStreamRef.current.srcObject = rStream;
-        //     });
-        //     call.on("close", () => {
-        //       endCall(call);
-        //       console.log("Call should end");
-        //     });
-        //   } else {
-        //     toast.error(t("unableToCall"));
-        //     goBack();
-        //   }
-        // } catch (error) {
-        //   toast.error(error?.message);
-        // }
+        dispatch(setRemotePeer(data.peerId.peerId));
+        try {
+          if (!peer) {
+            console.log('no local peer');
+          } else {
+            dispatch(setCalling(true));
+
+            dispatch(setCaller(true));
+            peer.on('error', (err) => {
+              console.log(err);
+            });
+            dispatch(setOnCall(true));
+            dispatch(setDrawer(false));
+          }
+        } catch (error) {
+          message.error(error?.message);
+        }
       }
     });
   };
+
+  // if (call) {
+  //   // InCallManager.start({
+  //   //   media: callType == "voice" ? "audio" : "video",
+  //   //   ringback: "_DTMF_",
+  //   // });
+  //   // InCallManager.setForceSpeakerphoneOn(true);
+  //   call.on("error", (err = new Error()) => {
+  //     console.log(err.message, "on call error");
+  //   });
+  //   setCalling(true);
+  //   setOutgoingCall(call);
+  //   setCaller(true);
+  //   call.on("stream", (rStream) => {
+  //     //   InCallManager.stopRingback();
+
+  //     setOnCall(true);
+  //     setCalling(false);
+  //     setRemoteStream(rStream);
+  //     remoteStreamRef.current.srcObject = rStream;
+  //   });
+
+  //   call.on("close", () => {
+  //     endCall(call);
+  //     console.log("Call should end");
+  //   });
+  // } else {
+  //   toast.error(t("unableToCall"));
+  //   goBack();
+  // }
   return { getContacts, contacts, onCallUser };
 };
 

@@ -22,7 +22,15 @@ import { Drawer } from '../components/drawer/drawer';
 import CallView from '../components/Call/components/CallView';
 const { theme } = require('../config/theme/themeVariables');
 import io from 'socket.io-client';
-import { setCaller, setCalling, setIncomingCall, setPeer, setSocket } from '../redux/globals/actions';
+import {
+  setCaller,
+  setCalling,
+  setIncomingCall,
+  setPeer,
+  setPopupChildren,
+  setSocket,
+  togglePopup,
+} from '../redux/globals/actions';
 import { Peer } from 'peerjs';
 import { Modal } from '../components/modals/antd-modals';
 import { getItem } from '../utility/localStorageControl';
@@ -36,7 +44,6 @@ const AdminLayout = ({ props, children }) => {
 
   const socketConnection = io.connect('https://xolanihealth.cloud');
   const userId = getItem('userId');
-
   useEffect(() => {
     if (!socket || !socket?.connected) {
       dispatch(setSocket(socketConnection));
@@ -62,12 +69,8 @@ const AdminLayout = ({ props, children }) => {
         dispatch(setIncomingCall(call));
         dispatch(setCaller(false));
 
-        navigate('media_call', {
-          state: {
-            call: data.callType,
-            endUser: data.user,
-          },
-        });
+        dispatch(togglePopup(true));
+        dispatch(setPopupChildren(<IncomingCallView />));
       });
 
       localPeer.on('disconnected', () => {

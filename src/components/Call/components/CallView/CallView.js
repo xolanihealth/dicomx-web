@@ -17,7 +17,7 @@ import {
 } from 'react-icons/md';
 const { Text } = Typography;
 const CallView = () => {
-  const { localStream, onCall } = useSelector((state) => state.globals);
+  const { localStream, onCall, caller, calling, remoteStream, remoteStreamRef } = useSelector((state) => state.globals);
 
   const { getDeviceStream, localStreamRef, toggleMic, toggleVideo, state } = useCall();
   const { audioMode, videoMode } = state;
@@ -25,7 +25,7 @@ const CallView = () => {
     if (!localStream) {
       getDeviceStream();
     }
-  }, []);
+  }, [calling, caller, remoteStream]);
   return (
     <div className="call-view-container shadow-2xl">
       <div className="call-view-inner flex flex-row gap-2">
@@ -72,16 +72,31 @@ const CallView = () => {
         </div>
         <div className="remote-stream-container flex flex-row gap-2">
           <div className="remote-box flex flex-col text-gray-400 items-center gap-2 pt-4">
-            <IoPersonCircle size={72} />
-            <Text
-              className="text-white text-lg text-center"
-              style={{ width: '200px' }}
-              ellipsis={true}
-              title="Md. Rofiq"
-            >
-              Md. Rofiq
-            </Text>
-            <Text className="text-gray-400">Calling...</Text>
+            {remoteStream ? (
+              <video
+                ref={remoteStreamRef}
+                autoPlay
+                playsInline
+                style={{
+                  flex: 1,
+                  width: '100%',
+                  height: '100%',
+                }}
+              />
+            ) : (
+              <>
+                <IoPersonCircle size={72} />
+                <Text
+                  className="text-white text-lg text-center"
+                  style={{ width: '200px' }}
+                  ellipsis={true}
+                  title="User"
+                >
+                  User
+                </Text>
+                <Text className="text-gray-400">Calling...</Text>
+              </>
+            )}
           </div>
         </div>
       </div>

@@ -9,6 +9,7 @@ import {
   SET_OUTGOING_CALL,
   SET_PEER,
   SET_POPUP_CHILDREN,
+  SET_REMOTE_PEER,
   SET_REMOTE_STREAM,
   SET_SHOW_POPUP,
   SET_SOCKET,
@@ -32,6 +33,7 @@ const defaultState = {
 
   showPopup: false,
   popupChildren: null,
+  remotePeer: null,
 };
 
 export const globalReducer = (state = defaultState, action) => {
@@ -61,7 +63,6 @@ export const globalReducer = (state = defaultState, action) => {
         ...state,
         popupChildren: action.payload,
       };
-
     case SET_SOCKET:
       return { ...state, socket: action.payload };
     case SET_PEER:
@@ -77,6 +78,8 @@ export const globalReducer = (state = defaultState, action) => {
       return { ...state, caller: action.payload };
     case SET_REMOTE_STREAM:
       return { ...state, remoteStream: action.payload };
+    case SET_REMOTE_PEER:
+      return { ...state, remotePeer: action.payload };
 
     default:
       return state;

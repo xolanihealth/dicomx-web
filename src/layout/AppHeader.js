@@ -82,9 +82,13 @@ const AppHeader = () => {
           <div className="flex flex-row items-center md:hidden">
             <div className="flex gap-2 top-right-wrap">
               <Button
+                // onClick={() => {
+                //   dispatch(togglePopup(true));
+                //   dispatch(setPopupChildren(<IncomingCallView />));
+                // }}
                 onClick={() => {
-                  dispatch(togglePopup(true));
-                  dispatch(setPopupChildren(<IncomingCallView />));
+                  dispatch(setDrawer(true));
+                  dispatch(setDrawerChildren(<Contacts />));
                 }}
                 title="Start Call"
                 className="rounded-full flex flex-col justify-center items-center w-8 h-8 bg-green-500 border-0 text-white"
