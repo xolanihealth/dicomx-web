@@ -1,12 +1,21 @@
-import initialState from '../../demoData/usersData.json';
-import initialStateGroup from '../../demoData/usersGroupData.json';
+import { SET_CONTACTS } from './types';
 
-const userReducer = (state = initialState) => {
-  return state;
+const initialState = {
+  contacts: [],
 };
 
-const userGroupReducer = (state = initialStateGroup) => {
-  return state;
+const usersReducer = (state = initialState, action) => {
+  const { type, data, err } = action;
+  switch (type) {
+    case SET_CONTACTS:
+      return {
+        ...state,
+        contacts: data,
+      };
+
+    default:
+      return state;
+  }
 };
 
-export { userReducer, userGroupReducer };
+export default usersReducer;

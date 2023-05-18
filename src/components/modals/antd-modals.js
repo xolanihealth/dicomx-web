@@ -1,42 +1,35 @@
 import PropTypes, { object } from 'prop-types';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ModalStyled } from './styled';
 import { Button } from '../buttons/buttons';
+import { useDispatch, useSelector } from 'react-redux';
+import { setPopupChildren, togglePopup } from '../../redux/globals/actions';
+import './customStyle.css';
 
-function Modal(props) {
-  const { onCancel, className, onOk, visible, title, type, color, footer, width, children } = props;
+function Modal() {
+  const { showPopup, popupChildren } = useSelector((state) => state.globals);
+  const dispatch = useDispatch();
 
+  useEffect(() => {
+    if (showPopup === false) {
+      dispatch(setPopupChildren(null));
+    }
+  }, [showPopup]);
+
+  const onClose = () => {
+    dispatch(togglePopup(false));
+  };
   return (
     <ModalStyled
-      title={title}
-      visible={visible}
-      onOk={onOk}
-      onCancel={onCancel}
-      type={color ? type : false}
-      width={width}
-      className={className}
-      footer={
-        footer || footer === null
-          ? footer
-          : [
-              <Button type="secondary" key="back" onClick={onCancel}>
-                Cancel
-              </Button>,
-              <Button type={type} key="submit" onClick={onOk}>
-                Save Change
-              </Button>,
-            ]
-      }
+      visible={showPopup}
+      onCancel={onClose}
+      // type={color ? type : false}
+      footer={<></>}
     >
-      {children}
+      {popupChildren}
     </ModalStyled>
   );
 }
-
-Modal.defaultProps = {
-  width: 620,
-  className: 'atbd-modal',
-};
 
 Modal.propTypes = {
   onCancel: PropTypes.func,

@@ -1,0 +1,12 @@
+.ant-modal-footer {
+  display: none !important;
+}
+
+.ant-modal-body {
+  padding: 0 !important;
+}
+
+.ant-modal {
+  width: 250px !important;
+  border-radius: 10px;
+}

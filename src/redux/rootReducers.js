@@ -5,7 +5,7 @@ import { readNotificationReducer } from './notification/reducers';
 import authReducer from './authentication/reducers';
 import ChangeLayoutMode from './themeLayout/reducers';
 import { teamReducer } from './team/reducers';
-import { userReducer, userGroupReducer } from './users/reducers';
+import { userReducer, userGroupReducer } from './users-sample/reducers';
 import { sellersReducer } from './sellers/reducers';
 import { headerSearchReducer } from './headerSearch/reducers';
 import orderReducer from './orders/reducers';
@@ -29,6 +29,7 @@ import jobs from './jobs/reducers';
 import dataTable from './data-filter/reducers';
 import dicomReducer from './dicom/reducers';
 import { globalReducer } from './globals/reducers';
+import usersReducer from './users/reducers';
 
 const rootReducers = combineReducers({
   themeUsers: themeUsersReducer,
@@ -69,6 +70,7 @@ const rootReducers = combineReducers({
   SingleAxiosCrud: axiosSingleCrudReducer,
   dicom: dicomReducer,
   globals: globalReducer,
+  user: usersReducer,
 });
 
 export default rootReducers;

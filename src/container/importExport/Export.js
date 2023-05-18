@@ -8,7 +8,6 @@ import { PageHeader } from '../../components/page-headers/page-headers';
 import { Button } from '../../components/buttons/buttons';
 import { AutoComplete } from '../../components/autoComplete/autoComplete';
 import { contactSearchData } from '../../redux/contact/actionCreator';
-import { alertModal } from '../../components/modals/antd-modals';
 import { GlobalUtilityStyle, PaginationStyle } from '../styled';
 
 function Import() {
@@ -111,11 +110,7 @@ function Import() {
 
   const { isModalVisible } = state;
 
-  const warning = () => {
-    alertModal.warning({
-      title: 'Please Select your Required Rows!',
-    });
-  };
+  const warning = () => {};
 
   const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
   const xlsxExtension = '.xlsx';

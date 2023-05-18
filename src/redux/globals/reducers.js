@@ -1,10 +1,37 @@
-import { SET_DRAWER, SET_DRAWER_CHILDREN, SET_LOCAL_STREAM, SET_ON_CALL } from './types';
+import {
+  SET_CALLER,
+  SET_CALLING,
+  SET_DRAWER,
+  SET_DRAWER_CHILDREN,
+  SET_INCOMING_CALL,
+  SET_LOCAL_STREAM,
+  SET_ON_CALL,
+  SET_OUTGOING_CALL,
+  SET_PEER,
+  SET_POPUP_CHILDREN,
+  SET_REMOTE_STREAM,
+  SET_SHOW_POPUP,
+  SET_SOCKET,
+} from './types';
 
 const defaultState = {
   drawer: false,
   drawerChildren: null,
   localStream: null,
   onCall: false,
+
+  outgoingCall: null,
+  incomingCall: null,
+  caller: false,
+  remoteStream: null,
+  localStream: null,
+
+  socket: null,
+  peer: null,
+  calling: false,
+
+  showPopup: false,
+  popupChildren: null,
 };
 
 export const globalReducer = (state = defaultState, action) => {
@@ -26,6 +53,31 @@ export const globalReducer = (state = defaultState, action) => {
         ...state,
         onCall: action.payload,
       };
+
+    case SET_SHOW_POPUP:
+      return { ...state, showPopup: action.payload };
+    case SET_POPUP_CHILDREN:
+      return {
+        ...state,
+        popupChildren: action.payload,
+      };
+
+    case SET_SOCKET:
+      return { ...state, socket: action.payload };
+    case SET_PEER:
+      return { ...state, peer: action.payload };
+    case SET_CALLING:
+      return { ...state, calling: action.payload };
+
+    case SET_OUTGOING_CALL:
+      return { ...state, outgoingCall: action.payload };
+    case SET_INCOMING_CALL:
+      return { ...state, incomingCall: action.payload };
+    case SET_CALLER:
+      return { ...state, caller: action.payload };
+    case SET_REMOTE_STREAM:
+      return { ...state, remoteStream: action.payload };
+
     default:
       return state;
   }

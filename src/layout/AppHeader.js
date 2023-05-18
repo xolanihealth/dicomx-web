@@ -13,9 +13,10 @@ import {
   DesktopOutlined,
   UserSwitchOutlined,
 } from '@ant-design/icons';
-import { setDrawer, setDrawerChildren } from '../redux/globals/actions';
+import { setDrawer, setDrawerChildren, setPopupChildren, togglePopup } from '../redux/globals/actions';
 import Contacts from '../components/Contacts';
 import { MdGroups, MdPhoneEnabled, MdVideocam } from 'react-icons/md';
+import IncomingCallView from '../components/Call/components/IncomingCallView';
 
 const { theme } = require('../config/theme/themeVariables');
 
@@ -82,8 +83,8 @@ const AppHeader = () => {
             <div className="flex gap-2 top-right-wrap">
               <Button
                 onClick={() => {
-                  dispatch(setDrawer(true));
-                  dispatch(setDrawerChildren(<Contacts />));
+                  dispatch(togglePopup(true));
+                  dispatch(setPopupChildren(<IncomingCallView />));
                 }}
                 title="Start Call"
                 className="rounded-full flex flex-col justify-center items-center w-8 h-8 bg-green-500 border-0 text-white"

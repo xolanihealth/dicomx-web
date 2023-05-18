@@ -1,9 +1,9 @@
 import UilEllipsisV from '@iconscout/react-unicons/icons/uil-ellipsis-v';
 import { Button, Col, Layout, Row } from 'antd';
 import propTypes from 'prop-types';
-import { Component, useState } from 'react';
+import { Component, useCallback, useEffect, useState } from 'react';
 import { Scrollbars } from 'react-custom-scrollbars';
-import { connect, useSelector } from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import MenueItems from './MenueItems';
@@ -21,19 +21,102 @@ import ControlPanel from '../components/Call/components/ControlPanel';
 import { Drawer } from '../components/drawer/drawer';
 import CallView from '../components/Call/components/CallView';
 const { theme } = require('../config/theme/themeVariables');
-
+import io from 'socket.io-client';
+import { setCaller, setCalling, setIncomingCall, setPeer, setSocket } from '../redux/globals/actions';
+import { Peer } from 'peerjs';
+import { Modal } from '../components/modals/antd-modals';
 const { Header, Sider, Content } = Layout;
 
 const AdminLayout = ({ props, children }) => {
   const location = useLocation();
   const splitPath = location.pathname.split('/')[2];
-  const { onCall } = useSelector((state) => state.globals);
+  const { onCall, peer, socket } = useSelector((state) => state.globals);
+  const dispatch = useDispatch();
+
+  const socketConnection = io('http://localhost:3000', { transports: ['websocket'] });
+
+  useEffect(() => {
+    // if (!socket || !socket?.connected) {
+    dispatch(setSocket(socketConnection));
+    const localPeer = new Peer();
+    dispatch(setPeer(localPeer));
+    localPeer.on('open', (peerId) => {
+      console.log(peerId);
+      socketConnection.emit('peer_connected', { peerId }, (value) => {
+        if (value.status) {
+          console.log(value.message, 'is peer connected with peer id >> ', peerId);
+        } else {
+          console.log('Something went wrong connecting peer');
+        }
+      });
+    });
+
+    localPeer.on('call', (call) => {
+      call.on('close', () => {
+        console.log('Call should end');
+      });
+      const data = JSON.parse(`${call.metadata}`);
+      dispatch(setCalling(true));
+      dispatch(setIncomingCall(call));
+      dispatch(setCaller(false));
+
+      // navigate("media_call", {
+      //   state: {
+      //     call: data.callType,
+      //     endUser: data.user,
+      //   },
+      // });
+    });
+
+    localPeer.on('disconnected', () => {
+      localPeer.reconnect();
+    });
+    // } else if (socket && socket?.connected) {
+    //   const localPeer = new Peer();
+    //   dispatch(setPeer(localPeer));
+    //   localPeer.on('open', (peer_id) => {
+    //     socket.emit('peer_connected', { peer_id }, (value) => {
+    //       if (value.status) {
+    //         console.log(value.message, 'is peer connected');
+    //       } else {
+    //         console.log('Something went wrong connecting peer');
+    //       }
+    //     });
+    //   });
+
+    //   localPeer.on('call', (call) => {
+    //     // InCallManager.startRingtone("_BUNDLE_");
+    //     call.on('close', () => {
+    //       // bottomToast("Call Ended");
+    //       console.log('Call should end');
+    //     });
+    //     const data = JSON.parse(`${call.metadata}`);
+
+    //     dispatch(setCalling(true));
+    //     dispatch(setIncomingCall(call));
+    //     dispatch(setCaller(false));
+    //     // navigate("media_call", {
+    //     //   state: {
+    //     //     call: data.callType,
+    //     //     endUser: data.user,
+    //     //   },
+    //     // });
+    //   });
+
+    localPeer.on('disconnected', () => {
+      localPeer.reconnect();
+    });
+    // }
+  }, []);
+
   return (
     <LayoutContainer>
+      {console.log(socket)}
       <Layout className="layout">
         <ControlPanel />
         {onCall && <CallView />}
         <Drawer />
+        <Modal />
         <Layout>
           <AppHeader />
           {splitPath != 'viewer' && (
