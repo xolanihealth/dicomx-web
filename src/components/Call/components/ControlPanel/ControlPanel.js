@@ -38,17 +38,17 @@ const ControlPanel = () => {
       <Button
         onClick={toggleMinimized}
         title="Minimize panel"
-        className="absolute rounded-full right-0 top-0 w-7 h-7 p-1 bg-primary border-0"
+        className="absolute rounded-full right-0 top-0 w-5 h-5 p-1 bg-primary border-0"
       >
-        <FiMinimize2 size={15} />
+        <FiMinimize2 size={10} />
       </Button>
 
-      <Button
+      {/* <Button
         title="Meeting Info"
         className="rounded-full flex flex-col justify-center items-center w-8 h-8 bg-primary border-0"
       >
         <MdInfo size={20} />
-      </Button>
+      </Button> */}
 
       <Button
         title="Record Screen"
@@ -69,24 +69,13 @@ const ControlPanel = () => {
       >
         <BsChatLeftTextFill size={20} />
       </Button>
-      {onCall ? (
+      {onCall && (
         <Button
           onClick={() => endCall()}
           title="End Call"
           className="rounded-full flex flex-col justify-center items-center w-8 h-8 bg-red-500 border-0"
         >
           <MdPhoneDisabled color="white" size={20} />
-        </Button>
-      ) : (
-        <Button
-          onClick={() => {
-            dispatch(setDrawer(true));
-            dispatch(setDrawerChildren(<Contacts />));
-          }}
-          title="Start Call"
-          className="rounded-full flex flex-col justify-center items-center w-8 h-8 bg-primary border-0"
-        >
-          <MdPhoneEnabled size={20} />
         </Button>
       )}
     </div>

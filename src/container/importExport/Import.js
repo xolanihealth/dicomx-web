@@ -39,7 +39,7 @@ function Import() {
   };
   const [state, dispatch] = useReducer((prevState, value) => ({ ...prevState, ...value }), initialState);
 
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const onChange = (checked) => {
     setLoading(!checked);
   };
@@ -93,7 +93,7 @@ function Import() {
   return (
     <>
       <PageHeader
-        className="flex items-center justify-between px-8 xl:px-[15px] pt-2 pb-6 sm:pb-[30px] bg-transparent sm:flex-col"
+        className="flex items-center justify-between px-8 xl:px-[15px] pb-2 bg-transparent sm:flex-col"
         title="What do you want to do today?"
         routes={PageRoutes}
       />
@@ -149,7 +149,7 @@ function Import() {
               >
                 <Meta
                   avatar={<Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel&key=1" />}
-                  title="John Doe"
+                  title="John Maxwell"
                   description="Works at Elshadai hospital"
                 />
               </Card>
@@ -161,7 +161,7 @@ function Import() {
               >
                 <Meta
                   avatar={<Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel&key=1" />}
-                  title="Jane Doe"
+                  title="Jane Okon"
                   description="Works at Omega hospital"
                 />
               </Card>

@@ -102,13 +102,12 @@ const AppHeader = () => {
               </Button>
               <Button
                 size="default"
-                className="bg-primary hover:bg-white hover:text-primary border-solid border-1 border-primary text-white flex flex-row items-center justify-between gap-2 p-[16px] rounded-full"
+                className="rounded-full flex flex-col justify-center items-center w-8 h-8 bg-primary text-white border-0"
                 onClick={() => {
                   dispatch(setDrawer(true));
                   dispatch(setDrawerChildren(<Contacts />));
                 }}
               >
-                Collaborate
                 <MdGroups size={20} />
               </Button>
             </div>
