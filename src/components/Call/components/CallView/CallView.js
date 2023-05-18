@@ -17,15 +17,23 @@ import {
 } from 'react-icons/md';
 const { Text } = Typography;
 const CallView = () => {
-  const { localStream, onCall, caller, calling, remoteStream, remoteStreamRef } = useSelector((state) => state.globals);
+  const { localStream, onCall, caller, calling, remoteStream } = useSelector((state) => state.globals);
 
-  const { getDeviceStream, localStreamRef, toggleMic, toggleVideo, state } = useCall();
+  const { getDeviceStream, localStreamRef, toggleMic, toggleVideo, state, remoteStreamRef } = useCall();
   const { audioMode, videoMode } = state;
   useEffect(() => {
     if (!localStream) {
       getDeviceStream();
     }
+    if (remoteStreamRef && remoteStreamRef.current) {
+      remoteStreamRef.current.srcObject = remoteStream;
+    }
   }, [calling, caller, remoteStream]);
+  useEffect(() => {
+    if (remoteStream && remoteStreamRef && remoteStreamRef.current) {
+      remoteStreamRef.current.srcObject = remoteStream;
+    }
+  }, [remoteStream]);
   return (
     <div className="call-view-container shadow-2xl">
       <div className="call-view-inner flex flex-row gap-2">
@@ -82,6 +90,7 @@ const CallView = () => {
                   width: '100%',
                   height: '100%',
                 }}
+                className="z-10"
               />
             ) : (
               <>
