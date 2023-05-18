@@ -25,6 +25,7 @@ import io from 'socket.io-client';
 import { setCaller, setCalling, setIncomingCall, setPeer, setSocket } from '../redux/globals/actions';
 import { Peer } from 'peerjs';
 import { Modal } from '../components/modals/antd-modals';
+import { getItem } from '../utility/localStorageControl';
 const { Header, Sider, Content } = Layout;
 
 const AdminLayout = ({ props, children }) => {
@@ -33,85 +34,86 @@ const AdminLayout = ({ props, children }) => {
   const { onCall, peer, socket } = useSelector((state) => state.globals);
   const dispatch = useDispatch();
 
-  const socketConnection = io('https://xolanihealth.cloud', { transports: ['websocket'] });
+  const socketConnection = io.connect('https://xolanihealth.cloud');
+  const userId = getItem('userId');
 
   useEffect(() => {
-    // if (!socket || !socket?.connected) {
-    dispatch(setSocket(socketConnection));
-    const localPeer = new Peer();
-    dispatch(setPeer(localPeer));
-    localPeer.on('open', (peerId) => {
-      console.log(peerId);
-      socketConnection.emit('peer_connected', { peerId }, (value) => {
-        if (value.status) {
-          console.log(value.message, 'is peer connected with peer id >> ', peerId);
-        } else {
-          console.log('Something went wrong connecting peer');
-        }
+    if (!socket || !socket?.connected) {
+      dispatch(setSocket(socketConnection));
+      const localPeer = new Peer();
+      dispatch(setPeer(localPeer));
+      localPeer.on('open', (peerId) => {
+        console.log(peerId);
+        socketConnection.emit('peer_connected', { userId, peerId }, (value) => {
+          if (value.status) {
+            console.log(value.message, 'is peer connected with peer id >> ', peerId);
+          } else {
+            console.log('Something went wrong connecting peer');
+          }
+        });
       });
-    });
 
-    localPeer.on('call', (call) => {
-      call.on('close', () => {
-        console.log('Call should end');
+      localPeer.on('call', (call) => {
+        call.on('close', () => {
+          console.log('Call should end');
+        });
+        const data = JSON.parse(`${call.metadata}`);
+        dispatch(setCalling(true));
+        dispatch(setIncomingCall(call));
+        dispatch(setCaller(false));
+
+        navigate('media_call', {
+          state: {
+            call: data.callType,
+            endUser: data.user,
+          },
+        });
       });
-      const data = JSON.parse(`${call.metadata}`);
-      dispatch(setCalling(true));
-      dispatch(setIncomingCall(call));
-      dispatch(setCaller(false));
 
-      // navigate("media_call", {
-      //   state: {
-      //     call: data.callType,
-      //     endUser: data.user,
-      //   },
-      // });
-    });
+      localPeer.on('disconnected', () => {
+        localPeer.reconnect();
+      });
+    } else if (socket && socket?.connected) {
+      const localPeer = new Peer();
+      dispatch(setPeer(localPeer));
+      localPeer.on('open', (peer_id) => {
+        socket.emit('peer_connected', { userId, peer_id }, (value) => {
+          if (value.status) {
+            console.log(value.message, 'is peer connected');
+          } else {
+            console.log('Something went wrong connecting peer');
+          }
+        });
+      });
 
-    localPeer.on('disconnected', () => {
-      localPeer.reconnect();
-    });
-    // } else if (socket && socket?.connected) {
-    //   const localPeer = new Peer();
-    //   dispatch(setPeer(localPeer));
-    //   localPeer.on('open', (peer_id) => {
-    //     socket.emit('peer_connected', { peer_id }, (value) => {
-    //       if (value.status) {
-    //         console.log(value.message, 'is peer connected');
-    //       } else {
-    //         console.log('Something went wrong connecting peer');
-    //       }
-    //     });
-    //   });
+      localPeer.on('call', (call) => {
+        // InCallManager.startRingtone("BUNDLE");
+        call.on('close', () => {
+          // bottomToast("Call Ended");
+          console.log('Call should end here');
+        });
+        const data = JSON.parse(`${call.metadata}`);
 
-    //   localPeer.on('call', (call) => {
-    //     // InCallManager.startRingtone("_BUNDLE_");
-    //     call.on('close', () => {
-    //       // bottomToast("Call Ended");
-    //       console.log('Call should end');
-    //     });
-    //     const data = JSON.parse(`${call.metadata}`);
+        dispatch(setCalling(true));
+        dispatch(setIncomingCall(call));
+        dispatch(setCaller(false));
+        // navigate("media_call", {
+        //   state: {
+        //     call: data.callType,
+        //     endUser: data.user,
+        //   },
+        // });
+      });
 
-    //     dispatch(setCalling(true));
-    //     dispatch(setIncomingCall(call));
-    //     dispatch(setCaller(false));
-    //     // navigate("media_call", {
-    //     //   state: {
-    //     //     call: data.callType,
-    //     //     endUser: data.user,
-    //     //   },
-    //     // });
-    //   });
-
-    localPeer.on('disconnected', () => {
-      localPeer.reconnect();
-    });
-    // }
+      localPeer.on('disconnected', () => {
+        localPeer.reconnect();
+      });
+    }
   }, []);
 
   return (
     <LayoutContainer>
-      {console.log(socket)}
+      {console.log(socket?.connected)}
       <Layout className="layout">
         <ControlPanel />
         {onCall && <CallView />}
@@ -131,7 +133,7 @@ const AdminLayout = ({ props, children }) => {
                 left: 0,
                 zIndex: 988,
               }}
-              collapsed={false}
+              collapsed={true}
             >
               <MenueItems />
             </Sider>
