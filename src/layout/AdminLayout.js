@@ -51,7 +51,6 @@ const AdminLayout = ({ props, children }) => {
       const localPeer = new Peer();
       dispatch(setPeer(localPeer));
       localPeer.on('open', (peerId) => {
-        console.log(peerId);
         socketConnection.emit('peer_connected', { userId, peerId }, (value) => {
           if (value.status) {
             console.log(value.message, 'is peer connected with peer id >> ', peerId);
@@ -118,7 +117,6 @@ const AdminLayout = ({ props, children }) => {
 
   return (
     <LayoutContainer>
-      {console.log(socket?.connected)}
       <Layout className="layout">
         <ControlPanel />
         {onCall && <CallView />}

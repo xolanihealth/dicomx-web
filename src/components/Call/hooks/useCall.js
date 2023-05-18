@@ -9,7 +9,7 @@ const useCall = () => {
   const myAudioTrack = useRef(null);
   const myVideoTrack = useRef(null);
   const [tracks, setTracks] = useState(null);
-  const { localStream, onCall, caller, calling, peer, remotePeer, incomingCall } = useSelector(
+  const { localStream, onCall, caller, calling, peer, remotePeer, incomingCall, remoteStream } = useSelector(
     (state) => state.globals,
   );
   const initialState = {
@@ -46,15 +46,12 @@ const useCall = () => {
               });
               dispatch(setOutgoingCall(call));
               call.on('stream', (rStream) => {
-                dispatch(setRemoteStream(rStream));
-                remoteStreamRef.current.srcObject = rStream;
+                reduxDispatcher(setRemoteStream(rStream));
               });
-              console.log('This is call ==>>', call);
             } else {
               incomingCall.answer(deviceStream);
               incomingCall.on('stream', (rStream) => {
-                dispatch(setRemoteStream(rStream));
-                remoteStreamRef.current.srcObject = rStream;
+                reduxDispatcher(setRemoteStream(rStream));
               });
             }
           })
@@ -71,7 +68,6 @@ const useCall = () => {
       myAudioTrack.current[0].enabled = false;
     } else {
       myAudioTrack.current[0].enabled = true;
-      // audioMode = true;
     }
     dispatch({ audioMode: myAudioTrack.current[0]?.enabled });
   };
