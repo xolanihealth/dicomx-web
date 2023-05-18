@@ -88,7 +88,7 @@ const AdminLayout = ({ props, children }) => {
         // InCallManager.startRingtone("_BUNDLE_");
         call.on('close', () => {
           // bottomToast("Call Ended");
-          console.log('Call should end');
+          console.log('Call should end here');
         });
         const data = JSON.parse(`${call.metadata}`);
 
