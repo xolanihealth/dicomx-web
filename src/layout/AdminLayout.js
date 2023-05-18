@@ -33,85 +33,85 @@ const AdminLayout = ({ props, children }) => {
   const { onCall, peer, socket } = useSelector((state) => state.globals);
   const dispatch = useDispatch();
 
-  const socketConnection = io.connect('https://xolanihealth.cloud');
+  const socketConnection = io('https://xolanihealth.cloud', { transports: ['websocket'] });
 
   useEffect(() => {
-    if (!socket || !socket?.connected) {
-      dispatch(setSocket(socketConnection));
-      const localPeer = new Peer();
-      dispatch(setPeer(localPeer));
-      localPeer.on('open', (peerId) => {
-        console.log(peerId);
-        socketConnection.emit('peer_connected', { peerId }, (value) => {
-          if (value.status) {
-            console.log(value.message, 'is peer connected with peer id >> ', peerId);
-          } else {
-            console.log('Something went wrong connecting peer');
-          }
-        });
+    // if (!socket || !socket?.connected) {
+    dispatch(setSocket(socketConnection));
+    const localPeer = new Peer();
+    dispatch(setPeer(localPeer));
+    localPeer.on('open', (peerId) => {
+      console.log(peerId);
+      socketConnection.emit('peer_connected', { peerId }, (value) => {
+        if (value.status) {
+          console.log(value.message, 'is peer connected with peer id >> ', peerId);
+        } else {
+          console.log('Something went wrong connecting peer');
+        }
       });
+    });
 
-      localPeer.on('call', (call) => {
-        call.on('close', () => {
-          console.log('Call should end');
-        });
-        const data = JSON.parse(`${call.metadata}`);
-        dispatch(setCalling(true));
-        dispatch(setIncomingCall(call));
-        dispatch(setCaller(false));
-
-        navigate('media_call', {
-          state: {
-            call: data.callType,
-            endUser: data.user,
-          },
-        });
+    localPeer.on('call', (call) => {
+      call.on('close', () => {
+        console.log('Call should end');
       });
+      const data = JSON.parse(`${call.metadata}`);
+      dispatch(setCalling(true));
+      dispatch(setIncomingCall(call));
+      dispatch(setCaller(false));
 
-      localPeer.on('disconnected', () => {
-        localPeer.reconnect();
-      });
-    } else if (socket && socket?.connected) {
-      const localPeer = new Peer();
-      dispatch(setPeer(localPeer));
-      localPeer.on('open', (peer_id) => {
-        socket.emit('peer_connected', { peer_id }, (value) => {
-          if (value.status) {
-            console.log(value.message, 'is peer connected');
-          } else {
-            console.log('Something went wrong connecting peer');
-          }
-        });
-      });
+      // navigate("media_call", {
+      //   state: {
+      //     call: data.callType,
+      //     endUser: data.user,
+      //   },
+      // });
+    });
 
-      localPeer.on('call', (call) => {
-        // InCallManager.startRingtone("_BUNDLE_");
-        call.on('close', () => {
-          // bottomToast("Call Ended");
-          console.log('Call should end');
-        });
-        const data = JSON.parse(`${call.metadata}`);
+    localPeer.on('disconnected', () => {
+      localPeer.reconnect();
+    });
+    // } else if (socket && socket?.connected) {
+    //   const localPeer = new Peer();
+    //   dispatch(setPeer(localPeer));
+    //   localPeer.on('open', (peer_id) => {
+    //     socket.emit('peer_connected', { peer_id }, (value) => {
+    //       if (value.status) {
+    //         console.log(value.message, 'is peer connected');
+    //       } else {
+    //         console.log('Something went wrong connecting peer');
+    //       }
+    //     });
+    //   });
 
-        dispatch(setCalling(true));
-        dispatch(setIncomingCall(call));
-        dispatch(setCaller(false));
-        // navigate("media_call", {
-        //   state: {
-        //     call: data.callType,
-        //     endUser: data.user,
-        //   },
-        // });
-      });
+    //   localPeer.on('call', (call) => {
+    //     // InCallManager.startRingtone("_BUNDLE_");
+    //     call.on('close', () => {
+    //       // bottomToast("Call Ended");
+    //       console.log('Call should end');
+    //     });
+    //     const data = JSON.parse(`${call.metadata}`);
 
-      localPeer.on('disconnected', () => {
-        localPeer.reconnect();
-      });
-    }
+    //     dispatch(setCalling(true));
+    //     dispatch(setIncomingCall(call));
+    //     dispatch(setCaller(false));
+    //     // navigate("media_call", {
+    //     //   state: {
+    //     //     call: data.callType,
+    //     //     endUser: data.user,
+    //     //   },
+    //     // });
+    //   });
+
+    localPeer.on('disconnected', () => {
+      localPeer.reconnect();
+    });
+    // }
   }, []);
 
   return (
     <LayoutContainer>
-      {console.log(socket?.connected)}
+      {console.log(socket)}
       <Layout className="layout">
         <ControlPanel />
         {onCall && <CallView />}
