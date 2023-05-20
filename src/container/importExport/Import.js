@@ -32,10 +32,13 @@ function Import() {
   const initialState = {
     file: null,
     patientName: '',
-    date: '',
+    age: '',
+    gender: '',
+    studyDescription: '',
     modality: '',
-    remotePhysician: '',
-    referingPhysician: '',
+    studyDate: '',
+    clinicalHistory: '',
+    studyLocation: '',
   };
   const [state, dispatch] = useReducer((prevState, value) => ({ ...prevState, ...value }), initialState);
 
@@ -49,6 +52,7 @@ function Import() {
     multiple: false,
     onChange(info) {
       dispatch({ file: info.file.originFileObj });
+      console.log(info);
     },
     showUploadList: {
       showRemoveIcon: true,
@@ -64,24 +68,27 @@ function Import() {
   });
   const onSubmitStudy = () => {
     const userId = getItem('userId');
-    const { file, patientName, date, modality, remotePhysician, referingPhysician, description } = state;
+    const { file, patientName, age, gender, studyDescription, modality, studyDate, clinicalHistory, studyLocation } =
+      state;
     const formData = new FormData();
 
-    formData.append('patientName', patientName);
     formData.append('file', file);
-    formData.append('date', date ? date.toISOString() : null);
+    formData.append('patientName', patientName);
+    formData.append('age', age);
+    formData.append('gender', gender);
+    formData.append('studyDescription', studyDescription);
     formData.append('modality', modality);
-    formData.append('remotePhysician', remotePhysician);
-    formData.append('referingPhysician', referingPhysician);
-    formData.append('description', description);
-    formData.append('userId', userId);
-
+    formData.append('studyDate', studyDate ? studyDate.toISOString() : null);
+    formData.append('clinicalHistory', clinicalHistory);
+    formData.append('studyLocation', studyLocation);
+    formData.append('orderingPractitionerId', userId);
+    // formData.append('referingPhysician', referingPhysician);
+    console.log(formData);
     client
       .post('/add-studies', formData)
       .then(({ data }) => {
-        console.log(data);
         history('/admin/tables/dataTable');
-        message.success('Successfully uploaded study');
+        message.success(data.message);
       })
       .catch((error) => {
         message.error('Unable to upload study');
@@ -114,9 +121,9 @@ function Import() {
                   <UilUpload className="w-6 h-6 mx-auto text-[#9299b8] dark:text-white60" />
                 </p>
                 <Heading as="h4" className="text-[15px] font-semibold text-[#9299b8] dark:text-white60">
-                  <span> Drop an Image </span>
+                  <span> Drop a medical image </span>
                   <span className="ant-upload-hint">
-                    or <span>Browse one</span>
+                    or <span>browse one</span>
                   </span>
                 </Heading>
               </Dragger>

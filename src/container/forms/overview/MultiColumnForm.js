@@ -5,6 +5,7 @@ const { TextArea } = Input;
 
 function MultiColumnForm({ state, dispatch, onSubmitStudy }) {
   const modalities = ['CT', 'MRI', 'PET', 'X-RAY', 'Ultrasound'];
+  const genders = ['Male', 'Female', 'Others'];
   const { patientName, age, gender, studyDescription, modality, studyDate, clinicalHistory, studyLocation } = state;
   return (
     <div className="bg-white dark:bg-white10 m-0 p-0 text-theme-gray dark:text-white60 text-[15px] rounded-10 relative h-full border">
@@ -27,12 +28,12 @@ function MultiColumnForm({ state, dispatch, onSubmitStudy }) {
               <Form.Item name="age">
                 <Input value={age} onChange={(e) => dispatch({ age: e.target.value })} placeholder="Patient age" />
               </Form.Item>
-              <Form.Item name="gender">
-                <Input
-                  value={gender}
-                  onChange={(e) => dispatch({ gender: e.target.value })}
-                  placeholder="Patient gender"
-                />
+              <Form.Item label="gender" placeholder="Patient gender">
+                <Select onChange={(e) => dispatch({ gender: e })}>
+                  {genders.map((val) => (
+                    <Select.Option value={val}>{val}</Select.Option>
+                  ))}
+                </Select>
               </Form.Item>
               <Form.Item name="studyDescription">
                 <TextArea
@@ -45,7 +46,7 @@ function MultiColumnForm({ state, dispatch, onSubmitStudy }) {
             <Col sm={12} xs={24} className="mb-25">
               <Form.Item name="studyDate">
                 <DatePicker
-                  onChange={(e) => dispatch({ studyDate: e })}
+                  onChange={(e) => console.log(e)}
                   placeholder="Study Date"
                   className="border-normal dark:border-white10 h-[50px] min-w-[250px]"
                 />
@@ -76,14 +77,6 @@ function MultiColumnForm({ state, dispatch, onSubmitStudy }) {
           <Row>
             <Col sm={12} xs={24}>
               <div className="flex flex-wrap gap-[15px]">
-                {/* <Button
-                  className="bg-theme-gray-transparent dark:bg-white30 hover:bg-hbr-gray dark:hover:bg-white10 border-none text-theme-gray dark:text-white60 hover:text-white text-[14px] font-semibold leading-[22px] inline-flex items-center justify-center rounded-[4px] px-[20px] h-[44px]"
-                  htmlType="submit"
-                  type="light"
-                  size="large"
-                >
-                  Cancel
-                </Button> */}
                 <Button
                   className="bg-primary hover:bg-white hover:text-primary border-solid border-1 border-primary text-white dark:text-white87 text-[14px] font-semibold leading-[22px] inline-flex items-center justify-center rounded-full px-[20px] py-[5px]"
                   type="primary"
