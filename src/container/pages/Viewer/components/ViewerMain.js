@@ -24,7 +24,7 @@ const ViewerMain = () => {
           ref: csElementRef,
           id: 'cornerstone-element',
           dataIndex: '0',
-          oncontextmenu: 'return false',
+          onContextMenu: 'return false',
         })}
         className="flex-col w-full h-full flex  items-center justify-center relative "
       >

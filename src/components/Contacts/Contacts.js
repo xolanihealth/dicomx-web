@@ -34,13 +34,13 @@ const Contacts = () => {
           <li key={i} className="flex flex-row justify-between items-center my-3">
             <div className="inline-flex items-center">
               <UilUser className="w-4 h-4 ltr:mr-3 rtl:ml-3" />
-              {user?.psn_first_name || ' '} {user?.psn_last_name || ' '}
+              {user?.practitionerFirstName || ' '} {user?.practitionerLastName || ' '}
             </div>
             <div className="flex flex-row justify-evenly gap-2 items-center">
               <Button
                 className="flex flex-col justify-center items-center  w-8 h-8 rounded-full text-blue-900 hover:text-white hover:bg-blue-900 border-0"
                 onClick={() => {
-                  history(`/admin/main/chat/private/${user?.psn_email}`);
+                  history(`/admin/main/chat/private/${user?.practitionerEmail}`);
                   dispatch(setDrawer(false));
                 }}
               >
