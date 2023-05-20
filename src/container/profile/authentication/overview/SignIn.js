@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
-import { Form, Input, Button, Row, Col, Dropdown, Menu } from 'antd';
+import { Form, Input, Button, Row, Col, Dropdown, Menu, message } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { ReactSVG } from 'react-svg';
 import UilFacebook from '@iconscout/react-unicons/icons/uil-facebook-f';
@@ -48,10 +48,12 @@ function SignIn() {
           dispatch(actions.loginSuccess(true));
           history('/admin');
         })
-        .catch((error) => dispatch(actions.loginErr(error)))
-        .finally(() => {
-          console.log('This request was made to login');
-        });
+        .catch((error) => {
+          console.log(error.response.data.message);
+          message.error(error.response.data.message);
+          dispatch(actions.loginErr(error.response.data.message));
+        })
+        .finally(() => {});
     },
     [history, dispatch],
   );
