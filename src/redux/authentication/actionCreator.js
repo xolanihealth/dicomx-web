@@ -24,11 +24,13 @@ const login = (values, callback) => {
   };
 };
 
-const register = (values, callback) => {
+const register = (values, url, callback) => {
+  console.log(url);
   return async (dispatch) => {
     dispatch(loginBegin());
     try {
-      const response = await DataService.post('/signup', values);
+      const response = await DataService.post(`/signup${url}`, values);
+      console.log('response data ==>', response);
       if (response.data.errors) {
         console.log('Response error', response.data.errors);
         dispatch(loginErr('Registration failed!'));

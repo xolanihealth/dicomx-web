@@ -31,8 +31,14 @@ function SignUpRadio() {
     checked: null,
     checkData: [],
   });
-  const handleSubmit = (values) => {
-    dispatch(register(values, () => history('/admin')));
+  const handlePractitioners = (values) => {
+    let url = '/practitioners';
+    dispatch(register(values, url, () => history('/admin')));
+  };
+
+  const handleInstitution = (values) => {
+    let url = '/hospitals';
+    dispatch(register(values, url, () => history('/admin')));
   };
 
   const onChange = (checked) => {
@@ -73,42 +79,42 @@ function SignUpRadio() {
               <h2 className="mb-0 text-xl font-semibold text-dark dark:text-white87">Radiologist sign up</h2>
             </div>
             <div className="px-10 pt-8 pb-6">
-              <Form name="register" onFinish={handleSubmit} layout="vertical">
+              <Form name="register" onFinish={handlePractitioners} layout="vertical">
                 <div className="mb-4">
                   <div className="flex flex-row w-full gap-2 justify-between items-center">
                     <Form.Item
-                      label="First Name"
-                      name="firstname"
+                      label="First name"
+                      name="practitionerFirstName"
                       className="[&>div>div>label]:text-sm [&>div>div>label]:text-dark dark:[&>div>div>label]:text-white60 [&>div>div>label]:font-medium w-1/2"
                       rules={[{ required: true, message: 'Please input your first name!' }]}
                     >
-                      <Input placeholder="First Name" />
+                      <Input placeholder="First name" />
                     </Form.Item>
                     <Form.Item
-                      label="Last Name"
-                      name="lastname"
+                      label="Last name"
+                      name="practitionerLastName"
                       className="[&>div>div>label]:text-sm [&>div>div>label]:text-dark dark:[&>div>div>label]:text-white60 [&>div>div>label]:font-medium w-1/2"
                       rules={[{ required: true, message: 'Please input your last name!' }]}
                     >
-                      <Input placeholder="Last Name" />
+                      <Input placeholder="Last name" />
                     </Form.Item>
                   </div>
                   <div className="flex flex-row w-full gap-2 justify-between items-center">
                     <Form.Item
                       label="Password"
-                      name="password"
+                      name="practitionerPassword"
                       className="[&>div>div>label]:text-sm [&>div>div>label]:text-dark dark:[&>div>div>label]:text-white60 [&>div>div>label]:font-medium  w-1/2"
-                      rules={[{ required: true, message: 'Please input your password!' }]}
+                      rules={[{ required: true, message: 'Please input your password!', type: 'password' }]}
                     >
-                      <Input.Password placeholder="Password" />
+                      <Input.Password placeholder="**********" />
                     </Form.Item>
                     <Form.Item
-                      label="Confirm Password"
-                      name="cfmpassword"
+                      label="Confirm password"
+                      name="cfmpractitionerPassword"
                       className="[&>div>div>label]:text-sm [&>div>div>label]:text-dark dark:[&>div>div>label]:text-white60 [&>div>div>label]:font-medium  w-1/2"
-                      rules={[{ required: true, message: 'Please confirm your password!' }]}
+                      rules={[{ required: true, message: 'Please confirm your password!', type: 'password' }]}
                     >
-                      <Input.Password placeholder="Password" />
+                      <Input.Password placeholder="**********" />
                     </Form.Item>
                   </div>
                 </div>
@@ -116,26 +122,26 @@ function SignUpRadio() {
                 <div className="mb-4">
                   <div className="flex flex-row w-full gap-2 justify-between items-center">
                     <Form.Item
-                      name="email"
-                      label="Email Address"
+                      name="practitionerEmail"
+                      label="Email address"
                       className="[&>div>div>label]:text-sm [&>div>div>label]:text-dark dark:[&>div>div>label]:text-white60 [&>div>div>label]:font-medium w-1/2"
                       rules={[{ required: true, message: 'Please input your email!', type: 'email' }]}
                     >
                       <Input placeholder="name@example.com" />
                     </Form.Item>
                     <Form.Item
-                      label="Phone Number"
-                      name="phone"
+                      label="Phone number"
+                      name="practitionerPhone"
                       className="[&>div>div>label]:text-sm [&>div>div>label]:text-dark dark:[&>div>div>label]:text-white60 [&>div>div>label]:font-medium w-1/2"
                     >
-                      <Input placeholder="Phone Number" />
+                      <Input placeholder="Phone number" />
                     </Form.Item>
                   </div>
                   <div className="flex flex-row w-full gap-2 justify-between items-center">
                     <Form.Item
                       className="w-1/2"
                       label="Country"
-                      name="country"
+                      name="practitionerCountry"
                       rules={[{ required: true, message: 'Please select your country!' }]}
                     >
                       <Select>
@@ -146,7 +152,7 @@ function SignUpRadio() {
                     <Form.Item
                       className="w-1/2"
                       label="City"
-                      name="city"
+                      name="practitionerCity"
                       rules={[{ required: true, message: 'Please select your city!' }]}
                     >
                       <Select>
@@ -281,42 +287,46 @@ function SignUpRadio() {
                 <h2 className="mb-0 text-xl font-semibold text-dark dark:text-white87">Institution sign up</h2>
               </div>
               <div className="px-10 pt-8 pb-6">
-                <Form name="register" onFinish={handleSubmit} layout="vertical">
+                <Form name="register" onFinish={handleInstitution} layout="vertical">
                   <div className="mb-4">
                     <div className="flex flex-row w-full gap-2 justify-between items-center">
                       <Form.Item
-                        label="First Name"
-                        name="firstname"
+                        label="Institution name"
+                        name="institutionName"
                         className="[&>div>div>label]:text-sm [&>div>div>label]:text-dark dark:[&>div>div>label]:text-white60 [&>div>div>label]:font-medium w-1/2"
-                        rules={[{ required: true, message: 'Please input your first name!' }]}
+                        rules={[{ required: true, message: 'Please input your institution name!' }]}
                       >
-                        <Input placeholder="First Name" />
+                        <Input placeholder="XYX Health" />
                       </Form.Item>
                       <Form.Item
-                        label="Last Name"
-                        name="lastname"
+                        label="Institution email"
+                        name="institutionEmail"
                         className="[&>div>div>label]:text-sm [&>div>div>label]:text-dark dark:[&>div>div>label]:text-white60 [&>div>div>label]:font-medium w-1/2"
-                        rules={[{ required: true, message: 'Please input your last name!' }]}
+                        rules={[{ required: true, message: 'Please input your institution email!', type: 'email' }]}
                       >
-                        <Input placeholder="Last Name" />
+                        <Input placeholder="info@xyz.com" />
                       </Form.Item>
                     </div>
                     <div className="flex flex-row w-full gap-2 justify-between items-center">
                       <Form.Item
-                        label="Password"
-                        name="password"
+                        label="Institution password"
+                        name="institutionPassword"
                         className="[&>div>div>label]:text-sm [&>div>div>label]:text-dark dark:[&>div>div>label]:text-white60 [&>div>div>label]:font-medium  w-1/2"
-                        rules={[{ required: true, message: 'Please input your password!' }]}
+                        rules={[
+                          { required: true, message: 'Please input your institution password!', type: 'password' },
+                        ]}
                       >
-                        <Input.Password placeholder="Password" />
+                        <Input.Password placeholder="***********" />
                       </Form.Item>
                       <Form.Item
                         label="Confirm Password"
-                        name="cpassword"
+                        name="cfminstitutionPassword"
                         className="[&>div>div>label]:text-sm [&>div>div>label]:text-dark dark:[&>div>div>label]:text-white60 [&>div>div>label]:font-medium  w-1/2"
-                        rules={[{ required: true, message: 'Please confirm your password!' }]}
+                        rules={[
+                          { required: true, message: 'Please confirm your in institution password!', type: 'password' },
+                        ]}
                       >
-                        <Input.Password placeholder="Password" />
+                        <Input.Password placeholder="***********" />
                       </Form.Item>
                     </div>
                   </div>
@@ -324,27 +334,10 @@ function SignUpRadio() {
                   <div className="mb-4">
                     <div className="flex flex-row w-full gap-2 justify-between items-center">
                       <Form.Item
-                        name="email"
-                        label="Email Address"
-                        className="[&>div>div>label]:text-sm [&>div>div>label]:text-dark dark:[&>div>div>label]:text-white60 [&>div>div>label]:font-medium w-1/2"
-                        rules={[{ required: true, message: 'Please input your email!', type: 'email' }]}
-                      >
-                        <Input placeholder="name@example.com" />
-                      </Form.Item>
-                      <Form.Item
-                        label="Phone Number"
-                        name="phone"
-                        className="[&>div>div>label]:text-sm [&>div>div>label]:text-dark dark:[&>div>div>label]:text-white60 [&>div>div>label]:font-medium w-1/2"
-                      >
-                        <Input placeholder="Phone Number" />
-                      </Form.Item>
-                    </div>
-                    <div className="flex flex-row w-full gap-2 justify-between items-center">
-                      <Form.Item
                         className="w-1/2"
-                        label="Country"
-                        name="country"
-                        rules={[{ required: true, message: 'Please select your country!' }]}
+                        label="Institution country"
+                        name="institutionCountry"
+                        rules={[{ required: true, message: 'Please select your institution country!' }]}
                       >
                         <Select>
                           <Select.Option value="NG">Nigeria</Select.Option>
@@ -353,14 +346,24 @@ function SignUpRadio() {
                       </Form.Item>
                       <Form.Item
                         className="w-1/2"
-                        label="City"
-                        name="city"
-                        rules={[{ required: true, message: 'Please select your city!' }]}
+                        label="Institution city"
+                        name="institutionCity"
+                        rules={[{ required: true, message: 'Please select institution your city!' }]}
                       >
                         <Select>
                           <Select.Option value="FCT">Federal Capital Territory</Select.Option>
                           <Select.Option value="TLV">Tel Aviv</Select.Option>
                         </Select>
+                      </Form.Item>
+                    </div>
+                    <div className="flex flex-row w-full gap-2 justify-between items-center">
+                      <Form.Item
+                        name="institutionPhone"
+                        label="Institution phone number"
+                        className="[&>div>div>label]:text-sm [&>div>div>label]:text-dark dark:[&>div>div>label]:text-white60 [&>div>div>label]:font-medium w-1/2"
+                        rules={[{ required: true, message: 'Please input your institution phone number!' }]}
+                      >
+                        <Input placeholder="+1 5678 475 58" />
                       </Form.Item>
                     </div>
                   </div>

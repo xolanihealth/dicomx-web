@@ -4,19 +4,25 @@ import { Row, Col, Table, Radio, Divider } from 'antd';
 import UilEye from '@iconscout/react-unicons/icons/uil-eye';
 import UilEdit from '@iconscout/react-unicons/icons/uil-edit';
 import UilTrash from '@iconscout/react-unicons/icons/uil-trash-alt';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { PageHeader } from '../../components/page-headers/page-headers';
 import Heading from '../../components/heading/heading';
 import DataTable from '../../components/table/DataTable';
-import UserListTable from '../pages/overview/UserTable';
-import ProjectLists from '../project/overview/List';
-import TaskList from '../project/overview/TaskList';
 import { GlobalUtilityStyle, PaginationStyle } from '../styled';
+import useStudies from './hooks/useStudies';
 
 import { tableReadData } from '../../redux/data-filter/actionCreator';
 
 function DataTables() {
   const dispatch = useDispatch();
+  const { getStudies, studies } = useStudies();
+
+  useEffect(() => {
+    if (!studies?.length) {
+      getStudies();
+    }
+  }, []);
+
   const [state, setState] = useState({
     selectionType: 'checkbox',
     selectedRowKeys: null,
@@ -58,21 +64,19 @@ function DataTables() {
   });
 
   const tableDataScource = [];
-
-  if (TableData.length > 0) {
-    TableData.map((item) => {
-      const { id, name, modality, description, datetime, accession, instances, status } = item;
+  if (studies.length > 0) {
+    studies.map((item) => {
+      const { id, patientName, modality, studyDescription, studyDate, studyLocation, status } = item;
       return tableDataScource.push({
-        id: <span className="text-body dark:text-white60 text-[12px] font-normal">{`#${id}`}</span>,
-        user: <span className="text-body dark:text-white60 text-[12px] font-normal">{name}</span>,
+        id: <span className="text-body dark:text-white60 text-[12px] font-normal">{id}</span>,
+        user: <span className="text-body dark:text-white60 text-[12px] font-normal">{patientName}</span>,
         modality: <span className="text-body dark:text-white60 text-[12px] font-normal">{modality}</span>,
-        description: <span className="text-body dark:text-white60 text-[12px] font-normal">{description}</span>,
-        datetime: <span className="text-body dark:text-white60 text-[12px] font-normal">{datetime}</span>,
-        accession: <span className="text-body dark:text-white60 text-[12px] font-normal">{accession}</span>,
-        instances: <span className="text-body dark:text-white60 text-[12px] font-normal">{instances}</span>,
+        description: <span className="text-body dark:text-white60 text-[12px] font-normal">{studyDescription}</span>,
+        date: <span className="text-body dark:text-white60 text-[12px] font-normal">{studyDate}</span>,
+        location: <span className="text-body dark:text-white60 text-[12px] font-normal">{studyLocation}</span>,
         status: (
           <span
-            className={`inline-flex items-center justify-center min-h-[24px] px-3 text-xs font-normal rounded-[15px]`}
+            className={`inline-flex items-center justify-center min-h-[24px] px-3 text-[12px] font-normal rounded-[15px]`}
           >
             {status}
           </span>
@@ -94,50 +98,6 @@ function DataTables() {
     });
   }
 
-  const dataTableColumn3 = [
-    {
-      title: 'Id',
-      dataIndex: 'id',
-      key: 'id',
-    },
-    {
-      title: 'User',
-      dataIndex: 'user',
-      key: 'user',
-    },
-    {
-      title: 'Country',
-      dataIndex: 'country',
-      key: 'coutry',
-    },
-    {
-      title: 'Company',
-      dataIndex: 'company',
-      key: 'company',
-    },
-    {
-      title: 'Position',
-      dataIndex: 'position',
-      key: 'position',
-    },
-    {
-      title: 'Join Date',
-      dataIndex: 'date',
-      key: 'date',
-    },
-    {
-      title: 'Status',
-      dataIndex: 'status',
-      key: 'status',
-    },
-    {
-      title: 'Actions',
-      dataIndex: 'action',
-      key: 'action',
-      width: '90px',
-    },
-  ];
-
   const dataTableColumn = [
     {
       title: 'Id',
@@ -146,8 +106,8 @@ function DataTables() {
     },
     {
       title: 'Name',
-      dataIndex: 'name',
-      key: 'name',
+      dataIndex: 'user',
+      key: 'user',
     },
     {
       title: 'Modality',
@@ -160,19 +120,14 @@ function DataTables() {
       key: 'description',
     },
     {
-      title: 'Date Time',
-      dataIndex: 'datetime',
-      key: 'datetime',
+      title: 'Date',
+      dataIndex: 'date',
+      key: 'date',
     },
     {
-      title: 'Accession',
-      dataIndex: 'accession',
-      key: 'accession',
-    },
-    {
-      title: 'Instances',
-      dataIndex: 'instances',
-      key: 'instances',
+      title: 'Location',
+      dataIndex: 'location',
+      key: 'location',
     },
     {
       title: 'Status',

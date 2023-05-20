@@ -53,7 +53,7 @@ const AdminLayout = ({ props, children }) => {
       localPeer.on('open', (peerId) => {
         socketConnection.emit('peer_connected', { userId, peerId }, (value) => {
           if (value.status) {
-            console.log(value.message, 'is peer connected with peer id >> ', peerId);
+            console.log(value.message, ' with >> ', userId, peerId);
           } else {
             console.log('Something went wrong connecting peer');
           }

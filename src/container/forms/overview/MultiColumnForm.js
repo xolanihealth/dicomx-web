@@ -5,11 +5,11 @@ const { TextArea } = Input;
 
 function MultiColumnForm({ state, dispatch, onSubmitStudy }) {
   const modalities = ['CT', 'MRI', 'PET', 'X-RAY', 'Ultrasound'];
-  const { patientName, modality, date, remotePhysician, referingPhysician, description } = state;
+  const { patientName, age, gender, studyDescription, modality, studyDate, clinicalHistory, studyLocation } = state;
   return (
     <div className="bg-white dark:bg-white10 m-0 p-0 text-theme-gray dark:text-white60 text-[15px] rounded-10 relative h-full border">
-      <div className="h-[60px] px-[25px] text-dark dark:text-white87 font-medium text-[17px] border-regular dark:border-white10 border-b">
-        <h1 className="mb-0 inline-block py-[16px] overflow-hidden whitespace-nowrap text-ellipsis text-[18px] font-semibold">
+      <div className="px-[25px] text-dark dark:text-white87 font-normal m-0 p-0 border-regular dark:border-white10 border-b">
+        <h1 className="mb-0 inline-block py-[5px] overflow-hidden whitespace-nowrap text-ellipsis text-[18px] font-normal">
           Study details
         </h1>
       </div>
@@ -17,18 +17,51 @@ function MultiColumnForm({ state, dispatch, onSubmitStudy }) {
         <Form name="multi-form" layout="horizontal">
           <Row gutter={30}>
             <Col sm={12} xs={24} className="mb-25">
-              <Form.Item name="patient_name">
+              <Form.Item name="patientName">
                 <Input
                   value={patientName}
                   onChange={(e) => dispatch({ patientName: e.target.value })}
                   placeholder="Patient name"
                 />
               </Form.Item>
-              <Form.Item name="refering_physician">
+              <Form.Item name="age">
+                <Input value={age} onChange={(e) => dispatch({ age: e.target.value })} placeholder="Patient age" />
+              </Form.Item>
+              <Form.Item name="gender">
                 <Input
-                  value={referingPhysician}
-                  onChange={(e) => dispatch({ referingPhysician: e.target.value })}
-                  placeholder="Refering Physician"
+                  value={gender}
+                  onChange={(e) => dispatch({ gender: e.target.value })}
+                  placeholder="Patient gender"
+                />
+              </Form.Item>
+              <Form.Item name="studyDescription">
+                <TextArea
+                  value={studyDescription}
+                  onChange={(e) => dispatch({ studyDescription: e.target.value })}
+                  placeholder="study description"
+                />
+              </Form.Item>
+            </Col>
+            <Col sm={12} xs={24} className="mb-25">
+              <Form.Item name="studyDate">
+                <DatePicker
+                  onChange={(e) => dispatch({ studyDate: e })}
+                  placeholder="Study Date"
+                  className="border-normal dark:border-white10 h-[50px] min-w-[250px]"
+                />
+              </Form.Item>
+              <Form.Item name="clinicalHistory">
+                <TextArea
+                  value={clinicalHistory}
+                  onChange={(e) => dispatch({ clinicalHistory: e.target.value })}
+                  placeholder="Clinical history"
+                />
+              </Form.Item>
+              <Form.Item name="studyLocation">
+                <Input
+                  value={studyLocation}
+                  onChange={(e) => dispatch({ studyLocation: e.target.value })}
+                  placeholder="Study location"
                 />
               </Form.Item>
               <Form.Item label="Modality" name="modality">
@@ -37,29 +70,6 @@ function MultiColumnForm({ state, dispatch, onSubmitStudy }) {
                     <Select.Option value={val}>{val}</Select.Option>
                   ))}
                 </Select>
-              </Form.Item>
-            </Col>
-            <Col sm={12} xs={24} className="mb-25">
-              <Form.Item name="datetime">
-                <DatePicker
-                  onChange={(e) => dispatch({ date: e })}
-                  placeholder="Date"
-                  className="border-normal dark:border-white10 h-[50px] min-w-[250px]"
-                />
-              </Form.Item>
-              <Form.Item name="remote_physician">
-                <Input
-                  value={remotePhysician}
-                  onChange={(e) => dispatch({ remotePhysician: e.target.value })}
-                  placeholder="Remote Physician"
-                />
-              </Form.Item>
-              <Form.Item name="description">
-                <TextArea
-                  value={description}
-                  onChange={(e) => dispatch({ description: e.target.value })}
-                  placeholder="Description"
-                />
               </Form.Item>
             </Col>
           </Row>
@@ -75,12 +85,12 @@ function MultiColumnForm({ state, dispatch, onSubmitStudy }) {
                   Cancel
                 </Button> */}
                 <Button
-                  className="bg-primary hover:bg-hbr-primary border-solid border-1 border-primary text-white dark:text-white87 text-[14px] font-semibold leading-[22px] inline-flex items-center justify-center rounded-[4px] px-[20px] h-[44px]"
+                  className="bg-primary hover:bg-white hover:text-primary border-solid border-1 border-primary text-white dark:text-white87 text-[14px] font-semibold leading-[22px] inline-flex items-center justify-center rounded-full px-[20px] py-[5px]"
                   type="primary"
                   size="large"
                   onClick={() => onSubmitStudy()}
                 >
-                  Upload
+                  Next
                 </Button>
               </div>
             </Col>

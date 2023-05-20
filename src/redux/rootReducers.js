@@ -30,6 +30,7 @@ import dataTable from './data-filter/reducers';
 import dicomReducer from './dicom/reducers';
 import { globalReducer } from './globals/reducers';
 import usersReducer from './users/reducers';
+import studiesReducers from './studies/reducers';
 
 const rootReducers = combineReducers({
   themeUsers: themeUsersReducer,
@@ -71,6 +72,7 @@ const rootReducers = combineReducers({
   dicom: dicomReducer,
   globals: globalReducer,
   user: usersReducer,
+  studies: studiesReducers,
 });
 
 export default rootReducers;
