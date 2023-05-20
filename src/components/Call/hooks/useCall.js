@@ -1,21 +1,28 @@
+import { message } from 'antd';
 import React, { useEffect, useReducer, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import { setLocalStream, setOnCall, setOutgoingCall, setRemoteStream } from '../../../redux/globals/actions';
+import {
+  setIncomingCall,
+  setLocalStream,
+  setOnCall,
+  setOutgoingCall,
+  setRemoteStream,
+} from '../../../redux/globals/actions';
 
 const useCall = () => {
   const localStreamRef = useRef(null);
   const remoteStreamRef = useRef(null);
   const myAudioTrack = useRef(null);
   const myVideoTrack = useRef(null);
-  const [tracks, setTracks] = useState(null);
-  const { localStream, onCall, caller, calling, peer, remotePeer, incomingCall, remoteStream } = useSelector(
-    (state) => state.globals,
-  );
+  const myScreenTrack = useRef(null);
+  const { localStream, onCall, caller, calling, peer, remotePeer, incomingCall, remoteStream, outgoingCall } =
+    useSelector((state) => state.globals);
   const initialState = {
     audioMode: true,
     videoMode: true,
-    screenShare: false,
+    screenMode: false,
+    fullScreen: false,
   };
 
   const [state, dispatch] = useReducer((prevState, value) => ({ ...prevState, ...value }), { initialState });
@@ -23,17 +30,32 @@ const useCall = () => {
   const reduxDispatcher = useDispatch();
   useEffect(() => {}, [myVideoTrack, myAudioTrack]);
 
-  const getDeviceStream = () => {
+  const getDeviceStream = (type) => {
+    let streamConfig;
+    switch (type) {
+      case 'video':
+        streamConfig = { video: true, audio: true };
+      case 'audio':
+        streamConfig = { video: false, audio: true };
+      default:
+        streamConfig = { video: true, audio: true };
+    }
+
     try {
+      if (!navigator?.mediaDevices) {
+        reduxDispatcher(setOnCall(false));
+        message.info("Ensure you have enabled your device's microphone and camera");
+        return false;
+      }
       navigator.mediaDevices.enumerateDevices().then((srcInfos) => {
         navigator.mediaDevices
-          .getUserMedia({ video: true, audio: true })
+          .getUserMedia(streamConfig)
           .then((deviceStream) => {
             myAudioTrack.current = deviceStream.getAudioTracks();
             myVideoTrack.current = deviceStream.getVideoTracks();
-            setTracks(deviceStream.getTracks());
             dispatch({ audioMode: deviceStream.getAudioTracks()[0].enabled });
             dispatch({ videoMode: deviceStream.getVideoTracks()[0].enabled });
+
             reduxDispatcher(setLocalStream(deviceStream));
 
             localStreamRef.current.srcObject = deviceStream;
@@ -44,7 +66,8 @@ const useCall = () => {
                   user: {},
                 }),
               });
-              dispatch(setOutgoingCall(call));
+              reduxDispatcher(setOutgoingCall(call));
+
               call.on('stream', (rStream) => {
                 reduxDispatcher(setRemoteStream(rStream));
               });
@@ -63,28 +86,77 @@ const useCall = () => {
       toast.error(err.message);
     }
   };
+
   const toggleMic = () => {
-    if (myAudioTrack.current[0].enabled) {
-      myAudioTrack.current[0].enabled = false;
-    } else {
-      myAudioTrack.current[0].enabled = true;
-    }
-    dispatch({ audioMode: myAudioTrack.current[0]?.enabled });
+    myAudioTrack.current[0].enabled = !myAudioTrack.current[0].enabled;
+    dispatch({ audioMode: myAudioTrack.current[0].enabled });
   };
 
   const toggleVideo = () => {
-    if (myVideoTrack.current[0]?.enabled) {
-      myVideoTrack.current[0].enabled = false;
+    myVideoTrack.current[0].enabled = !myVideoTrack.current[0].enabled;
+    dispatch({ videoMode: myVideoTrack.current[0].enabled });
+  };
+
+  const stopSharingScreen = () => {
+    localStreamRef.current.srcObject = localStream;
+    const callPeer = incomingCall ? incomingCall.peerConnection : outgoingCall.peerConnection;
+    let sender = callPeer.getSenders().find((s) => s.track.kind == myScreenTrack.current[0].kind);
+
+    //replace the video track i was sharing with my peers
+    sender.replaceTrack(myVideoTrack.current[0]);
+    dispatch({ screenMode: false });
+  };
+
+  const shareScreen = () => {
+    const callPeer = incomingCall ? incomingCall.peerConnection : outgoingCall.peerConnection;
+    if (state.screenMode) {
+      stopSharingScreen();
     } else {
-      myVideoTrack.current[0].enabled = true;
+      navigator.mediaDevices
+        .getDisplayMedia({
+          video: {
+            cursor: 'always',
+          },
+          audio: {
+            echoCancellation: true,
+            noiseSuppression: true,
+          },
+        })
+        .then((stream) => {
+          myScreenTrack.current = stream.getVideoTracks();
+          dispatch({ screenMode: stream.getVideoTracks()[0].enabled });
+
+          localStreamRef.current.srcObject = stream;
+
+          stream.getVideoTracks()[0].onended = () => stopSharingScreen();
+          let sender = callPeer.getSenders().find((s) => s.track.kind == stream.getVideoTracks()[0].kind);
+
+          sender.replaceTrack(stream.getVideoTracks()[0]);
+        })
+        .catch((err) => {});
     }
-    dispatch({ videoMode: myVideoTrack.current[0]?.enabled });
+  };
+
+  const maximizeRemoteVideo = () => {
+    if (remoteStreamRef.current?.requestFullscreen) {
+      remoteStreamRef.current?.requestFullscreen();
+    } else if (remoteStreamRef.current?.msRequestFullscreen) {
+      remoteStreamRef.current?.msRequestFullscreen();
+    } else if (remoteStreamRef.current?.mozRequestFullScreen) {
+      remoteStreamRef.current?.mozRequestFullScreen();
+    } else if (remoteStreamRef.current?.webkitRequestFullscreen) {
+      remoteStreamRef.current?.webkitRequestFullscreen();
+    }
   };
 
   const endCall = () => {
-    tracks?.forEach((track) => track.stop());
-
+    myVideoTrack.current?.forEach((track) => track?.stop());
+    myAudioTrack.current?.forEach((track) => track?.stop());
+    myScreenTrack.current?.forEach((track) => track?.stop());
     reduxDispatcher(setOnCall(false));
+    reduxDispatcher(setIncomingCall(null));
+    reduxDispatcher(setOutgoingCall(null));
+
     reduxDispatcher(setLocalStream(null));
     localStreamRef.current = null;
   };
@@ -98,6 +170,9 @@ const useCall = () => {
     myVideoTrack,
     myAudioTrack,
     remoteStreamRef,
+    shareScreen,
+    stopSharingScreen,
+    maximizeRemoteVideo,
   };
 };
 

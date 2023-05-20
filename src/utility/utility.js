@@ -31,4 +31,15 @@ const dateObjToString = (date, format) => {
     .replace(/MM|mm/g, month)
     .replace(/DD|dd/g, day);
 };
-export { ellipsis, idGenerator, dateObjToString };
+
+const blobToFile = (theBlob, fileName) => {
+  //A Blob() is almost a File() - it's just missing the two properties below which we will add
+  theBlob.lastModifiedDate = new Date();
+  theBlob.name = fileName;
+  return theBlob;
+};
+
+const getFileExtFromBase64 = (base64Data) => {
+  return base64Data.substring('data:image/'.length, base64Data.indexOf(';base64'));
+};
+export { ellipsis, idGenerator, dateObjToString, blobToFile, getFileExtFromBase64 };

@@ -29,6 +29,21 @@
   z-index: 999;
   /* box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px; */
 }
+.media-element {
+  width: auto;
+  max-width: 200px;
+  position: fixed;
+  bottom: 80px;
+  left: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  transition: all ease-out 200ms;
+  animation: panel-animation 1s linear;
+  z-index: 999;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+}
 @keyframes blink {
   0% {
     transform: scale(1);
@@ -53,6 +68,9 @@
   width: 50px !important;
   height: 50px !important;
   background-color: #ff5e5e !important;
+  animation: blink 2s ease-in-out infinite;
+}
+.recording-btn {
   animation: blink 2s ease-in-out infinite;
 }
 

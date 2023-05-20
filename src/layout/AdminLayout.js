@@ -35,6 +35,7 @@ import { Peer } from 'peerjs';
 import { Modal } from '../components/modals/antd-modals';
 import { getItem } from '../utility/localStorageControl';
 import IncomingCallView from '../components/Call/components/IncomingCallView';
+import useControlPanel from '../components/Call/components/ControlPanel/hooks/useControlPanel';
 const { Header, Sider, Content } = Layout;
 
 const AdminLayout = ({ props, children }) => {
@@ -42,7 +43,7 @@ const AdminLayout = ({ props, children }) => {
   const splitPath = location.pathname.split('/')[2];
   const { onCall, peer, socket } = useSelector((state) => state.globals);
   const dispatch = useDispatch();
-
+  const { screenshotRef } = useControlPanel();
   const socketConnection = io.connect('https://xolanihealth.cloud');
   const userId = getItem('userId');
   useEffect(() => {
@@ -116,7 +117,7 @@ const AdminLayout = ({ props, children }) => {
   }, []);
 
   return (
-    <LayoutContainer>
+    <LayoutContainer id="app-layout">
       <Layout className="layout">
         <ControlPanel />
         {onCall && <CallView />}

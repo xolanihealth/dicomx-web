@@ -14,13 +14,25 @@ import {
   MdScreenshotMonitor,
   MdCall,
   MdMicOff,
+  MdMaximize,
+  MdFullscreen,
 } from 'react-icons/md';
 const { Text } = Typography;
 const CallView = () => {
   const { localStream, onCall, caller, calling, remoteStream } = useSelector((state) => state.globals);
 
-  const { getDeviceStream, localStreamRef, toggleMic, toggleVideo, state, remoteStreamRef } = useCall();
-  const { audioMode, videoMode } = state;
+  const {
+    getDeviceStream,
+    localStreamRef,
+    toggleMic,
+    toggleVideo,
+    state,
+    remoteStreamRef,
+    shareScreen,
+    stopSharingScreen,
+    maximizeRemoteVideo,
+  } = useCall();
+  const { audioMode, videoMode, screenMode, fullScreen } = state;
   useEffect(() => {
     if (!localStream) {
       getDeviceStream();
@@ -28,7 +40,7 @@ const CallView = () => {
     if (remoteStreamRef && remoteStreamRef.current) {
       remoteStreamRef.current.srcObject = remoteStream;
     }
-  }, [calling, caller, remoteStream]);
+  }, [calling, caller, remoteStream, localStream]);
   useEffect(() => {
     if (remoteStream && remoteStreamRef && remoteStreamRef.current) {
       remoteStreamRef.current.srcObject = remoteStream;
@@ -69,17 +81,36 @@ const CallView = () => {
             >
               {videoMode ? <MdVideocam size={20} /> : <MdVideocamOff size={20} />}
             </Button>
-
-            <Button
-              title="Stop Sharing"
-              className="rounded-full flex flex-col justify-center items-center w-8 h-8  border border-primary text-red-500 bg-black"
-            >
-              <MdStopScreenShare size={20} />
-            </Button>
+            {screenMode ? (
+              <Button
+                onClick={stopSharingScreen}
+                title="Stop Sharing"
+                className="rounded-full flex flex-col justify-center items-center w-8 h-8  border border-primary text-red-500 bg-black"
+              >
+                <MdStopScreenShare size={20} />
+              </Button>
+            ) : (
+              <Button
+                onClick={shareScreen}
+                title="Share screen"
+                className="rounded-full flex flex-col justify-center items-center w-8 h-8  border border-primary bg-transparent text-primary"
+              >
+                <MdScreenShare size={20} />
+              </Button>
+            )}
           </div>
         </div>
         <div className="remote-stream-container flex flex-row gap-2">
-          <div className="remote-box flex flex-col text-gray-400 items-center gap-2 pt-4">
+          <div className="remote-box relative flex flex-col text-gray-400 items-center gap-2 pt-4">
+            {remoteStream && (
+              <Button
+                onClick={maximizeRemoteVideo}
+                title="Full screen"
+                className="rounded-md absolute right-2 top-2 flex flex-col justify-center items-center w-8 h-8  border border-primary text-primary bg-transparent z-10"
+              >
+                <MdFullscreen size={20} />
+              </Button>
+            )}
             {remoteStream ? (
               <video
                 ref={remoteStreamRef}
@@ -87,10 +118,9 @@ const CallView = () => {
                 playsInline
                 style={{
                   flex: 1,
-                  width: '100%',
-                  height: '100%',
+                  width: fullScreen ? '80vw' : '100%',
+                  height: fullScreen ? '80vh' : '100%',
                 }}
-                className="z-10"
               />
             ) : (
               <>

@@ -15,11 +15,12 @@ const IncomingCallView = () => {
   };
 
   const onRejectCall = () => {
-    incomingCall?.close();
+    incomingCall.close();
     dispatch(setOnCall(false));
     dispatch(setCalling(false));
     dispatch(setIncomingCall(null));
     dispatch(setCaller(false));
+    dispatch(togglePopup(false));
   };
 
   return (

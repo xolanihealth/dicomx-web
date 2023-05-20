@@ -1,24 +1,12 @@
 import React, { useState } from 'react';
 import '../../styles.css';
 
-import {
-  MdOutlineMic,
-  MdScreenShare,
-  MdStopScreenShare,
-  MdVideocam,
-  MdInfo,
-  MdScreenshotMonitor,
-  MdCall,
-  MdPhoneEnabled,
-  MdPhoneDisabled,
-} from 'react-icons/md';
-import { BsArrowsFullscreen, BsChatLeftTextFill, BsFillRecordBtnFill, BsRecordBtn } from 'react-icons/bs';
-import { FiMaximize2, FiMinimize2, FiPhoneCall } from 'react-icons/fi';
-import { Button, Tooltip, Typography } from 'antd';
+import { MdScreenshotMonitor, MdPhoneDisabled, MdCancel, MdDownload } from 'react-icons/md';
+import { BsArrowsFullscreen, BsChatLeftTextFill, BsRecordBtn } from 'react-icons/bs';
+import { Button, Typography } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { setDrawer, setDrawerChildren, setOnCall } from '../../../../redux/globals/actions';
-import Contacts from '../../../Contacts';
 import useCall from '../../hooks/useCall';
+import useControlPanel from './hooks/useControlPanel';
 const { Text } = Typography;
 const ControlPanel = () => {
   const [minimized, setMinimized] = useState(false);
@@ -28,57 +16,91 @@ const ControlPanel = () => {
     setMinimized(!minimized);
   };
   const { endCall } = useCall();
-  return minimized ? (
-    <Button title="Maximize panel" onClick={toggleMinimized} className="maximize-btn p-1 border-0 bg-green-500">
-      <BsArrowsFullscreen className="text-black" size={25} />
-      <Text className="text-xs text-black truncate">Maximize</Text>
-    </Button>
-  ) : (
-    <div className="control-panel-body shadow-2xl">
-      <Button
-        onClick={toggleMinimized}
-        title="Minimize panel"
-        className="absolute rounded-full right-0 top-0 w-5 h-5 p-1 bg-primary border-0"
-      >
-        <FiMinimize2 size={10} />
-      </Button>
+  const {
+    state,
+    onStartScreenRecording,
+    mediaElementRef,
+    removeFile,
+    handleStopRecording,
+    image,
+    handleScreenshot,
+    screenshotRef,
+    downloadScreenshot,
+  } = useControlPanel();
 
-      {/* <Button
-        title="Meeting Info"
-        className="rounded-full flex flex-col justify-center items-center w-8 h-8 bg-primary border-0"
-      >
-        <MdInfo size={20} />
-      </Button> */}
+  return (
+    <>
+      <div className="media-element">
+        {state.imageFile && (
+          <MdDownload
+            title="Download"
+            onClick={downloadScreenshot}
+            size={20}
+            className="absolute z-20 bottom-3 right-3 rounded-full cursor-pointer border text-green-500 bg-gray-700"
+          />
+        )}
+        {(state.imageFile || state.videoFile) && (
+          <MdCancel
+            title="Remove"
+            onClick={removeFile}
+            size={16}
+            className="text-red-500 absolute z-20 -top-3 -right-3 rounded-full cursor-pointer "
+          />
+        )}
 
-      <Button
-        title="Record Screen"
-        className="rounded-full flex flex-col justify-center items-center w-8 h-8 bg-primary border-0"
-      >
-        <BsRecordBtn size={20} />
-      </Button>
+        {state.videoFile && (
+          <video width="100%" height="100%" className="border-primary border" ref={mediaElementRef} controls>
+            <source src={URL.createObjectURL(state.videoFile)} type="video/mp4" />
+          </video>
+        )}
+        {state.imageFile && <img width="100%" height="100%" className="border-primary border" src={state.imageFile} />}
+      </div>
 
-      <Button
-        title="Take Screenshot"
-        className="rounded-full flex flex-col justify-center items-center w-8 h-8 bg-primary border-0"
-      >
-        <MdScreenshotMonitor size={20} />
-      </Button>
-      <Button
-        title="Conversations"
-        className="rounded-full flex flex-col justify-center items-center w-8 h-8 bg-primary border-0"
-      >
-        <BsChatLeftTextFill size={20} />
-      </Button>
-      {onCall && (
+      <div className="control-panel-body shadow-2xl">
+        {state.recording && <Text className="absolute -top-4 left-2 text-xs">Recording...</Text>}
+
+        {state.recording ? (
+          <Button
+            title="Stop Recording"
+            className="recording-btn rounded-full flex flex-col justify-center items-center w-8 h-8 text-green-500 border border-green-500"
+            onClick={handleStopRecording}
+          >
+            <BsRecordBtn size={20} />
+          </Button>
+        ) : (
+          <Button
+            title="Record Screen"
+            className="rounded-full flex flex-col justify-center items-center w-8 h-8 bg-primary border-0"
+            onClick={onStartScreenRecording}
+          >
+            <BsRecordBtn size={20} />
+          </Button>
+        )}
+
         <Button
-          onClick={() => endCall()}
-          title="End Call"
-          className="rounded-full flex flex-col justify-center items-center w-8 h-8 bg-red-500 border-0"
+          onClick={handleScreenshot}
+          title="Take Screenshot"
+          className="rounded-full flex flex-col justify-center items-center w-8 h-8 bg-primary border-0"
         >
-          <MdPhoneDisabled color="white" size={20} />
+          <MdScreenshotMonitor size={20} />
         </Button>
-      )}
-    </div>
+        <Button
+          title="Conversations"
+          className="rounded-full flex flex-col justify-center items-center w-8 h-8 bg-primary border-0"
+        >
+          <BsChatLeftTextFill size={20} />
+        </Button>
+        {onCall && (
+          <Button
+            onClick={() => endCall()}
+            title="End Call"
+            className="rounded-full flex flex-col justify-center items-center w-8 h-8 bg-red-500 border-0"
+          >
+            <MdPhoneDisabled color="white" size={20} />
+          </Button>
+        )}
+      </div>
+    </>
   );
 };
 
