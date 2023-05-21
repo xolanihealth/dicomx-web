@@ -11,6 +11,7 @@ import { dateObjToString } from '../../utility/utility';
 import axios from 'axios';
 import { getItem } from '../../utility/localStorageControl';
 import { useNavigate } from 'react-router-dom';
+import Practitioners from './overview/practitioners';
 
 const { Search } = Input;
 const { Meta } = Card;
@@ -66,6 +67,12 @@ function Import() {
       'Content-Type': 'application/json',
     },
   });
+
+  let remotePractitionerId;
+  const onChecked = (userId) => {
+    console.log(`checked = ${userId}`);
+    remotePractitionerId = userId;
+  };
   const onSubmitStudy = () => {
     const userId = getItem('userId');
     const { file, patientName, age, gender, studyDescription, modality, studyDate, clinicalHistory, studyLocation } =
@@ -82,7 +89,7 @@ function Import() {
     formData.append('clinicalHistory', clinicalHistory);
     formData.append('studyLocation', studyLocation);
     formData.append('orderingPractitionerId', userId);
-    // formData.append('referingPhysician', referingPhysician);
+    formData.append('remotePractitionerId', remotePractitionerId);
     console.log(formData);
     client
       .post('/add-studies', formData)
@@ -100,7 +107,7 @@ function Import() {
   return (
     <>
       <PageHeader
-        className="flex items-center justify-between px-8 xl:px-[15px] pb-2 bg-transparent sm:flex-col"
+        className="flex items-center justify-between px-8 xl:px-[15px] pb-2 bg-transparent sm:flex-col text-xs"
         title="What do you want to do today?"
         routes={PageRoutes}
       />
@@ -129,7 +136,7 @@ function Import() {
               </Dragger>
             </div>
             <Col span={24}>
-              <FormLayout onSubmitStudy={onSubmitStudy} dispatch={dispatch} state={state} />
+              <FormLayout onSubmitStudy={onSubmitStudy} dispatch={dispatch} state={state} onChecked={onChecked} />
             </Col>
           </Col>
           <Col span={6}>

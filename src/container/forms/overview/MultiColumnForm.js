@@ -1,9 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Row, Col, Form, Input, Button, DatePicker, Select } from 'antd';
+import Practitioners from '../../importExport/overview/practitioners';
 
 const { TextArea } = Input;
 
-function MultiColumnForm({ state, dispatch, onSubmitStudy }) {
+function MultiColumnForm({ state, dispatch, onSubmitStudy, onChecked }) {
+  const [nextButton, setNextButton] = useState(true);
+  const [loader, setLoader] = useState(false);
+
+  const showUploadButton = () => {
+    setLoader(true);
+    setTimeout(() => {
+      setLoader(false);
+      setNextButton(false);
+    }, 5000);
+  };
   const modalities = ['CT', 'MRI', 'PET', 'X-RAY', 'Ultrasound'];
   const genders = ['Male', 'Female', 'Others'];
   const { patientName, age, gender, studyDescription, modality, studyDate, clinicalHistory, studyLocation } = state;
@@ -74,17 +85,36 @@ function MultiColumnForm({ state, dispatch, onSubmitStudy }) {
               </Form.Item>
             </Col>
           </Row>
+          {!nextButton && (
+            <Row sm={24}>
+              <Col sm={24}>
+                <Practitioners onChecked={onChecked} />
+              </Col>
+            </Row>
+          )}
           <Row>
             <Col sm={12} xs={24}>
               <div className="flex flex-wrap gap-[15px]">
-                <Button
-                  className="bg-primary hover:bg-white hover:text-primary border-solid border-1 border-primary text-white dark:text-white87 text-[14px] font-semibold leading-[22px] inline-flex items-center justify-center rounded-full px-[20px] py-[5px]"
-                  type="primary"
-                  size="large"
-                  onClick={() => onSubmitStudy()}
-                >
-                  Next
-                </Button>
+                {nextButton ? (
+                  <Button
+                    className="bg-primary hover:bg-white hover:text-primary border-solid border-1 border-primary text-white dark:text-white87 text-[14px] font-semibold leading-[22px] inline-flex items-center justify-center rounded-full px-[20px] py-[5px]"
+                    type="primary"
+                    size="large"
+                    onClick={showUploadButton}
+                    loading={loader}
+                  >
+                    {loader ? 'Matching study...' : 'Next'}
+                  </Button>
+                ) : (
+                  <Button
+                    className="bg-primary hover:bg-white hover:text-primary border-solid border-1 border-primary text-white dark:text-white87 text-[14px] font-semibold leading-[22px] inline-flex items-center justify-center rounded-full px-[20px] py-[5px]"
+                    type="primary"
+                    size="large"
+                    onClick={() => onSubmitStudy()}
+                  >
+                    Upload study
+                  </Button>
+                )}
               </div>
             </Col>
           </Row>

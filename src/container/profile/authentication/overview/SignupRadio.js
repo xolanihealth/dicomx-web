@@ -1,45 +1,81 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { ReactSVG } from 'react-svg';
-import {
-  Row,
-  Col,
-  Form,
-  Input,
-  Button,
-  Select,
-  Collapse,
-  Switch,
-  DatePicker,
-  Upload,
-  Radio,
-  Space,
-  Divider,
-} from 'antd';
+import { Row, Col, Form, Input, Button, Select, Collapse, Switch, DatePicker, Upload, Radio, message } from 'antd';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { AuthFormWrap } from './style';
 import { Checkbox } from '../../../../components/checkbox/checkbox';
-import { register } from '../../../../redux/authentication/actionCreator';
+import axios from 'axios';
+import { getItem } from '../../../../utility/localStorageControl';
+import Cookies from 'js-cookie';
+import actions from '../../../../redux/authentication/actions';
 
 function SignUpRadio() {
   const dispatch = useDispatch();
   const history = useNavigate();
+  let isLoading = useSelector((state) => state.auth.loading);
 
   const [state, setState] = useState({
     values: null,
     checked: null,
     checkData: [],
   });
-  const handlePractitioners = (values) => {
-    let url = '/practitioners';
-    dispatch(register(values, url, () => history('/admin')));
-  };
 
-  const handleInstitution = (values) => {
-    let url = '/hospitals';
-    dispatch(register(values, url, () => history('/admin')));
-  };
+  // const lock = new Auth0Lock(clientId, domain, auth0options);
+  const client = axios.create({
+    baseURL: 'https://xolanihealth.cloud',
+    headers: {
+      Authorization: `Bearer ${getItem('access_token')}`,
+      'Content-Type': 'application/json',
+    },
+  });
+
+  const handlePractitioners = useCallback(
+    (values) => {
+      dispatch(actions.loginBegin());
+      client
+        .post('/signup/practitioners', { ...values })
+        .then(({ data }) => {
+          Cookies.set('access_token', data.token);
+          Cookies.set('userId', data.user);
+          Cookies.set('logedIn', true);
+          dispatch(actions.loginSuccess(true));
+          history('/admin');
+        })
+        .catch((error) => {
+          const errorMessage = Object.values(error.response.data.errors)[0];
+          message.error(errorMessage);
+          isLoading = false;
+          dispatch(actions.loginErr(error.response.data.errors));
+        })
+        .finally(() => {});
+    },
+    [history, dispatch],
+  );
+
+  const handleInstitution = useCallback(
+    (values) => {
+      dispatch(actions.loginBegin());
+      client
+        .post('/signup/hospitals', { ...values })
+        .then(({ data }) => {
+          Cookies.set('access_token', data.token);
+          Cookies.set('userId', data.user);
+          Cookies.set('logedIn', true);
+          dispatch(actions.loginSuccess(true));
+          history('/admin');
+        })
+        .catch((error) => {
+          const errorMessage = Object.values(error.response.data.errors)[0];
+          message.error(errorMessage);
+          isLoading = false;
+          dispatch(actions.loginErr(error.response.data.errors));
+        })
+        .finally(() => {});
+    },
+    [history, dispatch],
+  );
 
   const onChange = (checked) => {
     setState({ ...state, checked });
@@ -266,7 +302,7 @@ function SignUpRadio() {
                     type="primary"
                     size="large"
                   >
-                    Create Account
+                    {isLoading ? 'Creating...' : 'Create Account'}
                   </Button>
                 </Form.Item>
               </Form>
@@ -379,7 +415,7 @@ function SignUpRadio() {
                       type="primary"
                       size="large"
                     >
-                      Create Account
+                      {isLoading ? 'Creating...' : 'Create Account'}
                     </Button>
                   </Form.Item>
                 </Form>
