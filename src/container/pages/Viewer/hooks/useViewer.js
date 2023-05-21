@@ -8,8 +8,10 @@ import dicomParser from 'dicom-parser';
 import cornerstoneWADOImageLoader from 'cornerstone-wado-image-loader';
 import { useDispatch } from 'react-redux';
 import { setEnabledElement, setStack, setViewPort } from '../../../../redux/dicom/actions';
+import { setDrawer, setDrawerChildren } from '../../../../redux/globals/actions';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
+import Reports from '../components/ViewerReports';
 cornerstoneTools.external.cornerstone = cornerstone;
 cornerstoneTools.external.cornerstoneMath = cornerstoneMath;
 // cornerstoneWebImageLoader.external.cornerstone = cornerstone;
@@ -211,6 +213,10 @@ const useViewer = () => {
   const openFullScreen = () => {};
   const scheduleMeeting = () => {};
   const showContactList = () => {};
+  const showReport = () => {
+    dispatch(setDrawer(true));
+    dispatch(setDrawerChildren(<Reports />));
+  };
 
   const onDropFiles = useCallback((files, rejectedFiles) => {
     if (rejectedFiles.length > 0) {
@@ -237,6 +243,7 @@ const useViewer = () => {
     onSelectPreset,
     onDropFiles,
     enabledElement,
+    showReport,
   };
 };
 

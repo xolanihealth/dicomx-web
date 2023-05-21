@@ -22,6 +22,7 @@ import {
   MdUndo,
   MdFullscreen,
   MdMeetingRoom,
+  MdBookOnline,
   MdOpenInBrowser,
 } from 'react-icons/md';
 import { BiCaretDown, BiBlock, BiZoomIn } from 'react-icons/bi';
@@ -34,6 +35,7 @@ export const tools = (
   scheduleMeeting,
   showContactList,
   onSelectPreset,
+  showReport,
 ) => [
   {
     name: 'Windowing',
@@ -320,6 +322,14 @@ export const tools = (
     icon: <AiOutlineContacts size={20} />,
     children: [],
     onClick: () => showContactList(),
+  },
+  {
+    name: 'Write report',
+    title: 'Write report',
+    value: 'writereport',
+    icon: <MdBookOnline size={20} />,
+    children: [],
+    onClick: () => showReport(),
   },
 
   // // Scroll

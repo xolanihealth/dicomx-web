@@ -82,7 +82,7 @@
     "web-vitals": "^2.1.4",
     "xlsx": "^0.17.5"
   },
-  "homepage": "https://peer.xolanihealth.cloud/dicomx/",
+  "homepage": "https://xolanihealth.cloud/dicomx/",
   "resolutions": {
     "autoprefixer": "10.4.5"
   },

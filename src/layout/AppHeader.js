@@ -90,7 +90,7 @@ const AppHeader = () => {
                   dispatch(setDrawer(true));
                   dispatch(setDrawerChildren(<Contacts />));
                 }}
-                title="Start Call"
+                title="Voice Call"
                 className="rounded-full flex flex-col justify-center items-center w-8 h-8 bg-green-500 border-0 text-white"
               >
                 <MdPhoneEnabled size={20} />
@@ -100,13 +100,13 @@ const AppHeader = () => {
                   dispatch(setDrawer(true));
                   dispatch(setDrawerChildren(<Contacts />));
                 }}
-                title="Start Call"
+                title="Video Call"
                 className="rounded-full flex flex-col justify-center items-center w-8 h-8 bg-green-500 text-white border-0"
               >
                 <MdVideocam size={20} />
               </Button>
               <Button
-                size="default"
+                title="Contacts"
                 className="rounded-full flex flex-col justify-center items-center w-8 h-8 bg-primary text-white border-0"
                 onClick={() => {
                   dispatch(setDrawer(true));
