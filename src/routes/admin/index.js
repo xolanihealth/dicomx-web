@@ -38,7 +38,7 @@ const Inbox = lazy(() => import('../../container/email/Email'));
 const Maps = lazy(() => import('./maps'));
 const Viewer = lazy(() => import('../../container/pages/Viewer'));
 const Icons = lazy(() => import('./icons'));
-const Tables = lazy(() => import('./table'));
+const Studies = lazy(() => import('./studies'));
 const Jobs = lazy(() => import('../../container/jobSearch/Jobs'));
 const JobDetails = lazy(() => import('../../container/jobSearch/JobSearchDetails'));
 const JobApply = lazy(() => import('../../container/jobSearch/JobApplication'));
@@ -51,60 +51,60 @@ const Admin = React.memo(() => {
   }, [pathname]);
   return (
     <AdminLayout>
-          <Suspense
-      fallback={
-        <div className="spin flex items-center justify-center bg-white dark:bg-dark h-screen w-full fixed z-[999] ltr:left-0 rtl:right-0 top-0">
-          <Spin />
-        </div>
-      }
-    >
-      <Routes>
-        <Route index path="/*" element={<Dashboard />} />
-        <Route path="viewer" element={<Viewer />} />
-        <Route path="radiologist" element={<Import />} />
-        <Route path="pages/*" element={<Pages />} />
-        <Route path="gallery/*" element={<Gallery />} />
-        <Route path="all-articles" element={<AllArticle />} />
-        <Route path="knowledgeBase/*" element={<KnowledgeBase />} />
-        <Route path="knowledgebaseSingle/:id" element={<KnowledgeSingle />} />
-        <Route path="components/*" element={<Components />} />
-        <Route path="charts/*" element={<Charts />} />
-        <Route path="app/task/*" element={<Task />} />
-        <Route path="users/*" element={<Users />} />
-        <Route path="app/support/tickets/*" element={<Tickets />} />
-        <Route path="app/support/tickets/add" element={<AddTicket />} />
-        <Route path="app/support/ticketDetails/:id" element={<TicketDetails />} />
-        <Route path="app/course/courseDetails/:id" element={<CourseDetails />} />
-        <Route path="app/course/*" element={<Courses />} />
-        <Route path="contact/list" element={<Contact />} />
-        <Route path="contact/grid" element={<ContactGrid />} />
-        <Route path="contact/addNew" element={<ContactAddNew />} />
-        <Route path="app/calendar/*" element={<Calendars />} />
-       
-        <Route path="importExport/export" element={<Export />} />
-        <Route path="app/to-do" element={<ToDo />} />
-        <Route path="app/note/*" element={<Note />} />
-        <Route path="features/*" element={<Features />} />
-        <Route path="axios/*" element={<Axios />} />
-        <Route path="firestore/*" element={<Firestore />} />
-        <Route path="project/*" element={<Projects />} />
-        <Route path="profile/myProfile/*" element={<Myprofile />} />
-        <Route path="ecommerce/*" element={<Ecommerce />} />
-        <Route path="main/chat/*" element={<Chat />} />
-        <Route path="email/*" element={<Inbox />} />
-        <Route path="maps/*" element={<Maps />} />
-        <Route path="editor" element={<Viewer />} />
-        <Route path="icons/*" element={<Icons />} />
-        <Route path="tables/*" element={<Tables />} />
-        <Route path="app/jobs/*" element={<Jobs />} />
-        <Route path="app/job/apply" element={<JobApply />} />
-        <Route path="app/jobDetails/:id" element={<JobDetails />} />
-        <Route path="widgets/*" element={<Widgets />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </Suspense>
-    </AdminLayout>
+      <Suspense
+        fallback={
+          <div className="spin flex items-center justify-center bg-white dark:bg-dark h-screen w-full fixed z-[999] ltr:left-0 rtl:right-0 top-0">
+            <Spin />
+          </div>
+        }
+      >
+        <Routes>
+          <Route index path="/*" element={<Dashboard />} />
+          <Route path="viewer" element={<Viewer />} />
+          <Route path="radiologists" element={<Import />} />
+          <Route path="studies*" element={<Studies />} />
+          <Route path="pages/*" element={<Pages />} />
+          <Route path="gallery/*" element={<Gallery />} />
+          <Route path="all-articles" element={<AllArticle />} />
+          <Route path="knowledgeBase/*" element={<KnowledgeBase />} />
+          <Route path="knowledgebaseSingle/:id" element={<KnowledgeSingle />} />
+          <Route path="components/*" element={<Components />} />
+          <Route path="charts/*" element={<Charts />} />
+          <Route path="app/task/*" element={<Task />} />
+          <Route path="users/*" element={<Users />} />
+          <Route path="app/support/tickets/*" element={<Tickets />} />
+          <Route path="app/support/tickets/add" element={<AddTicket />} />
+          <Route path="app/support/ticketDetails/:id" element={<TicketDetails />} />
+          <Route path="app/course/courseDetails/:id" element={<CourseDetails />} />
+          <Route path="app/course/*" element={<Courses />} />
+          <Route path="contact/list" element={<Contact />} />
+          <Route path="contact/grid" element={<ContactGrid />} />
+          <Route path="contact/addNew" element={<ContactAddNew />} />
+          <Route path="app/calendar/*" element={<Calendars />} />
 
+          <Route path="importExport/export" element={<Export />} />
+          <Route path="app/to-do" element={<ToDo />} />
+          <Route path="app/note/*" element={<Note />} />
+          <Route path="features/*" element={<Features />} />
+          <Route path="axios/*" element={<Axios />} />
+          <Route path="firestore/*" element={<Firestore />} />
+          <Route path="project/*" element={<Projects />} />
+          <Route path="profile/myProfile/*" element={<Myprofile />} />
+          <Route path="ecommerce/*" element={<Ecommerce />} />
+          <Route path="main/chat/*" element={<Chat />} />
+          <Route path="email/*" element={<Inbox />} />
+          <Route path="maps/*" element={<Maps />} />
+          <Route path="editor" element={<Viewer />} />
+          <Route path="icons/*" element={<Icons />} />
+
+          <Route path="app/jobs/*" element={<Jobs />} />
+          <Route path="app/job/apply" element={<JobApply />} />
+          <Route path="app/jobDetails/:id" element={<JobDetails />} />
+          <Route path="widgets/*" element={<Widgets />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Suspense>
+    </AdminLayout>
   );
 });
 

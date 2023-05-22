@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Row, Col, Table, Radio, Divider } from 'antd';
+import { Row, Col, Table, Radio, Divider, Button } from 'antd';
 import UilEye from '@iconscout/react-unicons/icons/uil-eye';
 import UilEdit from '@iconscout/react-unicons/icons/uil-edit';
 import UilTrash from '@iconscout/react-unicons/icons/uil-trash-alt';
@@ -13,10 +13,10 @@ import useStudies from './hooks/useStudies';
 
 import { tableReadData } from '../../redux/data-filter/actionCreator';
 
-function DataTables() {
+function Studies() {
   const dispatch = useDispatch();
   const { getStudies, studies } = useStudies();
-
+  const history = useNavigate();
   useEffect(() => {
     if (!studies?.length) {
       getStudies();
@@ -82,10 +82,17 @@ function DataTables() {
           </span>
         ),
         action: (
-          <div className="min-w-[150px] text-end -m-2">
-            <Link className="inline-block m-2" to="/admin/viewer">
+          <div className="min-w-[150px] text-end -m-2 flex flex-row items-center gap-1 justify-end">
+            <Button
+              onClick={() =>
+                history('/admin/viewer', {
+                  state: { study: item },
+                })
+              }
+              className="flex items-center justify-center flex-col w-4 h-4 mr-2 p-0 border-0"
+            >
               <UilEye className="w-4 text-light-extra dark:text-white60" />
-            </Link>
+            </Button>
             <Link className="inline-block m-2" to="#">
               <UilEdit className="w-4 text-light-extra dark:text-white60" />
             </Link>
@@ -183,4 +190,4 @@ function DataTables() {
   );
 }
 
-export default DataTables;
+export default Studies;

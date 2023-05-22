@@ -13,6 +13,10 @@ const PageHeaderStyle = Styled(PageHeader)`
         align-items:center;
     }
   }
+  .ant-page-header-heading-title {
+    font-weight: normal;
+    font-size: 18px;
+  }
 `;
 
 const HeaderWrapper = Styled.div`

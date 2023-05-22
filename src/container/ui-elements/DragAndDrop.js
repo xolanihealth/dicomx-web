@@ -2,7 +2,7 @@ import React from 'react';
 import { Row, Col } from 'antd';
 import { PageHeader } from '../../components/page-headers/page-headers';
 import { GlobalUtilityStyle } from '../styled';
-import DragAndDropTable from '../table/DragTable';
+import DragAndDropTable from '../studies/DragTable';
 
 function UserListDataTable() {
   const PageRoutes = [

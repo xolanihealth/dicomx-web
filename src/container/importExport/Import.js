@@ -7,7 +7,7 @@ import Heading from '../../components/heading/heading';
 import { AutoComplete } from '../../components/autoComplete/autoComplete';
 import FormElements from '../forms/FormElements';
 import FormLayout from '../forms/FormLayout';
-import { dateObjToString } from '../../utility/utility';
+import { dateObjToString, validateDICOMFile } from '../../utility/utility';
 import axios from 'axios';
 import { getItem } from '../../utility/localStorageControl';
 import { useNavigate } from 'react-router-dom';
@@ -40,6 +40,7 @@ function Import() {
     studyDate: '',
     clinicalHistory: '',
     studyLocation: '',
+    submitting: false,
   };
   const [state, dispatch] = useReducer((prevState, value) => ({ ...prevState, ...value }), initialState);
 
@@ -50,10 +51,10 @@ function Import() {
 
   const fileUploadProps = {
     name: 'file',
+    accept: 'application/dicom,.dcm',
     multiple: false,
     onChange(info) {
-      dispatch({ file: info.file.originFileObj });
-      console.log(info);
+      dispatch({ file: info?.fileList[0]?.originFileObj });
     },
     showUploadList: {
       showRemoveIcon: true,
@@ -77,6 +78,20 @@ function Import() {
     const userId = getItem('userId');
     const { file, patientName, age, gender, studyDescription, modality, studyDate, clinicalHistory, studyLocation } =
       state;
+
+    if (!file) {
+      return message.error('Please upload a valid dicom file');
+    }
+
+    if (!remotePractitionerId) {
+      return message.error('Please select a practitioner');
+    }
+    if (!studyDate) {
+      return message.error('Please select a date');
+    }
+    if (!modality) {
+      return message.error('Please select modality');
+    }
     const formData = new FormData();
 
     formData.append('file', file);
@@ -85,23 +100,23 @@ function Import() {
     formData.append('gender', gender);
     formData.append('studyDescription', studyDescription);
     formData.append('modality', modality);
-    formData.append('studyDate', studyDate ? studyDate.toISOString() : null);
+    formData.append('studyDate', studyDate ? studyDate.toISOString() : new Date().toISOString());
     formData.append('clinicalHistory', clinicalHistory);
     formData.append('studyLocation', studyLocation);
     formData.append('orderingPractitionerId', userId);
     formData.append('remotePractitionerId', remotePractitionerId);
-    console.log(formData);
+    dispatch({ submitting: true });
     client
       .post('/add-studies', formData)
       .then(({ data }) => {
-        history('/admin/tables/dataTable');
+        history('/admin/studies');
         message.success(data.message);
       })
       .catch((error) => {
         message.error('Unable to upload study');
       })
       .finally(() => {
-        console.log('This request was made to login');
+        dispatch({ submitting: false });
       });
   };
   return (

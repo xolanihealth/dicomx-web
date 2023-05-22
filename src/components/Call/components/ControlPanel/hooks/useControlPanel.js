@@ -16,17 +16,28 @@ const useControlPanel = () => {
 
   const [state, dispatch] = useReducer((newState, value) => ({ ...newState, ...value }), { initialState });
   const onStartScreenRecording = async () => {
+    const audioStream = await navigator.mediaDevices.getUserMedia({ audio: true });
     navigator.mediaDevices
       .getDisplayMedia({
         video: {
+          chromeMediaSource: 'screen',
           mediaSource: 'screen',
         },
         audio: true,
       })
       .then((stream) => {
         const chunks = [];
-        const mediaRecorder = new MediaRecorder(stream);
+
+        let mediaStream;
+        if (!audioStream || audioStream === 'unavailable') {
+          mediaStream = stream;
+        } else {
+          mediaStream = new MediaStream([...stream.getVideoTracks(), ...audioStream.getAudioTracks()]);
+        }
+
+        const mediaRecorder = new MediaRecorder(mediaStream);
         mediaRecorderRef.current = mediaRecorder;
+
         mediaRecorder.ondataavailable = (e) => {
           chunks.push(e.data);
           dispatch({ dataStream: [e.data] });
@@ -39,17 +50,8 @@ const useControlPanel = () => {
 
         mediaRecorder.onstop = () => {
           dispatch({ recording: false });
-          stream.getTracks().forEach((track) => track.stop());
+          mediaStream.getTracks().forEach((track) => track.stop());
           const blob = new Blob(chunks, { type: 'video/webm' });
-          //   const blob = new Blob(data, {
-          //     type: data[0].type,
-          //   });
-          //   const time = new Date().toISOString();
-          //   const fileName = `dicomx-recording-${time}.mp4`;
-          //   mediaElementRef.current.src = URL.createObjectURL(blob);
-          //   mediaElementRef.current.href = URL.createObjectURL(blob);
-          //   mediaElementRef.current.download = fileName;
-          //   const file = blobToFile(blob, fileName);
           dispatch({ videoFile: blob });
         };
       });

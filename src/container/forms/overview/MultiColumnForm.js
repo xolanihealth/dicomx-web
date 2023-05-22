@@ -17,7 +17,17 @@ function MultiColumnForm({ state, dispatch, onSubmitStudy, onChecked }) {
   };
   const modalities = ['CT', 'MRI', 'PET', 'X-RAY', 'Ultrasound'];
   const genders = ['Male', 'Female', 'Others'];
-  const { patientName, age, gender, studyDescription, modality, studyDate, clinicalHistory, studyLocation } = state;
+  const {
+    patientName,
+    age,
+    gender,
+    studyDescription,
+    modality,
+    studyDate,
+    clinicalHistory,
+    studyLocation,
+    submitting,
+  } = state;
   return (
     <div className="bg-white dark:bg-white10 m-0 p-0 text-theme-gray dark:text-white60 text-[15px] rounded-10 relative h-full border">
       <div className="px-[25px] text-dark dark:text-white87 font-normal m-0 p-0 border-regular dark:border-white10 border-b">
@@ -57,7 +67,7 @@ function MultiColumnForm({ state, dispatch, onSubmitStudy, onChecked }) {
             <Col sm={12} xs={24} className="mb-25">
               <Form.Item name="studyDate">
                 <DatePicker
-                  onChange={(e) => console.log(e)}
+                  onChange={(e) => dispatch({ studyDate: e })}
                   placeholder="Study Date"
                   className="border-normal dark:border-white10 h-[50px] min-w-[250px]"
                 />
@@ -111,8 +121,10 @@ function MultiColumnForm({ state, dispatch, onSubmitStudy, onChecked }) {
                     type="primary"
                     size="large"
                     onClick={() => onSubmitStudy()}
+                    loading={submitting}
+                    disabled={submitting}
                   >
-                    Upload study
+                    {`${submitting ? 'Uploading' : 'Upload'} study`}
                   </Button>
                 )}
               </div>

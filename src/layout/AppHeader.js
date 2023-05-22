@@ -1,6 +1,6 @@
 import { Button, Layout, Typography } from 'antd';
 import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { TopMenuSearch } from './Style';
 import { ReactComponent as MySVG } from '../static/img/icon/left-bar.svg';
 import logoImg from '../static/img/dicomx-logo-new.svg';
@@ -24,7 +24,7 @@ const { Header, Sider } = Layout;
 const { Text } = Typography;
 const AppHeader = () => {
   const dispatch = useDispatch();
-
+  const splitPath = useLocation().pathname.split('/');
   return (
     <Header
       style={{
@@ -55,8 +55,10 @@ const AppHeader = () => {
           <div className="flex flex-row gap-2 px-8">
             <Link
               size="default"
-              to="/admin/tables/dataTable"
-              className="bg-secondary-transparent border-0 hover:bg-secondary hover:text-white text-primary dark:text-white87 text-[12px] font-semibold leading-[22px] inline-flex items-center justify-center rounded-[40px] px-[20px] h-[30px] gap-[8px]"
+              to="/admin/studies"
+              className={`${
+                splitPath[2] == 'studies' && 'bg-primary text-white'
+              }  border-0 hover:bg-secondary hover:text-white text-primary dark:text-white87 text-[12px] font-semibold leading-[22px] inline-flex items-center justify-center rounded-[40px] px-[20px] h-[30px] gap-[8px]`}
             >
               <FolderOpenOutlined className="w-[14px] h-[14px]" />
               Studies
@@ -64,15 +66,19 @@ const AppHeader = () => {
             <Link
               size="default"
               to="/admin/viewer"
-              className="bg-secondary-transparent border-0 hover:bg-secondary hover:text-white text-primary dark:text-white87 text-[12px] font-semibold leading-[22px] inline-flex items-center justify-center rounded-[40px] px-[20px] h-[30px] gap-[8px]"
+              className={`${
+                splitPath[2] == 'viewer' && 'bg-primary text-white'
+              }  border-0 hover:bg-secondary hover:text-white text-primary dark:text-white87 text-[12px] font-semibold leading-[22px] inline-flex items-center justify-center rounded-[40px] px-[20px] h-[30px] gap-[8px]`}
             >
               <DesktopOutlined className="w-[14px] h-[14px]" />
               Viewer
             </Link>
             <Link
-              to="/admin/radiologist"
+              to="/admin/radiologists"
               size="default"
-              className="bg-secondary-transparent border-0 hover:bg-secondary hover:text-white text-primary dark:text-white87 text-[12px] font-semibold leading-[22px] inline-flex items-center justify-center rounded-[40px] px-[20px] h-[30px] gap-[8px]"
+              className={`${
+                splitPath[2] == 'radiologists' && 'bg-primary text-white'
+              }  border-0 hover:bg-secondary hover:text-white text-primary dark:text-white87 text-[12px] font-semibold leading-[22px] inline-flex items-center justify-center rounded-[40px] px-[20px] h-[30px] gap-[8px]`}
             >
               <UserSwitchOutlined className="w-[14px] h-[14px]" />
               Radiologists

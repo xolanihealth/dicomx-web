@@ -36,10 +36,43 @@ const blobToFile = (theBlob, fileName) => {
   //A Blob() is almost a File() - it's just missing the two properties below which we will add
   theBlob.lastModifiedDate = new Date();
   theBlob.name = fileName;
+
   return theBlob;
+};
+
+const blobToDCMFile = (theBlob, fileName) => {
+  return new File([theBlob], fileName, { type: 'application/dicom' });
 };
 
 const getFileExtFromBase64 = (base64Data) => {
   return base64Data.substring('data:image/'.length, base64Data.indexOf(';base64'));
 };
-export { ellipsis, idGenerator, dateObjToString, blobToFile, getFileExtFromBase64 };
+
+const validateDICOMFile = (file) => {
+  return new Promise((resolve, reject) => {
+    const fileReader = new FileReader();
+
+    // Read the file as an ArrayBuffer
+    fileReader.readAsArrayBuffer(file);
+
+    // Handle file read completion
+    fileReader.onload = () => {
+      const arrayBuffer = fileReader.result;
+      const dataView = new DataView(arrayBuffer);
+
+      // Check the file signature
+      const fileSignature = dataView.getUint32(128, false).toString(16);
+      if (fileSignature === '42494d44') {
+        resolve('Valid DICOM file');
+      } else {
+        reject(new Error('Invalid DICOM file'));
+      }
+    };
+
+    // Handle file read error
+    fileReader.onerror = () => {
+      reject(new Error('Error reading file'));
+    };
+  });
+};
+export { ellipsis, idGenerator, dateObjToString, blobToFile, getFileExtFromBase64, blobToDCMFile, validateDICOMFile };
