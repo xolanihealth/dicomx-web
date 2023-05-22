@@ -12,6 +12,7 @@ import { GlobalUtilityStyle, PaginationStyle } from '../styled';
 import useStudies from './hooks/useStudies';
 
 import { tableReadData } from '../../redux/data-filter/actionCreator';
+import moment from 'moment';
 
 function Studies() {
   const dispatch = useDispatch();
@@ -72,7 +73,11 @@ function Studies() {
         user: <span className="text-body dark:text-white60 text-[12px] font-normal">{patientName}</span>,
         modality: <span className="text-body dark:text-white60 text-[12px] font-normal">{modality}</span>,
         description: <span className="text-body dark:text-white60 text-[12px] font-normal">{studyDescription}</span>,
-        date: <span className="text-body dark:text-white60 text-[12px] font-normal">{studyDate}</span>,
+        date: (
+          <span className="text-body dark:text-white60 text-[12px] font-normal">
+            {moment(studyDate).format('DD MMM YYYY')}
+          </span>
+        ),
         location: <span className="text-body dark:text-white60 text-[12px] font-normal">{studyLocation}</span>,
         status: (
           <span
